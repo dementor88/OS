@@ -99,6 +99,9 @@ struct thread
 
     /* Owned by thread.c. */
     unsigned magic;                     /* Detects stack overflow. */
+	
+	/** Busy-Waiting 제거 -- Proj#1 */
+	int64_t sleep_ticks;			/* 수면리스트에서 남아있는 수면시간이 얼마인지 가리킴 */
   };
 
 /* If false (default), use round-robin scheduler.

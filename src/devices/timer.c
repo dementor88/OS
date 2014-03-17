@@ -29,6 +29,10 @@ static bool too_many_loops (unsigned loops);
 static void busy_wait (int64_t loops);
 static void real_time_sleep (int64_t num, int32_t denom);
 
+/** timer_sleep()를 호출하여 sleep_ticks가 0이 될때까지 
+	쓰레드들이 잠을 자고 있는 리스트 proj#1*/
+static struct list sleeping_list;
+
 /* Sets up the 8254 Programmable Interval Timer (PIT) to
    interrupt PIT_FREQ times per second, and registers the
    corresponding interrupt. */
@@ -44,6 +48,7 @@ timer_init (void)
   outb (0x40, count >> 8);
 
   intr_register_ext (0x20, timer_interrupt, "8254 Timer");
+  list_init(&sleeping_list);
 }
 
 /* Calibrates loops_per_tick, used to implement brief delays. */
@@ -92,15 +97,46 @@ timer_elapsed (int64_t then)
   return timer_ticks () - then;
 }
 
+/** 아래의 list_insert_ordered() 함수에 들어갈 list_less_func 선언
+	(lib/kernel의 list.c와 list.h 참조)*/
+static bool less_tick(const struct list_elem *a, const struct list_elem *b, void *aux){
+	struct thread *t1 = list_entry(a, struct thread, elem);
+	struct thread *t2 = list_entry(b, struct thread, elem);
+	
+	/**
+	if(t1->priority > t2->priority){
+		return true;
+	}else if(t1->priority == t2->priority){
+		if(t1->sleep_ticks < t2->sleep_ticks)
+			return true;	
+		else
+			return false;
+	}else
+		return false;
+	*/	
+	if(t1->sleep_ticks < t2->sleep_ticks)
+		return true;	
+	else
+		return false;
+}
 /* Suspends execution for approximately TICKS timer ticks. */
 void
 timer_sleep (int64_t ticks) 
 {
   int64_t start = timer_ticks ();
-
+/** proj#1 이전의 코드 : Busy Waiting
   ASSERT (intr_get_level () == INTR_ON);
   while (timer_elapsed (start) < ticks) 
     thread_yield ();
+*/
+
+	struct thread *t = thread_current ();
+	enum intr_level old_level;
+	old_level = intr_disable();
+	t->sleep_ticks = start + ticks;	
+	list_insert_ordered(&sleeping_list,&t->elem,less_tick,NULL);
+	thread_block();
+	intr_set_level(old_level);
 }
 
 /* Suspends execution for approximately MS milliseconds. */
@@ -131,11 +167,25 @@ timer_print_stats (void)
   printf ("Timer: %"PRId64" ticks\n", timer_ticks ());
 }
 
+
+/** sleep_ticks만큼 지날때 시간이 다된 쓰레드를 깨운다 proj#1*/
 /* Timer interrupt handler. */
 static void
 timer_interrupt (struct intr_frame *args UNUSED)
 {
-  ticks++;
+  ticks++;  
+  
+	struct thread *t;
+	enum intr_level old_level;
+	while(list_size(&sleeping_list)!=0){
+		t = list_entry(list_front(&sleeping_list), struct thread, elem);
+		if(ticks >= t->sleep_ticks){
+			list_pop_front(&sleeping_list);
+			thread_unblock(t);
+		}else
+			break;
+	}
+	
   thread_tick ();
 }
 
