@@ -87,8 +87,8 @@ Differences in `diff -u' format:
 + (priority-donate-chain) interloper 3 finished.
 + (priority-donate-chain) interloper 4 finished.
 + (priority-donate-chain) main should have priority 15.  Actual priority: 0.
-+ (priority-donate-chain) main should have priority 18.  Actual priority: 0.
 + (priority-donate-chain) interloper 5 finished.
++ (priority-donate-chain) main should have priority 18.  Actual priority: 0.
 + (priority-donate-chain) interloper 6 finished.
 + (priority-donate-chain) main should have priority 21.  Actual priority: 0.
   (priority-donate-chain) main finishing with priority 0.
