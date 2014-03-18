@@ -99,6 +99,16 @@ thread_init (void)
   initial_thread->tid = allocate_tid ();
 }
 
+/** 높은 순위를 고르기위한 list_less_func 구현 proj#1 */
+static bool high_thread_priority(const struct list_elem *a, const struct list_elem *b, void *aux){
+	struct thread *t1 = list_entry(a, struct thread, elem);
+	struct thread *t2 = list_entry(b, struct thread, elem);
+	if(t1->priority > t2->priority)	
+		return true;
+	else	
+		return false;
+}
+
 /* Starts preemptive thread scheduling by enabling interrupts.
    Also creates the idle thread. */
 void
@@ -198,7 +208,10 @@ thread_create (const char *name, int priority,
 
   /* Add to run queue. */
   thread_unblock (t);
-
+  
+	if(t->priority > thread_current()->priority){ 
+          thread_yield();
+	}
   return tid;
 }
 
@@ -237,6 +250,11 @@ thread_unblock (struct thread *t)
   ASSERT (t->status == THREAD_BLOCKED);
   list_push_back (&ready_list, &t->elem);
   t->status = THREAD_READY;
+  /**
+  이걸하면 priority-sema가 좀 되지만 또 alarm-simultaneous가 안된다
+  if(thread_current() != idle_thread) 
+	thread_yield();
+	*/
   intr_set_level (old_level);
 }
 
@@ -303,8 +321,9 @@ thread_yield (void)
   ASSERT (!intr_context ());
 
   old_level = intr_disable ();
-  if (curr != idle_thread) 
-    list_push_back (&ready_list, &curr->elem);
+  if (curr != idle_thread) { 
+		list_push_back (&ready_list, &curr->elem);
+	}
   curr->status = THREAD_READY;
   schedule ();
   intr_set_level (old_level);
@@ -455,16 +474,8 @@ alloc_frame (struct thread *t, size_t size)
   return t->stack;
 }
 
-/** 높은 순위를 고르기위한 list_less_func 구현 proj#1 */
-static bool high_priority(const struct list_elem *a, const struct list_elem *b, void *aux){
-	struct thread *t1 = list_entry(a, struct thread, elem);
-	struct thread *t2 = list_entry(b, struct thread, elem);
-	if(t1->priority < t2->priority)	//list_max의 설정이 병맛이여서 반대로 설정해야 한다....뭥미?
-		return true;
-	else	
-		return false;
-}
 
+/** 단순한 fifo가 아닌 최고순위를 뽑도록 수정 proj#1 */
 /* Chooses and returns the next thread to be scheduled.  Should
    return a thread from the run queue, unless the run queue is
    empty.  (If the running thread can continue running, then it
@@ -476,9 +487,10 @@ next_thread_to_run (void)
   if (list_empty (&ready_list))
     return idle_thread;
   else{		
-	struct list_elem* e = list_pop_max (&ready_list, high_priority, NULL);
-    return list_entry (e, struct thread, elem);
-	//return list_entry (list_pop_front (&ready_list), struct thread, elem);
+	//struct list_elem* e = list_pop_max (&ready_list, high_thread_priority, NULL);	//priority-sema와 꼬이는 것 같다....
+    //return list_entry (e, struct thread, elem);
+	list_sort(&ready_list, high_thread_priority, NULL);
+	return list_entry (list_pop_front (&ready_list), struct thread, elem);
   }
 }
 

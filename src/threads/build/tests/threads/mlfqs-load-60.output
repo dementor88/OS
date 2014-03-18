@@ -1,0 +1,24 @@
+Writing command line to /tmp/JkcfH1TibM.dsk...
+warning: can't find squish-pty, so terminal input will fail
+bochs -q
+Kernel command line: -q -mlfqs run mlfqs-load-60
+Pintos booting with 4,096 kB RAM...
+374 pages available in kernel pool.
+374 pages available in user pool.
+Calibrating timer...  102,400 loops/s.
+Boot complete.
+Executing 'mlfqs-load-60':
+(mlfqs-load-60) begin
+(mlfqs-load-60) Starting 60 niced load threads...
+(mlfqs-load-60) Starting threads took 2 seconds.
+(mlfqs-load-60) After 0 seconds, load average=0.00.
+Kernel PANIC at ../../threads/thread.c:318 in thread_yield(): assertion `!intr_context ()' failed.
+Call stack: 0xc01072c6 0xc0100bbf 0xc0100a54 0xc0103927 0xc01016d5 0xc01018ab 0xc0101123 0xc01037a2 0xc010b40a 0xc0100cb3.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Timer: 1756 ticks
+Thread: 749 idle ticks, 1006 kernel ticks, 0 user ticks
+Console: 859 characters output
+Keyboard: 0 keys pressed
+Powering off...

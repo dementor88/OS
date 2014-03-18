@@ -49,6 +49,15 @@ sema_init (struct semaphore *sema, unsigned value)
   sema->value = value;
   list_init (&sema->waiters);
 }
+/** 높은 순위를 고르기위한 list_less_func 구현 proj#1 */
+static bool high_sema_priority(const struct list_elem *a, const struct list_elem *b, void *aux){
+	struct thread *t1 = list_entry(a, struct thread, elem);
+	struct thread *t2 = list_entry(b, struct thread, elem);
+	if(t1->priority > t2->priority)	
+		return true;
+	else	
+		return false;
+}
 
 /* Down or "P" operation on a semaphore.  Waits for SEMA's value
    to become positive and then atomically decrements it.
@@ -69,7 +78,8 @@ sema_down (struct semaphore *sema)
   old_level = intr_disable ();
   while (sema->value == 0) 
     {
-      list_push_back (&sema->waiters, &thread_current ()->elem);
+      //list_push_back(&sema->waiters, &thread_current()->elem);
+	  list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
       thread_block ();
     }
   sema->value--;
@@ -102,6 +112,7 @@ sema_try_down (struct semaphore *sema)
   return success;
 }
 
+
 /* Up or "V" operation on a semaphore.  Increments SEMA's value
    and wakes up one thread of those waiting for SEMA, if any.
 
@@ -111,12 +122,17 @@ sema_up (struct semaphore *sema)
 {
   enum intr_level old_level;
 
-  ASSERT (sema != NULL);
+  ASSERT (sema != NULL); 
 
   old_level = intr_disable ();
-  if (!list_empty (&sema->waiters)) 
+  //struct list_elem* e = list_max (&sema->waiters, high_sema_priority, NULL);
+  //list_remove에서 에러가 발생....
+  
+  if (!list_empty (&sema->waiters)) {
+	list_sort(&sema->waiters, high_sema_priority, NULL);
     thread_unblock (list_entry (list_pop_front (&sema->waiters),
-                                struct thread, elem));
+                                struct thread, elem));	
+	}
   sema->value++;
   intr_set_level (old_level);
 }
