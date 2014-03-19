@@ -1,8 +1,2 @@
 FAIL
-Kernel panic in run: PANIC at ../../threads/synch.c:211 in lock_acquire(): assertion `lock != NULL' failed.
-Call stack: 0xc01072c6 0xc01027ae 0xc010aa3d 0xc0100cb3
-Translation of call stack:
-0xc01072c6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc01027ae: lock_acquire (...../../threads/synch.c:212)
-0xc010aa3d: simple_thread_func (...hreads/priority-fifo.c:95)
-0xc0100cb3: kernel_thread (..../../threads/thread.c:420)
+run: TIMEOUT after 60 seconds of host CPU time

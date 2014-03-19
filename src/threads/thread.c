@@ -209,6 +209,7 @@ thread_create (const char *name, int priority,
   /* Add to run queue. */
   thread_unblock (t);
   
+	 /** 쓰레드 언블럭과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
 	if(t->priority > thread_current()->priority){ 
           thread_yield();
 	}
@@ -251,8 +252,8 @@ thread_unblock (struct thread *t)
   list_push_back (&ready_list, &t->elem);
   t->status = THREAD_READY;
  
-  //이걸하면 priority-sema가 되지만 또 alarm-simultaneous가 안된다!!!
-  if(thread_current() != idle_thread) 
+  /** 쓰레드 생성과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
+  if(thread_current() != idle_thread && t->priority > thread_current()->priority) 
 	thread_yield();
 	
   intr_set_level (old_level);
