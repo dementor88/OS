@@ -252,7 +252,8 @@ thread_unblock (struct thread *t)
   list_push_back (&ready_list, &t->elem);
   t->status = THREAD_READY;
  
-  /** 쓰레드 생성과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
+  /** 쓰레드 생성과 함께 순위를 체크하여 더 높은 것에게 양보!!!! 
+  또한 idle_thread는 unblock이 불가능하므로 아래와 같이 수정*/
   if(thread_current() != idle_thread && t->priority > thread_current()->priority) 
 	thread_yield();
 	
@@ -335,6 +336,17 @@ void
 thread_set_priority (int new_priority) 
 {
   thread_current ()->priority = new_priority;
+  
+  /**priority-change 구현을 위해 priority 수정 시에도 priority 검사 및 교체 proj#1*/
+  if(list_size(&ready_list)!=0){
+	  //list_sort(&ready_list, high_thread_priority, NULL);
+	  struct list_elem *another_thread = list_front(&ready_list);
+	  struct thread *t = list_entry(another_thread, struct thread, elem);
+	  //printf("%d ? %d ...%d",new_priority, t->priority, list_size(&ready_list));
+	  if(t->priority > thread_current()->priority){ 
+			  thread_yield();
+		}
+	}
 }
 
 /* Returns the current thread's priority. */
