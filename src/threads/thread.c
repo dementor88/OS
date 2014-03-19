@@ -250,11 +250,11 @@ thread_unblock (struct thread *t)
   ASSERT (t->status == THREAD_BLOCKED);
   list_push_back (&ready_list, &t->elem);
   t->status = THREAD_READY;
-  /**
-  이걸하면 priority-sema가 좀 되지만 또 alarm-simultaneous가 안된다
+ 
+  //이걸하면 priority-sema가 되지만 또 alarm-simultaneous가 안된다!!!
   if(thread_current() != idle_thread) 
 	thread_yield();
-	*/
+	
   intr_set_level (old_level);
 }
 
