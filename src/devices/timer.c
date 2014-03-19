@@ -101,19 +101,7 @@ timer_elapsed (int64_t then)
 	(lib/kernel의 list.c와 list.h 참조)*/
 static bool less_tick(const struct list_elem *a, const struct list_elem *b, void *aux){
 	struct thread *t1 = list_entry(a, struct thread, elem);
-	struct thread *t2 = list_entry(b, struct thread, elem);
-	
-	/**
-	if(t1->priority > t2->priority){
-		return true;
-	}else if(t1->priority == t2->priority){
-		if(t1->sleep_ticks < t2->sleep_ticks)
-			return true;	
-		else
-			return false;
-	}else
-		return false;
-	*/	
+	struct thread *t2 = list_entry(b, struct thread, elem);	
 	if(t1->sleep_ticks < t2->sleep_ticks)
 		return true;	
 	else
@@ -129,7 +117,7 @@ timer_sleep (int64_t ticks)
   while (timer_elapsed (start) < ticks) 
     thread_yield ();
 */
-
+	ASSERT (intr_get_level () == INTR_ON);
 	struct thread *t = thread_current();
 	enum intr_level old_level;
 	old_level = intr_disable();
@@ -176,8 +164,9 @@ timer_interrupt (struct intr_frame *args UNUSED)
   ticks++;  
   
 	struct thread *t;
+	//if문으로 했더니 alarm-simultaneous가 오류났다. 같은 sleep_tick을 가진 쓰레드가 다수 있을 수 있다는 점을 감안해야 하는 것 같다.
 	while(list_size(&sleeping_list)!=0){
-		t = list_entry(list_front(&sleeping_list), struct thread, elem);
+		t = list_entry(list_front(&sleeping_list), struct thread, elem);		
 		if(ticks >= t->sleep_ticks){
 			list_pop_front(&sleeping_list);
 			thread_unblock(t);
