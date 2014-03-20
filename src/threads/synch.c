@@ -78,8 +78,8 @@ sema_down (struct semaphore *sema)
   old_level = intr_disable ();
   while (sema->value == 0) 
     {
-      list_push_back(&sema->waiters, &thread_current()->elem);
-	  //list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
+      //list_push_back(&sema->waiters, &thread_current()->elem);
+	  list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
       thread_block ();
     }
   sema->value--;
@@ -224,9 +224,9 @@ lock_acquire (struct lock *lock)
 		struct thread *t = lock->holder;			
 		if(t->priority < thread_current()->priority){
 			if(lock->donate_count==0){
-				lock->original_priority = t->priority;
+				lock->original_priority = t->priority;				
 			}
-			
+			//ist_insert_ordered(&lock->waiting_for_lock, &thread_current()->elem, high_sema_priority, NULL);
 			t->priority = thread_current()->priority ;
 			lock->donate_count++;
 			//msg("%d  %d  %d",t->priority,thread_current()->priority, lock->original_priority);
@@ -272,8 +272,10 @@ lock_release (struct lock *lock)
   struct thread *t = lock->holder;
   if(lock->donate_count!=0){
 	t->priority = lock->original_priority;
+	lock->donate_count--;
   }
   lock->holder = NULL;
+  
   sema_up (&lock->semaphore);
 }
 
