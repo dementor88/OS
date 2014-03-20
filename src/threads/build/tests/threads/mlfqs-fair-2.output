@@ -1,4 +1,4 @@
-Writing command line to /tmp/ogcY6Mn9Cd.dsk...
+Writing command line to /tmp/whXZUYp90M.dsk...
 warning: can't find squish-pty, so terminal input will fail
 bochs -q
 Kernel command line: -q -mlfqs run mlfqs-fair-2
@@ -9,7 +9,7 @@ Calibrating timer...  102,400 loops/s.
 Boot complete.
 Executing 'mlfqs-fair-2':
 Kernel PANIC at ../../tests/threads/tests.c:62 in run_test(): no test named "mlfqs-fair-2"
-Call stack: 0xc0107336 0xc0109405 0xc010052f 0xc01005f6 0xc010009e.
+Call stack: 0xc0107386 0xc0109455 0xc010052f 0xc01005f6 0xc010009e.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.

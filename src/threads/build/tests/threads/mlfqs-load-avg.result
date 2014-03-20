@@ -1,9 +1,9 @@
 FAIL
 Kernel panic in run: PANIC at ../../tests/threads/tests.c:62 in run_test(): no test named "mlfqs-load-avg"
-Call stack: 0xc0107336 0xc0109405 0xc010052f 0xc01005f6 0xc010009e
+Call stack: 0xc0107386 0xc0109455 0xc010052f 0xc01005f6 0xc010009e
 Translation of call stack:
-0xc0107336: debug_panic (.../../lib/kernel/debug.c:34)
-0xc0109405: run_test (.../tests/threads/tests.c:56)
+0xc0107386: debug_panic (.../../lib/kernel/debug.c:34)
+0xc0109455: run_test (.../tests/threads/tests.c:56)
 0xc010052f: run_task (.../../../threads/init.c:270)
 0xc01005f6: run_actions (.../../../threads/init.c:319)
 0xc010009e: main (.../../../threads/init.c:124)

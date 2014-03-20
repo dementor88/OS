@@ -58,7 +58,7 @@ static bool high_sema_priority(const struct list_elem *a, const struct list_elem
 	else	
 		return false;
 }
-
+/**proj#1*/
 /* Down or "P" operation on a semaphore.  Waits for SEMA's value
    to become positive and then atomically decrements it.
 
@@ -78,8 +78,8 @@ sema_down (struct semaphore *sema)
   old_level = intr_disable ();
   while (sema->value == 0) 
     {
-      //list_push_back(&sema->waiters, &thread_current()->elem);
-	  list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
+      list_push_back(&sema->waiters, &thread_current()->elem);
+	  //list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
       thread_block ();
     }
   sema->value--;
@@ -112,7 +112,7 @@ sema_try_down (struct semaphore *sema)
   return success;
 }
 
-
+/**proj#1*/
 /* Up or "V" operation on a semaphore.  Increments SEMA's value
    and wakes up one thread of those waiting for SEMA, if any.
 
@@ -196,6 +196,7 @@ lock_init (struct lock *lock)
 
   lock->holder = NULL;
   sema_init (&lock->semaphore, 1);
+  lock->donate_count = 0;
 }
 
 /* Acquires LOCK, sleeping until it becomes available if
@@ -206,14 +207,32 @@ lock_init (struct lock *lock)
    interrupt handler.  This function may be called with
    interrupts disabled, but interrupts will be turned back on if
    we need to sleep. */
+/**proj#1*/
 void
 lock_acquire (struct lock *lock)
 {
   ASSERT (lock != NULL);
   ASSERT (!intr_context ());
   ASSERT (!lock_held_by_current_thread (lock));
-
-  sema_down (&lock->semaphore);
+	/**
+	if(lock->holder == NULL){	
+		//msg("lock is now holded");
+	}else{
+	*/
+	if(lock->holder != NULL){
+		struct thread *t = lock->holder;			
+		if(t->priority < thread_current()->priority){
+			if(lock->donate_count==0){
+				lock->original_priority = t->priority;
+			}
+			
+			t->priority = thread_current()->priority ;
+			lock->donate_count++;
+			msg("%d  %d  %d",t->priority,thread_current()->priority, lock->original_priority);
+		}		
+	}
+	
+  sema_down (&lock->semaphore); 
   lock->holder = thread_current ();
 }
 
@@ -243,12 +262,14 @@ lock_try_acquire (struct lock *lock)
    An interrupt handler cannot acquire a lock, so it does not
    make sense to try to release a lock within an interrupt
    handler. */
+/**proj#1*/
 void
 lock_release (struct lock *lock) 
 {
   ASSERT (lock != NULL);
   ASSERT (lock_held_by_current_thread (lock));
-
+  struct thread *t = lock->holder;
+  
   lock->holder = NULL;
   sema_up (&lock->semaphore);
 }

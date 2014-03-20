@@ -337,7 +337,8 @@ thread_set_priority (int new_priority)
 {
   thread_current ()->priority = new_priority;
   
-  /**priority-change 구현을 위해 priority 수정 시에도 priority 검사 및 교체 proj#1*/
+  /**priority-change 구현을 위해 priority 수정 시에도 priority 검사 및 교체 proj#1
+  ready_list가 비어있는 경우를 감안하고, sort는....이미 된것 같다*/
   if(list_size(&ready_list)!=0){
 	  //list_sort(&ready_list, high_thread_priority, NULL);
 	  struct list_elem *another_thread = list_front(&ready_list);
