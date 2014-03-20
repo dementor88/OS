@@ -220,6 +220,7 @@ lock_acquire (struct lock *lock)
 		//msg("lock is now holded");
 	}else{
 	*/
+	
 	if(lock->holder != NULL){
 		struct thread *t = lock->holder;			
 		if(t->priority < thread_current()->priority){
@@ -229,8 +230,8 @@ lock_acquire (struct lock *lock)
 			//ist_insert_ordered(&lock->waiting_for_lock, &thread_current()->elem, high_sema_priority, NULL);
 			t->priority = thread_current()->priority ;
 			lock->donate_count++;
-			//msg("%d  %d  %d",t->priority,thread_current()->priority, lock->original_priority);
-		}		
+			//msg("acq : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count);
+		}	
 	}
 	
   sema_down (&lock->semaphore); 
@@ -272,8 +273,9 @@ lock_release (struct lock *lock)
   struct thread *t = lock->holder;
   if(lock->donate_count!=0){
 	t->priority = lock->original_priority;
-	lock->donate_count--;
+	lock->donate_count=0;
   }
+  //msg("!!!!rel : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count);
   lock->holder = NULL;
   
   sema_up (&lock->semaphore);
