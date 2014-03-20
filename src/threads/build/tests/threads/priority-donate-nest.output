@@ -1,4 +1,4 @@
-Writing command line to /tmp/A9nhVNnI5B.dsk...
+Writing command line to /tmp/mxENpi4L0C.dsk...
 warning: can't find squish-pty, so terminal input will fail
 bochs -q
 Kernel command line: -q run priority-donate-nest
@@ -9,9 +9,7 @@ Calibrating timer...  102,400 loops/s.
 Boot complete.
 Executing 'priority-donate-nest':
 (priority-donate-nest) begin
-(priority-donate-nest) 32  32  31
 (priority-donate-nest) Low thread should have priority 32.  Actual priority: 32.
-(priority-donate-nest) 33  33  32
 (priority-donate-nest) Low thread should have priority 33.  Actual priority: 32.
 (priority-donate-nest) Medium thread should have priority 33.  Actual priority: 33.
 (priority-donate-nest) Medium thread got the lock.
@@ -20,11 +18,11 @@ Executing 'priority-donate-nest':
 (priority-donate-nest) High thread should have just finished.
 (priority-donate-nest) Middle thread finished.
 (priority-donate-nest) Medium thread should just have finished.
-(priority-donate-nest) Low thread should have priority 31.  Actual priority: 32.
+(priority-donate-nest) Low thread should have priority 31.  Actual priority: 31.
 (priority-donate-nest) end
 Execution of 'priority-donate-nest' complete.
-Timer: 156 ticks
-Thread: 0 idle ticks, 159 kernel ticks, 0 user ticks
-Console: 1128 characters output
+Timer: 145 ticks
+Thread: 0 idle ticks, 148 kernel ticks, 0 user ticks
+Console: 1060 characters output
 Keyboard: 0 keys pressed
 Powering off...
