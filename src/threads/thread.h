@@ -106,8 +106,8 @@ struct thread
 	/** 스레드가 어떤 lock을 쥐거나 기다리고 있는지  확인 -- Proj#1 */
 	//struct lock *acquired_lock;	
 	//struct lock *waiting_lock;	
-	int original_locked_priority;
-	struct thread *lock_holder_thread;
+	int original_locked_priority;	//priority-donate-lower
+	struct thread *lock_holder_thread;	//priority-donate-nest..?
   };
 
 /* If false (default), use round-robin scheduler.

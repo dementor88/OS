@@ -339,7 +339,7 @@ thread_yield (void)
 void
 thread_set_priority (int new_priority) 
 {
-/** proj#1 쓰레기....젠장. 
+/** proj#1 쓰레기....젠장. 스레드에 lock을 저장하는 거 포기!!!
   msg("checking current thread %d",thread_current()->tid);	
   if(thread_current()->acquired_lock!=NULL){
 	msg("RECOGNIZED******** acquired_lock inside thread....");
