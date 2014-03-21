@@ -214,7 +214,8 @@ thread_create (const char *name, int priority,
 	 /** 쓰레드 언블럭과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
 	if(t->priority > thread_current()->priority){ 
           thread_yield();
-	}
+	}	
+		
   return tid;
 }
 
@@ -338,7 +339,20 @@ thread_yield (void)
 void
 thread_set_priority (int new_priority) 
 {
-  thread_current ()->priority = new_priority;
+/** proj#1 쓰레기....젠장. 
+  msg("checking current thread %d",thread_current()->tid);	
+  if(thread_current()->acquired_lock!=NULL){
+	msg("RECOGNIZED******** acquired_lock inside thread....");
+	thread_current()->acquired_lock->original_priority = new_priority;
+  }else
+	msg("NO**** acquired lock in thread %d",thread_current()->tid);
+*/
+	if(thread_current()->original_locked_priority == 0){
+		thread_current ()->priority = new_priority;
+	}
+	else{
+		thread_current()->original_locked_priority = new_priority;
+	}
   
   /**priority-change 구현을 위해 priority 수정 시에도 priority 검사 및 교체 proj#1
   ready_list가 비어있는 경우를 감안하고, sort는....이미 된것 같다*/
@@ -476,6 +490,7 @@ init_thread (struct thread *t, const char *name, int priority)
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
   t->magic = THREAD_MAGIC;
+  t->original_locked_priority = 0;
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and

@@ -197,7 +197,7 @@ lock_init (struct lock *lock)
   lock->holder = NULL;
   sema_init (&lock->semaphore, 1);
   lock->donate_count = 0;
-  list_init (&lock->waiting_for_lock);
+  
 }
 
 /* Acquires LOCK, sleeping until it becomes available if
@@ -215,27 +215,43 @@ lock_acquire (struct lock *lock)
   ASSERT (lock != NULL);
   ASSERT (!intr_context ());
   ASSERT (!lock_held_by_current_thread (lock));
+	
+	
+	struct thread *t = lock->holder;
 	/**
 	if(lock->holder == NULL){	
 		//msg("lock is now holded");
+		t->acquired_lock = lock;
+		t->waiting_lock = NULL;
 	}else{
-	*/
+	*/	
 	
 	if(lock->holder != NULL){
-		struct thread *t = lock->holder;			
-		if(t->priority < thread_current()->priority){
+				
+		if(t->priority < thread_current()->priority){			
 			if(lock->donate_count==0){
-				lock->original_priority = t->priority;				
+				lock->original_priority = t->priority;	
+				t->original_locked_priority = t->priority;	
 			}
+			
 			//list_insert_ordered(&lock->waiting_for_lock, &thread_current()->elem, high_sema_priority, NULL);
+			
 			t->priority = thread_current()->priority ;
+			thread_current()->lock_holder_thread = t;
 			lock->donate_count++;
+			
 			//msg("acq : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count);
+			
+			/** proj#1 ¾²·¹±â....Á¨Àå. 
+			//thread_current()->waiting_lock = lock;	
+			//t->acquired_lock = lock;
+			//if(t->acquired_lock!=NULL)
+			//msg("save acquired_lock into thread  %d, %d", t->tid, thread_current()->tid);
+			*/
 		}	
 	}
-	
-  sema_down (&lock->semaphore); 
-  lock->holder = thread_current ();
+	sema_down (&lock->semaphore); 
+	lock->holder = thread_current (); 
 }
 
 /* Tries to acquires LOCK and returns true if successful or false
@@ -272,12 +288,17 @@ lock_release (struct lock *lock)
   ASSERT (lock_held_by_current_thread (lock));
   struct thread *t = lock->holder;
   if(lock->donate_count!=0){
-	t->priority = lock->original_priority;
+	if(t->original_locked_priority != lock->original_priority && t->original_locked_priority != 0){
+		t->priority = t->original_locked_priority;
+	}else{
+		t->priority = lock->original_priority;
+	}
 	lock->donate_count=0;
+	t->original_locked_priority = 0;
+	lock->original_priority=0;
   }
-  //msg("!!!!rel : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count);
-  lock->holder = NULL;
-  
+  //msg("!!!!rel : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count); 
+  lock->holder = NULL;  
   sema_up (&lock->semaphore);
 }
 
