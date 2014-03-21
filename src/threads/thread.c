@@ -97,6 +97,8 @@ thread_init (void)
   init_thread (initial_thread, "main", PRI_DEFAULT);
   initial_thread->status = THREAD_RUNNING;
   initial_thread->tid = allocate_tid ();
+  /** proj#1 */
+  //acquired_lock=0;
 }
 
 /** 높은 순위를 고르기위한 list_less_func 구현 proj#1 */

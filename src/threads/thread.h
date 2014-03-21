@@ -102,6 +102,8 @@ struct thread
 	
 	/** Busy-Waiting 제거 -- Proj#1 */
 	int64_t sleep_ticks;			/* 수면리스트에서 남아있는 수면시간이 얼마인지 가리킴 */
+	/** 스레드가 lock을 쥐고 있는지 1이면 lock -- Proj#1 */
+	//int acquired_lock;
   };
 
 /* If false (default), use round-robin scheduler.
