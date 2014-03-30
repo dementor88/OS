@@ -330,9 +330,9 @@ load (const char *file_name, void (**eip) (void), void **esp)
     }
 
   /* Set up stack. */
-  if (!setup_stack (esp, argc, argv)){NOT_REACHED();
+  if (!setup_stack (esp, argc, argv))
     goto done;
-}
+
   /* Start address. */
   *eip = (void (*) (void)) ehdr.e_entry;
 
@@ -500,8 +500,12 @@ setup_stack (void **esp, int argc, char **argv)
 					//push argv[i] to the stack in reverse order
 					for(;i>=0;i--)
 					{
+//	NOT_REACHED();
 						*esp-=strlen(argv[i])+1;
+						printf("<>%s\n",argv[i]);
+						NOT_REACHED();
 						memcpy(*esp, argv[i],strlen(argv[i])+1);
+						
 					}
 //NOT_REACHED();	
 					//word-align 
