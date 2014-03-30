@@ -1,0 +1,106 @@
+Kernel command line: run echo
+Pintos booting with 4,096 kB RAM...
+375 pages available in kernel pool.
+374 pages available in user pool.
+Calibrating timer...  102,400 loops/s.
+hd0:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00011"
+hd0:1: detected 4,032 sector (1 MB) disk, model "Generic 1234", serial "BXHD00012"
+Boot complete.
+Executing 'echo':
+Execution of 'echo' complete.
+Page fault at 0x61: not present error writing page in user context.
+echo: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480f8
+ cr2=00000061 error=00000006
+ eax=00000000 ebx=00000000 ecx=00000000 edx=00000000
+ esi=00000000 edi=00000000 esp=00000065 ebp=00000000
+ cs=001b ds=0023 es=0023 ss=0023
+(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj(B[m(B[39;49m[37m[40m[39;49m[37m[40m[H[2J[1;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj(B[m(B[39;49m[37m[40m[A[H[0;1m(B[36m[40mPlex86/Bochs VGABios 0.5d 29 Dec 2005
+This[m(B[39;49m[37m[40m[C[0;1m(B[36m[40m VGA/VBE Bios is released under the GNU LGPL
+
+Please vi[m(B[39;49m[37m[40m[0;1m(B[36m[40msit :
+ . http://bochs.sourceforge.net
+ . http://www.nong[m(B[39;49m[37m[40m[0;1m(B[36m[40mnu.org/vgabios
+
+NO Bochs VBE Support available!
+
+[0m(B[37m[40mBoch[m(B[39;49m[37m[40m[C[37m[40ms BIOS - build: 01/25/06
+$Revision: 1.160 $ $Date:[m(B[39;49m[37m[40m[C[37m[40m2006/01/25 17:51:49 $
+Options: apmbios pcibios elto[m(B[39;49m[37m[40m[37m[40mrito
+
+ata0 master: Generic[m(B[39;49m[37m[40m[C[37m[40m1234 ATA-2 Hard-Disk (0 MBytes)
+ata[m(B[39;49m[37m[40m[C[37m[40m0  slave: Generic 1234 ATA-2 Hard-Disk (1 MBytes[m(B[39;49m[37m[40m[37m[40m)
+
+Booting from Hard Disk...
+[m(B[39;49m[37m[40m[37m[40mKernel command line: run echo
+Pintos booting with 4,096 kB RAM...
+375 pages available in [m(B[39;49m[37m[40m[37m[40mkernel pool.
+374 pages available in user pool.
+[m(B[39;49m[37m[40m[37m[40mCalibrating timer...  [m(B[39;49m[37m[40m[37m[40m102,400 loops/s.
+[m(B[39;49m[37m[40m[37m[40mhd0:0: detected 1,008 sec[m(B[39;49m[37m[40m[37m[40mtor (504 kB) disk, model "Generi[m(B[39;49m[37m[40m[37m[40mc 1234", serial "BXHD00
+011"
+[m(B[39;49m[37m[40m[37m[40mhd0:1: detected 4,032 sector (1 MB[m(B[39;49m[37m[40m[37m[40m) disk, model "Generic 1234", [m(B[39;49m[37m[40m[1;18r[18;1H
+[1;76r[18;1H[37m[40mPernel command line: run echo[18;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;65H[0m(0[37m[40m[0m(B[37m[40mserial "BXHD0001[m(B[39;49m[37m[40m[1;17r[17;1H
+[1;76r[17;25r[25;1H[2S[1;76r[24;1H[37m[40m2"[24;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[3G[0m(0[37m[40m(B[m(B[39;49m[37m[40m[1;23r[23;1H
+[1;76r[23;1H[37m[40m2"[23;27Hor (1 MB) disk, model "Generic 1234", serial "BXHD0001[0m(0[37m[40mx(B[m(B[39;49m[37m[40m
+
+[0m(0[37m[40m[0m(B[37m[40mBoot complete.[m(B[39;49m[37m[40m[1;16r[16;1H
+[1;76r[16;1H[37m[40mPintos booting with 4,096 kB RAM...[16;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[23;27H[0m(0[37m[40m[0m(B[37m[40m[54X
+Boot complete.
+Executing 'echo':[m(B[39;49m[37m[40m7[15;25r8
+[1;76r[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[0m(0[37m[40m(B[m(B[39;49m[37m[40m[37m[40mExecution of 'e[m(B[39;49m[37m[40m[1;7r[7;1H
+[1;76r[7;1H[37m[40mOptions: apmbios pcibios el006/01/25 17:51:49 $[7;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;16H[0m(0[37m[40m[0m(B[37m[40mcho' complete.[m(B[39;49m[37m[40m7[7;25r8
+[1;76r[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[0m(0[37m[40m(B[m(B[39;49m[37m[40m[37m[40mPage fault at 0[m(B[39;49m[37m[40m[37m[40mx61: not present error writing page [m(B[39;49m[37m[40m[1;20r[20;1H
+[1;76r[20;1H[37m[40m2"[20;33HMB) disk, model "Generic 1234", serial "BXHD0001[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;52H[0m(0[37m[40m[0m(B[37m[40min user context.[m(B[39;49m[37m[40m7[20;25r8
+[1;76r[25;1H[37m[40mecho: dying due to interrupt[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;30H[0m(0[37m[40m(B[m(B[39;49m[37m[40m[1;5r[5;1H
+[1;76r[5;1H[37m[40mOptions: apmbios pc$Date: 2006/01/25 17:51:49 $[5;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;30H[0m(0[37m[40m[0m(B[37m[40m0x0e (#PF Page-Fault Exception).[m(B[39;49m[37m[40m7[5;25r8
+[1;76r[25;1H[37m[40mInterrupt 0x0e[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;15H[0m(0[37m[40m(B[m(B[39;49m[37m[40m[C[37m[40m(#PF Page-Fault Exception) at eip=[m(B[39;49m[37m[40m7[1;25r8
+[1;76r[24;50H[37m[40m0x80480f8[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[C[0m(0[37m[40m(B[m(B[39;49m[37m[40m[1;9r[9;1H
+[1;76r[9;1H[37m[40mBooting from Hard Disk...[9;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;2H[0m(0[37m[40m[0m(B[37m[40mcr2=00000061 error=00000006[m(B[39;49m[37m[40m7[8;25r8
+[1;76r[25;2H[37m[40meax=00000000 ebx=[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;19H[0m(0[37m[40m(B[m(B[39;49m[37m[40m[H[37m[40m$Revision: 1.160 $ $Date: 2006/01/25 17:51:49 $
+Options: apmbios pcibios eltorito[14X[25;19H00000000 ecx=00000000 edx=00000000[m(B[39;49m[37m[40m7[2;25r8
+[1;76r[25;2H[37m[40mesi=0000000[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;13H[0m(0[37m[40m(B[m(B[39;49m[37m[40m[37m[40m0 edi=00000000 esp=00000065 ebp=000[m(B[39;49m[37m[40m7[1;25r8
+[1;76r[24;48H[37m[40m00000
+ cs=[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[5G[0m(0[37m[40m(B[m(B[39;49m[37m[40m[1;8r[8;1H
+[1;76r[8;1H[37m[40mPintos booting with 4,096 kB RAM...[8;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[25;5H[0m(0[37m[40m[0m(B[37m[40m001b ds=0023 es=0023 ss=0023[m(B[39;49m[37m[40m7[7;25r8
+[1;76r[25;81H[0m(0[37m[40mx(B[m(B[39;49m[37m[40m[0m(0[37m[40m(B[m(B[39;49m[37m[40m
