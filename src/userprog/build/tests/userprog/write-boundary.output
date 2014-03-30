@@ -1,27 +1,27 @@
-Copying tests/userprog/write-boundary into /tmp/wyGLs1opad.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/wyGLs1opad.dsk...
-Writing command line to /tmp/X98ZQvsZqM.dsk...
-squish-pty bochs -q
+Copying tests/userprog/write-boundary into /tmp/hzXQSLMcC1.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/hzXQSLMcC1.dsk...
+Writing command line to /tmp/ZfRKCDxXGa.dsk...
+qemu -hda /tmp/ZfRKCDxXGa.dsk -hdb /tmp/Wcir715y61.dsk -hdc /tmp/hzXQSLMcC1.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put write-boundary put sample.txt run write-boundary
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  102,400 loops/s.
-hd0:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00011"
-hd0:1: detected 4,032 sector (1 MB) disk, model "Generic 1234", serial "BXHD00012"
-hd1:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00021"
+374 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 Formatting file system...done.
 Boot complete.
 Putting 'write-boundary' into the file system...
 Putting 'sample.txt' into the file system...
 Executing 'write-boundary':
 Execution of 'write-boundary' complete.
-Timer: 247 ticks
-Thread: 31 idle ticks, 214 kernel ticks, 9 user ticks
+Timer: 61 ticks
+Thread: 0 idle ticks, 61 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 92 reads, 166 writes
+hd0:1: 57 reads, 166 writes
 hd1:0: 78 reads, 0 writes
-Console: 836 characters output
+Console: 826 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

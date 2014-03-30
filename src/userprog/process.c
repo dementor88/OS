@@ -31,6 +31,9 @@ process_execute (const char *file_name)
   char *fn_copy;
   tid_t tid;
 
+
+
+
   /* Make a copy of FILE_NAME.
      Otherwise there's a race between the caller and load(). */
   fn_copy = palloc_get_page (0);
@@ -38,10 +41,13 @@ process_execute (const char *file_name)
     return TID_ERROR;
   strlcpy (fn_copy, file_name, PGSIZE);
 
+char* i;
+file_name = strtok_r((char *)file_name, " ",&i);
   /* Create a new thread to execute FILE_NAME. */
   tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
   if (tid == TID_ERROR)
-    palloc_free_page (fn_copy); 
+    palloc_free_page (fn_copy);
+
   return tid;
 }
 
@@ -60,7 +66,7 @@ start_process (void *f_name)
   if_.cs = SEL_UCSEG;
   if_.eflags = FLAG_IF | FLAG_MBS;
   success = load (file_name, &if_.eip, &if_.esp);
-
+//NOT_REACHED();
   /* If load failed, quit. */
   palloc_free_page (file_name);
   if (!success) 
@@ -88,6 +94,10 @@ start_process (void *f_name)
 int
 process_wait (tid_t child_tid UNUSED) 
 {
+/*	while(true){
+		asm volatile ("" : : : "memory");
+	}
+*/
   return -1;
 }
 
@@ -195,7 +205,7 @@ struct Elf32_Phdr
 #define PF_W 2          /* Writable. */
 #define PF_R 4          /* Readable. */
 
-static bool setup_stack (void **esp);
+static bool setup_stack (void **esp, int argc, char **argv);
 static bool validate_segment (const struct Elf32_Phdr *, struct file *);
 static bool load_segment (struct file *file, off_t ofs, uint8_t *upage,
                           uint32_t read_bytes, uint32_t zero_bytes,
@@ -215,6 +225,24 @@ load (const char *file_name, void (**eip) (void), void **esp)
   bool success = false;
   int i;
 
+	/*argument parsing*/
+	char *token, *save_ptr;
+	int argc = 0;
+	
+	//figure out argc (waste of cpu)
+	for ( token = strtok_r(file_name, " ", &save_ptr); token !=NULL;
+				token = strtok_r(NULL, " ", &save_ptr))
+				argc++;
+	char *argv[argc+1];
+	//argv
+	for ( i = 0, token = strtok_r(file_name, " ", &save_ptr); token !=NULL;
+				i++  , token = strtok_r(NULL, " ", &save_ptr))
+		{
+				argv[i]=token;
+				printf("%s\n",token);
+		}
+	argv[argc] = '0';
+
   /* Allocate and activate page directory. */
   t->pagedir = pagedir_create ();
   if (t->pagedir == NULL) 
@@ -222,7 +250,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
   process_activate ();
 
   /* Open executable file. */
-  file = filesys_open (file_name);
+  file = filesys_open (argv[0]/*file_name*/);
   if (file == NULL) 
     {
       printf ("load: %s: open failed\n", file_name);
@@ -302,7 +330,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
     }
 
   /* Set up stack. */
-  if (!setup_stack (esp))
+  if (!setup_stack (esp, argc, argv))
     goto done;
 
   /* Start address. */
@@ -427,7 +455,7 @@ load_segment (struct file *file, off_t ofs, uint8_t *upage,
 /* Create a minimal stack by mapping a zeroed page at the top of
    user virtual memory. */
 static bool
-setup_stack (void **esp) 
+setup_stack (void **esp, int argc, char **argv) 
 {
   uint8_t *kpage;
   bool success = false;
@@ -437,10 +465,76 @@ setup_stack (void **esp)
     {
       success = install_page (((uint8_t *) PHYS_BASE) - PGSIZE, kpage, true);
       if (success)
-        *esp = PHYS_BASE;
+				{
+					*esp = PHYS_BASE;
+/*					int i = argc-1;
+					//push argv[i] to the stack in reverse order
+					for(;i>=0;i--)
+					{
+						*esp-=4;
+						memcpy(*esp, argv[i],4);
+					}
+					//word-align
+					*esp-=1;
+					memcpy(*esp ,(uint8_t) 0, 1);
+					for(i=argc;i>=0;i--)
+					{
+						*esp-=4;
+						memcpy(*esp,&argv[i],4);
+					}
+					*esp-=4;
+					memcpy(*esp ,&argv,4);
+					*esp-=4;
+					memcpy(*esp,&argc,4);
+					//push return addres
+					*esp-=4;
+					memcpy(*esp,0,4);
+//					*esp = PHYS_BASE - 12;*/
+				}
       else
         palloc_free_page (kpage);
     }
+//NOT_REACHED();
+					//*esp = PHYS_BASE;
+					int i = argc-1;
+					//push argv[i] to the stack in reverse order
+					for(;i>=0;i--)
+					{
+//	NOT_REACHED();
+						*esp-=strlen(argv[i])+1;
+						printf("<>%s\n",argv[i]);
+						NOT_REACHED();
+						memcpy(*esp, argv[i],strlen(argv[i])+1);
+						
+					}
+//NOT_REACHED();	
+					//word-align 
+					//PANIC here
+					int ii = 0;
+					int k = (size_t)*esp%4;
+					if(k!=0)
+						{
+							*esp-=k;
+							memcpy(*esp,&ii,k);
+						}
+//NOT_REACHED();
+					for(i=argc;i>=0;i--)
+					{
+						*esp-=4;
+						memcpy(*esp,&argv[i],4);
+					}
+//NOT_REACHED();
+					*esp-=4;
+					memcpy(*esp ,&argv,4);
+					*esp-=4;
+					memcpy(*esp,&argc,4);
+//NOT_REACHED();
+					//push return addres
+					i=0;
+					*esp-=4;
+					memcpy(*esp,&ii,4);
+hex_dump((uintptr_t)(PHYS_BASE -150),(void**)(PHYS_BASE - 200),200, true);
+//NOT_REACHED();				
   return success;
 }
 
