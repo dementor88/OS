@@ -9,6 +9,7 @@ struct semaphore
   {
     unsigned value;             /* Current value. */
     struct list waiters;        /* List of waiting threads. */
+		struct list_elem elem;
   };
 
 void sema_init (struct semaphore *, unsigned value);
@@ -22,9 +23,13 @@ struct lock
   {
     struct thread *holder;      /* Thread holding lock (for debugging). */
     struct semaphore semaphore; /* Binary semaphore controlling access. */
+
+		char name[16];
 	int original_priority; 	/** 락이 donation이전에 갖고 있던 기존의 priority -- proj#1*/
 	int donate_count;	/** 락이 지금까지 donation을 받은 횟수 -- proj#1*/
-	//struct list waiting_for_lock;	/**락을 기다리는 대기리스트. 정렬이 되어있어야 함 proj#1*/
+	/**락을 기다리는 대기리스트. 정렬이 되어있어야 함 proj#1*/
+
+	
   };
 
 void lock_init (struct lock *);

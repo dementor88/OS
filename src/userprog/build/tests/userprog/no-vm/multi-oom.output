@@ -1,0 +1,25 @@
+Copying tests/userprog/no-vm/multi-oom into /tmp/j7f72hpA9U.dsk...
+Writing command line to /tmp/Da98jvgRWi.dsk...
+squish-pty bochs -q
+Kernel command line: -q -f put multi-oom run multi-oom
+Pintos booting with 4,096 kB RAM...
+374 pages available in kernel pool.
+373 pages available in user pool.
+Calibrating timer...  102,400 loops/s.
+hd0:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00011"
+hd0:1: detected 4,032 sector (1 MB) disk, model "Generic 1234", serial "BXHD00012"
+hd1:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00021"
+Formatting file system...done.
+Boot complete.
+Putting 'multi-oom' into the file system...
+Executing 'multi-oom':
+Execution of 'multi-oom' complete.
+Timer: 221 ticks
+Thread: 31 idle ticks, 188 kernel ticks, 5 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 64 reads, 178 writes
+hd1:0: 85 reads, 0 writes
+Console: 751 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...

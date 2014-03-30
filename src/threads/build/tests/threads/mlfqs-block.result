@@ -1,9 +1,25 @@
 FAIL
-Kernel panic in run: PANIC at ../../tests/threads/tests.c:62 in run_test(): no test named "mlfqs-block"
-Call stack: 0xc0107456 0xc0109525 0xc010052f 0xc01005f6 0xc010009e
-Translation of call stack:
-0xc0107456: debug_panic (.../../lib/kernel/debug.c:34)
-0xc0109525: run_test (.../tests/threads/tests.c:56)
-0xc010052f: run_task (.../../../threads/init.c:270)
-0xc01005f6: run_actions (.../../../threads/init.c:319)
-0xc010009e: main (.../../../threads/init.c:124)
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (mlfqs-block) begin
+  (mlfqs-block) Main thread acquiring lock.
+  (mlfqs-block) Main thread creating block thread, sleeping 25 seconds...
+  (mlfqs-block) Block thread spinning for 20 seconds...
+  (mlfqs-block) Block thread acquiring lock...
+  (mlfqs-block) Main thread spinning for 5 seconds...
+  (mlfqs-block) Main thread releasing lock.
+  (mlfqs-block) ...got it.
+  (mlfqs-block) Block thread should have already acquired lock.
+  (mlfqs-block) end
+Differences in `diff -u' format:
+  (mlfqs-block) begin
+  (mlfqs-block) Main thread acquiring lock.
+  (mlfqs-block) Main thread creating block thread, sleeping 25 seconds...
+  (mlfqs-block) Block thread spinning for 20 seconds...
+  (mlfqs-block) Block thread acquiring lock...
+  (mlfqs-block) Main thread spinning for 5 seconds...
+  (mlfqs-block) Main thread releasing lock.
+- (mlfqs-block) ...got it.
+  (mlfqs-block) Block thread should have already acquired lock.
+  (mlfqs-block) end

@@ -91,14 +91,12 @@ thread_init (void)
 
   lock_init (&tid_lock);
   list_init (&ready_list);
-
+	
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
   init_thread (initial_thread, "main", PRI_DEFAULT);
   initial_thread->status = THREAD_RUNNING;
   initial_thread->tid = allocate_tid ();
-  /** proj#1 */
-  //acquired_lock=0;
 }
 
 /** 높은 순위를 고르기위한 list_less_func 구현 proj#1 */
@@ -184,7 +182,7 @@ thread_create (const char *name, int priority,
   tid_t tid;
 
   ASSERT (function != NULL);
-
+	
   /* Allocate thread. */
   t = palloc_get_page (PAL_ZERO);
   if (t == NULL)
@@ -212,6 +210,7 @@ thread_create (const char *name, int priority,
   thread_unblock (t);
   
 	 /** 쓰레드 언블럭과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
+	 
 	if(t->priority > thread_current()->priority){ 
           thread_yield();
 	}	
@@ -253,7 +252,6 @@ thread_unblock (struct thread *t)
   old_level = intr_disable ();
   ASSERT (t->status == THREAD_BLOCKED);
   list_push_back (&ready_list, &t->elem);
-  //list_insert_ordered(&ready_list, &t->elem, high_thread_priority, NULL);
   t->status = THREAD_READY;
  
   /** 쓰레드 생성과 함께 순위를 체크하여 더 높은 것에게 양보!!!! 
@@ -339,28 +337,19 @@ thread_yield (void)
 void
 thread_set_priority (int new_priority) 
 {
-/** proj#1 쓰레기....젠장. 스레드에 lock을 저장하는 거 포기!!!
-  msg("checking current thread %d",thread_current()->tid);	
-  if(thread_current()->acquired_lock!=NULL){
-	msg("RECOGNIZED******** acquired_lock inside thread....");
-	thread_current()->acquired_lock->original_priority = new_priority;
-  }else
-	msg("NO**** acquired lock in thread %d",thread_current()->tid);
-*/
+
 	if(thread_current()->original_locked_priority == 0){
 		thread_current ()->priority = new_priority;
 	}
 	else{
 		thread_current()->original_locked_priority = new_priority;
 	}
-  
+  	thread_current()->original_reference_priority = new_priority;
   /**priority-change 구현을 위해 priority 수정 시에도 priority 검사 및 교체 proj#1
   ready_list가 비어있는 경우를 감안하고, sort는....이미 된것 같다*/
   if(list_size(&ready_list)!=0){
-	  //list_sort(&ready_list, high_thread_priority, NULL);
 	  struct list_elem *another_thread = list_front(&ready_list);
 	  struct thread *t = list_entry(another_thread, struct thread, elem);
-	  //printf("%d ? %d ...%d",new_priority, t->priority, list_size(&ready_list));
 	  if(t->priority > thread_current()->priority){ 
 			  thread_yield();
 		}
@@ -491,6 +480,8 @@ init_thread (struct thread *t, const char *name, int priority)
   t->priority = priority;
   t->magic = THREAD_MAGIC;
   t->original_locked_priority = 0;
+	t->original_reference_priority = priority;
+	t->swap_priority_count = 0;
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and
@@ -519,10 +510,8 @@ next_thread_to_run (void)
   if (list_empty (&ready_list))
     return idle_thread;
   else{		
-	//struct list_elem* e = list_pop_max (&ready_list, high_thread_priority, NULL);	//priority-sema와 꼬이는 것 같다....
-    //return list_entry (e, struct thread, elem);
-	list_sort(&ready_list, high_thread_priority, NULL);
-	return list_entry (list_pop_front (&ready_list), struct thread, elem);
+		list_sort(&ready_list, high_thread_priority, NULL);
+		return list_entry (list_pop_front (&ready_list), struct thread, elem);
   }
 }
 

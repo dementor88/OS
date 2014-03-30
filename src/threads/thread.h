@@ -80,6 +80,7 @@ typedef int tid_t;
    only because they are mutually exclusive: only a thread in the
    ready state is on the run queue, whereas only a thread in the
    blocked state is on a semaphore wait list. */
+
 struct thread
   {
     /* Owned by thread.c. */
@@ -103,12 +104,14 @@ struct thread
 	/** Busy-Waiting 제거 -- Proj#1 */
 	int64_t sleep_ticks;			/* 수면리스트에서 남아있는 수면시간이 얼마인지 가리킴 */
 	
-	/** 스레드가 어떤 lock을 쥐거나 기다리고 있는지  확인 -- Proj#1 */
-	//struct lock *acquired_lock;	
-	//struct lock *waiting_lock;	
+	
+	/** 스레드에 lock 관련 변수 저장 -- Proj#1 */
 	int original_locked_priority;	//priority-donate-lower
 	struct thread *lock_holder_thread;	//priority-donate-nest..?
-  };
+	int original_reference_priority; //priority-donate-multiple2
+	int swap_priority_count; //priority-donate-mul2
+};
+
 
 /* If false (default), use round-robin scheduler.
    If true, use multi-level feedback queue scheduler.

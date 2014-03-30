@@ -1,0 +1,25 @@
+Copying tests/userprog/create-empty into /tmp/3pCHcjI9Cj.dsk...
+Writing command line to /tmp/bcpmzigaO2.dsk...
+squish-pty bochs -q
+Kernel command line: -q -f put create-empty run create-empty
+Pintos booting with 4,096 kB RAM...
+374 pages available in kernel pool.
+373 pages available in user pool.
+Calibrating timer...  102,400 loops/s.
+hd0:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00011"
+hd0:1: detected 4,032 sector (1 MB) disk, model "Generic 1234", serial "BXHD00012"
+hd1:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00021"
+Formatting file system...done.
+Boot complete.
+Putting 'create-empty' into the file system...
+Executing 'create-empty':
+Execution of 'create-empty' complete.
+Timer: 211 ticks
+Thread: 31 idle ticks, 182 kernel ticks, 5 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 58 reads, 154 writes
+hd1:0: 73 reads, 0 writes
+Console: 766 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...

@@ -32,6 +32,7 @@
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 
+
 /* Initializes semaphore SEMA to VALUE.  A semaphore is a
    nonnegative integer along with two atomic operators for
    manipulating it:
@@ -58,6 +59,13 @@ static bool high_sema_priority(const struct list_elem *a, const struct list_elem
 	else	
 		return false;
 }
+
+static inline bool
+is_tail2 (struct list_elem *elem)
+{
+  return elem != NULL && elem->prev != NULL && elem->next == NULL;
+}
+
 /**proj#1*/
 /* Down or "P" operation on a semaphore.  Waits for SEMA's value
    to become positive and then atomically decrements it.
@@ -78,8 +86,7 @@ sema_down (struct semaphore *sema)
   old_level = intr_disable ();
   while (sema->value == 0) 
     {
-      //list_push_back(&sema->waiters, &thread_current()->elem);
-	  list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
+		  list_insert_ordered(&sema->waiters, &thread_current()->elem, high_sema_priority, NULL);
       thread_block ();
     }
   sema->value--;
@@ -127,9 +134,11 @@ sema_up (struct semaphore *sema)
   old_level = intr_disable ();
   
   sema->value++;
-  
+
   if (!list_empty (&sema->waiters)) {
 	list_sort(&sema->waiters, high_sema_priority, NULL);
+		//if (!list_empty (&current_thread()->locking_list))
+		//	list_remove(&sema->elem);
     thread_unblock (list_entry (list_pop_front (&sema->waiters),
                                 struct thread, elem));	
 	}
@@ -197,12 +206,16 @@ lock_init (struct lock *lock)
   lock->holder = NULL;
   sema_init (&lock->semaphore, 1);
   lock->donate_count = 0;
-  
 }
 
 void lock_chain_donation(struct thread *t, int donated_priority){
 	if(t->lock_holder_thread!=NULL){
-		t->lock_holder_thread->priority = donated_priority;
+		if(t->lock_holder_thread->priority > donated_priority)
+			;
+		else{
+			t->lock_holder_thread->priority = donated_priority;
+			t->swap_priority_count++;
+			}
 		lock_chain_donation(t->lock_holder_thread, donated_priority);
 	}	
 }
@@ -235,15 +248,8 @@ lock_acquire (struct lock *lock)
 			
 			lock_chain_donation(t, thread_current()->priority);
 			
-			lock->donate_count++;			
-			//msg("acq : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count);
-			
-			/** proj#1 쓰레기....젠장. 스레드에 lock을 저장하는 거 포기!!!
-			//thread_current()->waiting_lock = lock;	
-			//t->acquired_lock = lock;
-			//if(t->acquired_lock!=NULL)
-			//msg("save acquired_lock into thread  %d, %d", t->tid, thread_current()->tid);
-			*/
+			lock->donate_count++;
+			t->swap_priority_count++;
 		}	
 	}
 	sema_down (&lock->semaphore); 	//솔직히 이녀석 뭔놈인지 이해가 안된다....
@@ -277,24 +283,36 @@ lock_try_acquire (struct lock *lock)
    make sense to try to release a lock within an interrupt
    handler. */
 /**proj#1*/
+/*static inline bool
+is_tail2 (struct list_elem *elem)
+{
+	return elem != NULL && elem->prev != NULL && elem->next == NULL;
+}
+*/
+
 void
 lock_release (struct lock *lock) 
 {
   ASSERT (lock != NULL);
   ASSERT (lock_held_by_current_thread (lock));
   struct thread *t = lock->holder;
-  if(lock->donate_count!=0){
-	if(t->original_locked_priority != lock->original_priority && t->original_locked_priority != 0){
-		t->priority = t->original_locked_priority;
-	}else{
-		t->priority = lock->original_priority;
-	}
-	lock->donate_count=0;
-	t->original_locked_priority = 0;
-	lock->original_priority=0;
+  if(lock->donate_count>0){
+		if(t->original_locked_priority > lock->original_priority){
+			;
+		}
+		else if(t->original_locked_priority != lock->original_priority && t->original_locked_priority ){
+			t->priority = t->original_locked_priority;
+		}else{
+			t->priority = lock->original_priority;
+		}
+		t->swap_priority_count--;
+		if(t->swap_priority_count == 0 && t->priority != t->original_reference_priority)
+			t->priority = t->original_reference_priority;
+		lock->donate_count = 0;
+		t->original_locked_priority =0;
+		lock->original_priority = 0;
   }
-  //msg("!!!!rel : %d  %d  %d  %d",t->priority,thread_current()->priority, lock->original_priority, lock->donate_count); 
-  lock->holder = NULL;  
+  lock->holder = NULL; 
   sema_up (&lock->semaphore);
 }
 

@@ -1,0 +1,25 @@
+Copying tests/userprog/args-many into /tmp/WoOOZ9QYT2.dsk...
+Writing command line to /tmp/dfKHhrCEfj.dsk...
+squish-pty bochs -q
+Kernel command line: -q -f put args-many run 'args-many a b c d e f g h i j k l m n o p q r s t u v'
+Pintos booting with 4,096 kB RAM...
+374 pages available in kernel pool.
+373 pages available in user pool.
+Calibrating timer...  102,400 loops/s.
+hd0:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00011"
+hd0:1: detected 4,032 sector (1 MB) disk, model "Generic 1234", serial "BXHD00012"
+hd1:0: detected 1,008 sector (504 kB) disk, model "Generic 1234", serial "BXHD00021"
+Formatting file system...done.
+Boot complete.
+Putting 'args-many' into the file system...
+Executing 'args-many a b c d e f g h i j k l m n o p q r s t u v':
+Execution of 'args-many a b c d e f g h i j k l m n o p q r s t u v' complete.
+Timer: 233 ticks
+Thread: 31 idle ticks, 209 kernel ticks, 0 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 43 reads, 152 writes
+hd1:0: 72 reads, 0 writes
+Console: 885 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...
