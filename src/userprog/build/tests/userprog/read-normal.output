@@ -1,11 +1,11 @@
-Copying tests/userprog/read-normal into /tmp/LnscJFmVFC.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/LnscJFmVFC.dsk...
-Writing command line to /tmp/G6bG2swR7m.dsk...
-qemu -hda /tmp/G6bG2swR7m.dsk -hdb /tmp/vlMeVJWKEd.dsk -hdc /tmp/LnscJFmVFC.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/read-normal into /tmp/5iTVpPXtQ4.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/5iTVpPXtQ4.dsk...
+Writing command line to /tmp/vmGdk33FD7.dsk...
+qemu -hda /tmp/vmGdk33FD7.dsk -hdb /tmp/7EAqDLpN7q.dsk -hdc /tmp/5iTVpPXtQ4.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put read-normal put sample.txt run read-normal
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-374 pages available in user pool.
+373 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -15,13 +15,19 @@ Boot complete.
 Putting 'read-normal' into the file system...
 Putting 'sample.txt' into the file system...
 Executing 'read-normal':
+(read-normal) begin
+(read-normal) open "sample.txt" for verification
+(read-normal) verified contents of "sample.txt"
+(read-normal) close "sample.txt"
+(read-normal) end
+read-normal: exit(0)
 Execution of 'read-normal' complete.
-Timer: 61 ticks
-Thread: 0 idle ticks, 61 kernel ticks, 0 user ticks
+Timer: 63 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 57 reads, 162 writes
+hd0:1: 99 reads, 162 writes
 hd1:0: 76 reads, 0 writes
-Console: 811 characters output
+Console: 1001 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

@@ -1,10 +1,2 @@
 FAIL
-Kernel panic in run: PANIC at ../../lib/string.c:13 in memcpy(): assertion `src != NULL || size == 0' failed.
-Call stack: 0xc01072e6 0xc010674c 0xc0109bac 0xc0109863 0xc0109491 0xc0100da4
-Translation of call stack:
-0xc01072e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010674c: memcpy (...ild/../../lib/string.c:16)
-0xc0109bac: setup_stack (...../userprog/process.c:511)
-0xc0109863: load (...../userprog/process.c:332)
-0xc0109491: start_process (.../../userprog/process.c:68)
-0xc0100da4: kernel_thread (..../../threads/thread.c:466)
+run: TIMEOUT after 361 seconds of wall-clock time - load average: 0.99, 0.85, 0.77

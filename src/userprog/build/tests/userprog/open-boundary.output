@@ -1,11 +1,11 @@
-Copying tests/userprog/open-boundary into /tmp/EOgw8CIp27.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/EOgw8CIp27.dsk...
-Writing command line to /tmp/oGqMUqQEJU.dsk...
-qemu -hda /tmp/oGqMUqQEJU.dsk -hdb /tmp/6cnz7NgJAP.dsk -hdc /tmp/EOgw8CIp27.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/open-boundary into /tmp/iq6uFS4muF.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/iq6uFS4muF.dsk...
+Writing command line to /tmp/5fs8Eqbwx8.dsk...
+qemu -hda /tmp/5fs8Eqbwx8.dsk -hdb /tmp/HYkkeEe59Z.dsk -hdc /tmp/iq6uFS4muF.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put open-boundary put sample.txt run open-boundary
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-374 pages available in user pool.
+373 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -15,25 +15,17 @@ Boot complete.
 Putting 'open-boundary' into the file system...
 Putting 'sample.txt' into the file system...
 Executing 'open-boundary':
+(open-boundary) begin
+(open-boundary) open "sample.txt"
+(open-boundary) end
+open-boundary: exit(0)
 Execution of 'open-boundary' complete.
-Timer: 61 ticks
-Thread: 0 idle ticks, 61 kernel ticks, 0 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 57 reads, 164 writes
-hd1:0: 77 reads, 0 writes
-Console: 821 characters output
-Keyboard: 0 keys pressed
-Kernel PANIC at ../../lib/string.c:13 in memcpy(): assertion `src != NULL || size == 0' failed.
-Call stack: 0xc01072e6 0xc010674c 0xc0109bac 0xc0109863 0xc0109491 0xc0100da4.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
 Timer: 62 ticks
-Thread: 0 idle ticks, 62 kernel ticks, 0 user ticks
+Thread: 30 idle ticks, 32 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 86 reads, 164 writes
+hd0:1: 92 reads, 164 writes
 hd1:0: 77 reads, 0 writes
-Console: 1353 characters output
+Console: 921 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

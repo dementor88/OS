@@ -1,11 +1,11 @@
-Copying tests/filesys/base/syn-read into /tmp/w7apk8zPiL.dsk...
-Copying tests/filesys/base/child-syn-read into /tmp/w7apk8zPiL.dsk...
-Writing command line to /tmp/SpxCFzPeJi.dsk...
-qemu -hda /tmp/SpxCFzPeJi.dsk -hdb /tmp/6jExDqt5pE.dsk -hdc /tmp/w7apk8zPiL.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/syn-read into /tmp/T6mxyQZ9Tv.dsk...
+Copying tests/filesys/base/child-syn-read into /tmp/T6mxyQZ9Tv.dsk...
+Writing command line to /tmp/P0S4irS9BY.dsk...
+qemu -hda /tmp/P0S4irS9BY.dsk -hdb /tmp/7F46OgrXa8.dsk -hdc /tmp/T6mxyQZ9Tv.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put syn-read put child-syn-read run syn-read
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-374 pages available in user pool.
+373 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -15,13 +15,40 @@ Boot complete.
 Putting 'syn-read' into the file system...
 Putting 'child-syn-read' into the file system...
 Executing 'syn-read':
-Execution of 'syn-read' complete.
-Timer: 70 ticks
-Thread: 0 idle ticks, 70 kernel ticks, 0 user ticks
+(syn-read) begin
+(syn-read) create "data"
+(syn-read) open "data"
+(syn-read) write "data"
+(syn-read) close "data"
+(syn-read) exec child 1 of 10: "child-syn-read 0"
+(syn-read) exec child 2 of 10: "child-syn-read 1"
+(syn-read) exec child 3 of 10: "child-syn-read 2"
+(syn-read) exec child 4 of 10: "child-syn-read 3"
+(syn-read) exec child 5 of 10: "child-syn-read 4"
+(syn-read) exec child 6 of 10: "child-syn-read 5"
+(syn-read) exec child 7 of 10: "child-syn-read 6"
+(syn-read) exec child 8 of 10: "child-syn-read 7"
+(syn-read) exec child 9 of 10: "child-syn-read 8"
+(syn-read) exec child 10 of 10: "child-syn-read 9"
+child-syn-read: exit(0)
+load: child-syn-read: open failed
+Page fault at 0xffffffef: not present error writing page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0106a66
+ cr2=ffffffef error=00000002
+ eax=00000063 ebx=c0124001 ecx=0000000d edx=c0124001
+ esi=ffffffef edi=ffffffef esp=c011806c ebp=c012bf00
+ cs=0008 ds=0010 es=0010 ss=0000
+Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc01075f6 0xc010ad0f 0xc010adc9 0xc0101835 0xc0101a0b 0xc0106a66 0xc0107136 0xc01099d7 0xc0100de0.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Timer: 79 ticks
+Thread: 30 idle ticks, 41 kernel ticks, 8 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 57 reads, 332 writes
+hd0:1: 2134 reads, 340 writes
 hd1:0: 161 reads, 0 writes
-Console: 806 characters output
+Console: 2119 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...

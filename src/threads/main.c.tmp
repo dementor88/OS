@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include "fixed-point.h"
+
+void main()
+{
+	int x=19;
+	int y=10;
+
+	printf("1: %x\n", REAL(1));
+
+	printf("x: %x, itr: %x, rti:%x\n", x, int_to_real(x), real_to_int_rtz(int_to_real(x)));
+	printf("y: %x, itr: %x, rti:%x\n", y, int_to_real(y), real_to_int_rtz(int_to_real(y)));
+	printf("x+y = %x (%x)\n", add(int_to_real(x), int_to_real(y)), (x + y) << 14);
+	printf("x-y = %x (%x)\n", sub(int_to_real(x), int_to_real(y)), (x - y) << 14);
+	printf("x*y = %x (%x)\n", mul(int_to_real(x), int_to_real(y)), (x * y) << 14);
+	printf("x/y = %x (%x)\n", div(REAL(x), REAL(y)), (x/y) << 14);
+	printf("(int)x/y = %d (%d)\n", real_to_int_rtz(div(int_to_real(x), int_to_real(y))), x / y);
+	
+	pq_real num;
+
+	num = mul(div(REAL(59) , REAL(60)), div(REAL(59), REAL(60)));
+
+	printf("NUM: %x (%x)\n", num, REAL(6));
+	printf("59 (%x) / 60 (%x) = %x :: frac(%x)\n", REAL(59), REAL(60), div(REAL(59), REAL(60)), div(REAL(59), REAL(60) * 100));
+	printf("\n%d\n", fraction(num));
+	printf("\n%d\n", 1 << (Q-1));
+}

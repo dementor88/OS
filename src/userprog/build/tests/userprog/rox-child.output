@@ -1,11 +1,11 @@
-Copying tests/userprog/rox-child into /tmp/kwOBYWIurk.dsk...
-Copying tests/userprog/child-rox into /tmp/kwOBYWIurk.dsk...
-Writing command line to /tmp/SAj3IVd3Vm.dsk...
-qemu -hda /tmp/SAj3IVd3Vm.dsk -hdb /tmp/IOJFIIcS4a.dsk -hdc /tmp/kwOBYWIurk.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/rox-child into /tmp/j2rg32Bii8.dsk...
+Copying tests/userprog/child-rox into /tmp/j2rg32Bii8.dsk...
+Writing command line to /tmp/4Y4gcGUzI3.dsk...
+qemu -hda /tmp/4Y4gcGUzI3.dsk -hdb /tmp/RZVTQWJ5ob.dsk -hdc /tmp/j2rg32Bii8.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put rox-child put child-rox run rox-child
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-374 pages available in user pool.
+373 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -15,20 +15,26 @@ Boot complete.
 Putting 'rox-child' into the file system...
 Putting 'child-rox' into the file system...
 Executing 'rox-child':
+(rox-child) begin
+(rox-child) open "child-rox"
+(rox-child) read "child-rox"
+(rox-child) write "child-rox"
+(rox-child) exec "child-rox 1"
+(child-rox) begin
+(child-rox) try to write "child-rox"
+(child-rox) try to write "child-rox"
+(child-rox) end
+child-rox: exit(12)
+(rox-child) write "child-rox"
+(rox-child) write "child-rox": FAILED
+rox-child: exit(1)
 Execution of 'rox-child' complete.
-Timer: 69 ticks
-Thread: 0 idle ticks, 69 kernel ticks, 0 user ticks
-Kernel PANIC at ../../lib/string.c:13 in memcpy(): assertion `src != NULL || size == 0' failed.
-Call stack: 0xc01072e6 0xc010674c 0xc0109bac 0xc0109863 0xc0109491 0xc0100da4.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 70 ticks
-Thread: 0 idle ticks, 70 kernel ticks, 0 user ticks
+Timer: 71 ticks
+Thread: 30 idle ticks, 42 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 86 reads, 322 writes
+hd0:1: 136 reads, 323 writes
 hd1:0: 156 reads, 0 writes
-Console: 1198 characters output
+Console: 1155 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

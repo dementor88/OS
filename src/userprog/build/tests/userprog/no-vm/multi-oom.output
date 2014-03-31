@@ -1,10 +1,10 @@
-Copying tests/userprog/no-vm/multi-oom into /tmp/iNsqggDpkZ.dsk...
-Writing command line to /tmp/t9sUrbL0m1.dsk...
-qemu -hda /tmp/t9sUrbL0m1.dsk -hdb /tmp/QBwjDkCWf4.dsk -hdc /tmp/iNsqggDpkZ.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/no-vm/multi-oom into /tmp/SQBFLSflc1.dsk...
+Writing command line to /tmp/bLfilY0IS0.dsk...
+qemu -hda /tmp/bLfilY0IS0.dsk -hdb /tmp/pxf1vJIizR.dsk -hdc /tmp/SQBFLSflc1.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put multi-oom run multi-oom
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-374 pages available in user pool.
+373 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -13,17 +13,17 @@ Formatting file system...done.
 Boot complete.
 Putting 'multi-oom' into the file system...
 Executing 'multi-oom':
-Execution of 'multi-oKernel PANIC at ../../lib/string.c:13 in memcpy(): assertion `src != NULL || size == 0' failed.
-Call stack: 0xc01072e6 0xc010674c 0xc0109bac 0xc0109863 0xc0109491 0xc0100da4.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 62 ticks
-Thread: 0 idle ticks, 62 kernel ticks, 0 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 65 reads, 178 writes
-hd1:0: 85 reads, 0 writes
-Console: 1056 characters output
-Keyboard: 0 keys pressed
-Exception: 0 page faults
-Powering off...
+(multi-oom) begin
+multi-oom: exit(-1)
+multi-oom: exit(-1)
+multi-oom: exit(-1)
+multi-oom: exit(-1)
+Page fault at 0xc0000000: rights violation error reading page in user context.
+multi-oom 21 -k: dying due to interrupt 0x0e (#PF Page-Fault Exception).
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x804817e
+ cr2=c0000000 error=00000005
+ eax=00000002 ebx=c0000000 ecx=a73db9f4 edx=a73db9f2
+ esi=c0000000 edi=0804ac43 esp=bfffff60 ebp=bfffff78
+ cs=001b ds=0023 es=0023 ss=0023
+
+TIMEOUT after 361 seconds of wall-clock time - load average: 0.99, 0.85, 0.77

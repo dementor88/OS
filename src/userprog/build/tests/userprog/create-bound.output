@@ -1,10 +1,10 @@
-Copying tests/userprog/create-bound into /tmp/9DkvmiRtzP.dsk...
-Writing command line to /tmp/CHJdhU3Mrv.dsk...
-qemu -hda /tmp/CHJdhU3Mrv.dsk -hdb /tmp/HE0U67afYs.dsk -hdc /tmp/9DkvmiRtzP.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/create-bound into /tmp/IKIDBMRM98.dsk...
+Writing command line to /tmp/jGnT3rkGfM.dsk...
+qemu -hda /tmp/jGnT3rkGfM.dsk -hdb /tmp/Jsue6CynbY.dsk -hdc /tmp/IKIDBMRM98.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put create-bound run create-bound
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-374 pages available in user pool.
+373 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -13,13 +13,17 @@ Formatting file system...done.
 Boot complete.
 Putting 'create-bound' into the file system...
 Executing 'create-bound':
+(create-bound) begin
+(create-bound) create("quux.dat"): 1
+(create-bound) end
+create-bound: exit(0)
 Execution of 'create-bound' complete.
-Timer: 60 ticks
-Thread: 0 idle ticks, 60 kernel ticks, 0 user ticks
+Timer: 62 ticks
+Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 30 reads, 158 writes
+hd0:1: 83 reads, 162 writes
 hd1:0: 75 reads, 0 writes
-Console: 756 characters output
+Console: 856 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

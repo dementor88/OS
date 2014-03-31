@@ -18,6 +18,22 @@
 #include "threads/thread.h"
 #include "threads/vaddr.h"
 
+struct p_relation
+{
+  tid_t parent_tid;
+  tid_t child_tid;
+  bool waiting;
+  struct list_elem elem;
+};
+
+struct p_waiter
+{
+  tid_t child_tid;    /* pid of process that waiter waits */
+  struct thread *t;   /* kernel thread of waiting thread */
+  int status;
+  struct list_elem elem;
+};
+
 static thread_func start_process NO_RETURN;
 static bool load (const char *cmdline, void (**eip) (void), void **esp);
 
@@ -31,9 +47,6 @@ process_execute (const char *file_name)
   char *fn_copy;
   tid_t tid;
 
-
-
-
   /* Make a copy of FILE_NAME.
      Otherwise there's a race between the caller and load(). */
   fn_copy = palloc_get_page (0);
@@ -41,13 +54,17 @@ process_execute (const char *file_name)
     return TID_ERROR;
   strlcpy (fn_copy, file_name, PGSIZE);
 
-char* i;
-file_name = strtok_r((char *)file_name, " ",&i);
   /* Create a new thread to execute FILE_NAME. */
   tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
-  if (tid == TID_ERROR)
-    palloc_free_page (fn_copy);
-
+	if (tid == TID_ERROR)
+		palloc_free_page (fn_copy); 
+	else{
+		struct p_relation *p_rel = palloc_get_page (0);
+		p_rel->parent_tid = thread_tid();
+		p_rel->child_tid = tid;
+		p_rel->waiting = false;
+		list_push_back(&p_relation_list, &p_rel->elem);
+	}
   return tid;
 }
 
@@ -59,16 +76,72 @@ start_process (void *f_name)
   char *file_name = f_name;
   struct intr_frame if_;
   bool success;
+  /*****************proj#2*/
+	char s[] = "";
+	char *command_line, *token, *save_ptr;
+	int argc = 0, bytes = 0;
+	struct file *f;
+	
+	/* copy command_line */
+	command_line = palloc_get_page(0);
+	strlcpy(command_line, file_name, PGSIZE);
 
+	/* Argument parsing */
+	strlcpy(s, file_name, strlen(file_name)+1);
+	for( token = strtok_r(s, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){
+		if (argc == 0)
+			strlcpy(file_name, token, strlen(token)+1);
+		bytes = bytes+strlen(token)+1;
+		argc++;
+	}
+	/*****************/
+	
   /* Initialize interrupt frame and load executable. */
   memset (&if_, 0, sizeof if_);
   if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;
   if_.cs = SEL_UCSEG;
   if_.eflags = FLAG_IF | FLAG_MBS;
-  success = load (file_name, &if_.eip, &if_.esp);
-//NOT_REACHED();
+	/*****************proj#2*/
+	// write protection
+	f = filesys_open(file_name);
+	//thread_current()->excuted_file = f;
+	if (f != NULL){
+		file_deny_write(f);
+	}
+	success = load (file_name, &if_.eip, &if_.esp);
+	
+	/* Argument passing */
+	void *esp_start;
+	int i = 0;
+	int word_align = (bytes%4 == 0) ? 0 : 4-(bytes%4);
+	if_.esp = if_.esp - bytes;
+	esp_start = if_.esp - word_align - 4*(argc+1);
+
+	for(token = strtok_r(command_line, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){	 	  
+	  /* push argument */
+	  strlcpy((char *)if_.esp, token, strlen(token)+1);
+	  /* push address */
+	  *(unsigned int *)(esp_start + 4*i++) = (unsigned int)if_.esp;
+	  if_.esp = if_.esp + strlen(token) + 1;
+	  *(char *)if_.esp = '\0';			  
+	}
+	/* push addr. of argv */
+	if_.esp = esp_start-4;
+	*(unsigned int *)if_.esp = (unsigned int)(if_.esp+4);
+
+	/* push argc */
+	if_.esp = esp_start-8;
+	*(int *)if_.esp = argc;
+
+	/* push return addr. */
+	if_.esp = esp_start-12;
+	*(int *)if_.esp = 0;
+	/*****************proj#2*/
+  //success = load (file_name, &if_.eip, &if_.esp);
+
   /* If load failed, quit. */
   palloc_free_page (file_name);
+   palloc_free_page (command_line);/*****************proj#2*/
   if (!success) 
     thread_exit ();
 
@@ -94,11 +167,32 @@ start_process (void *f_name)
 int
 process_wait (tid_t child_tid UNUSED) 
 {
-/*	while(true){
-		asm volatile ("" : : : "memory");
-	}
-*/
-  return -1;
+  //return -1;
+  /*****************proj#2*/
+  bool can_wait = false;
+  struct list_elem *e;
+  for (e = list_begin (&p_relation_list); e != list_end (&p_relation_list); e = list_next(e)){
+    struct p_relation *r = list_entry (e, struct p_relation, elem);
+    if (r->parent_tid == thread_tid() && r->child_tid == child_tid && r->waiting == false){
+      r->waiting = true;
+      can_wait = true;
+    }
+  }
+  if (!can_wait)
+    return -1;
+
+  enum intr_level old_level;
+  old_level = intr_disable ();
+
+  struct p_waiter *w = palloc_get_page(0);
+  w->child_tid = child_tid;
+  w->t = thread_current();
+  list_push_back (&p_waiting_list, &w->elem);
+  thread_block ();
+  
+  intr_set_level (old_level);
+  return w->status;
+  /*****************proj#2*/
 }
 
 /* Free the current process's resources. */
@@ -124,6 +218,17 @@ process_exit (void)
       pagedir_activate (NULL);
       pagedir_destroy (pd);
     }
+	
+	/*****************proj#2*/
+	//release fdtable
+	int i;
+	for(i=2;i<128;i++){
+		if(curr->fdtable[i]!=NULL){
+			file_close(curr->fdtable[i]);
+			curr->fdtable[i]==NULL;
+		}
+	}
+	/*****************proj#2*/
 }
 
 /* Sets up the CPU for running user code in the current
@@ -141,6 +246,31 @@ process_activate (void)
      interrupts. */
   tss_update ();
 }
+
+void
+process_awake_waiter (int status){
+	tid_t tid = thread_tid();
+	struct list_elem *e;
+	// p_relation_list
+	for (e = list_begin (&p_relation_list); e != list_end (&p_relation_list); e = list_next(e)){
+		struct p_relation *r = list_entry (e, struct p_relation, elem);
+		if (r->child_tid == tid){
+			list_remove (e);
+			break;
+		}
+	}
+	// awake parent
+	// p_waiting_list
+	for (e = list_begin (&p_waiting_list); e != list_end (&p_waiting_list); e = list_next(e)){
+		struct p_waiter *w = list_entry (e, struct p_waiter, elem);
+		if (w->child_tid == tid){
+			w->status = status;
+			e = list_prev (list_remove (e));
+			thread_unblock (w->t);
+		}
+	}
+}
+
 
 /* We load ELF binaries.  The following definitions are taken
    from the ELF specification, [ELF1], more-or-less verbatim.  */
@@ -205,7 +335,7 @@ struct Elf32_Phdr
 #define PF_W 2          /* Writable. */
 #define PF_R 4          /* Readable. */
 
-static bool setup_stack (void **esp, int argc, char **argv);
+static bool setup_stack (void **esp);
 static bool validate_segment (const struct Elf32_Phdr *, struct file *);
 static bool load_segment (struct file *file, off_t ofs, uint8_t *upage,
                           uint32_t read_bytes, uint32_t zero_bytes,
@@ -225,24 +355,6 @@ load (const char *file_name, void (**eip) (void), void **esp)
   bool success = false;
   int i;
 
-	/*argument parsing*/
-	char *token, *save_ptr;
-	int argc = 0;
-	
-	//figure out argc (waste of cpu)
-	for ( token = strtok_r(file_name, " ", &save_ptr); token !=NULL;
-				token = strtok_r(NULL, " ", &save_ptr))
-				argc++;
-	char *argv[argc+1];
-	//argv
-	for ( i = 0, token = strtok_r(file_name, " ", &save_ptr); token !=NULL;
-				i++  , token = strtok_r(NULL, " ", &save_ptr))
-		{
-				argv[i]=token;
-				printf("%s\n",token);
-		}
-	argv[argc] = '0';
-
   /* Allocate and activate page directory. */
   t->pagedir = pagedir_create ();
   if (t->pagedir == NULL) 
@@ -250,7 +362,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
   process_activate ();
 
   /* Open executable file. */
-  file = filesys_open (argv[0]/*file_name*/);
+  file = filesys_open (file_name);
   if (file == NULL) 
     {
       printf ("load: %s: open failed\n", file_name);
@@ -330,7 +442,7 @@ load (const char *file_name, void (**eip) (void), void **esp)
     }
 
   /* Set up stack. */
-  if (!setup_stack (esp, argc, argv))
+  if (!setup_stack (esp))
     goto done;
 
   /* Start address. */
@@ -455,7 +567,7 @@ load_segment (struct file *file, off_t ofs, uint8_t *upage,
 /* Create a minimal stack by mapping a zeroed page at the top of
    user virtual memory. */
 static bool
-setup_stack (void **esp, int argc, char **argv) 
+setup_stack (void **esp) 
 {
   uint8_t *kpage;
   bool success = false;
@@ -465,76 +577,10 @@ setup_stack (void **esp, int argc, char **argv)
     {
       success = install_page (((uint8_t *) PHYS_BASE) - PGSIZE, kpage, true);
       if (success)
-				{
-					*esp = PHYS_BASE;
-/*					int i = argc-1;
-					//push argv[i] to the stack in reverse order
-					for(;i>=0;i--)
-					{
-						*esp-=4;
-						memcpy(*esp, argv[i],4);
-					}
-					//word-align
-					*esp-=1;
-					memcpy(*esp ,(uint8_t) 0, 1);
-					for(i=argc;i>=0;i--)
-					{
-						*esp-=4;
-						memcpy(*esp,&argv[i],4);
-					}
-					*esp-=4;
-					memcpy(*esp ,&argv,4);
-					*esp-=4;
-					memcpy(*esp,&argc,4);
-					//push return addres
-					*esp-=4;
-					memcpy(*esp,0,4);
-//					*esp = PHYS_BASE - 12;*/
-				}
+        *esp = PHYS_BASE;
       else
         palloc_free_page (kpage);
     }
-//NOT_REACHED();
-					//*esp = PHYS_BASE;
-					int i = argc-1;
-					//push argv[i] to the stack in reverse order
-					for(;i>=0;i--)
-					{
-//	NOT_REACHED();
-						*esp-=strlen(argv[i])+1;
-						printf("<>%s\n",argv[i]);
-						NOT_REACHED();
-						memcpy(*esp, argv[i],strlen(argv[i])+1);
-						
-					}
-//NOT_REACHED();	
-					//word-align 
-					//PANIC here
-					int ii = 0;
-					int k = (size_t)*esp%4;
-					if(k!=0)
-						{
-							*esp-=k;
-							memcpy(*esp,&ii,k);
-						}
-//NOT_REACHED();
-					for(i=argc;i>=0;i--)
-					{
-						*esp-=4;
-						memcpy(*esp,&argv[i],4);
-					}
-//NOT_REACHED();
-					*esp-=4;
-					memcpy(*esp ,&argv,4);
-					*esp-=4;
-					memcpy(*esp,&argc,4);
-//NOT_REACHED();
-					//push return addres
-					i=0;
-					*esp-=4;
-					memcpy(*esp,&ii,4);
-hex_dump((uintptr_t)(PHYS_BASE -150),(void**)(PHYS_BASE - 200),200, true);
-//NOT_REACHED();				
   return success;
 }
 

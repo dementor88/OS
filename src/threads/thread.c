@@ -91,7 +91,7 @@ thread_init (void)
 
   lock_init (&tid_lock);
   list_init (&ready_list);
-
+	
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
   init_thread (initial_thread, "main", PRI_DEFAULT);
@@ -99,11 +99,25 @@ thread_init (void)
   initial_thread->tid = allocate_tid ();
 }
 
+/** 높은 순위를 고르기위한 list_less_func 구현 proj#1 */
+static bool high_thread_priority(const struct list_elem *a, const struct list_elem *b, void *aux){
+	struct thread *t1 = list_entry(a, struct thread, elem);
+	struct thread *t2 = list_entry(b, struct thread, elem);
+	if(t1->priority > t2->priority)	
+		return true;
+	else	
+		return false;
+}
+
 /* Starts preemptive thread scheduling by enabling interrupts.
    Also creates the idle thread. */
 void
 thread_start (void) 
 {
+#ifdef USERPROG
+  list_init (&p_relation_list);
+  list_init (&p_waiting_list);
+#endif
   /* Create the idle thread. */
   struct semaphore idle_started;
   sema_init (&idle_started, 0);
@@ -172,7 +186,7 @@ thread_create (const char *name, int priority,
   tid_t tid;
 
   ASSERT (function != NULL);
-
+	
   /* Allocate thread. */
   t = palloc_get_page (PAL_ZERO);
   if (t == NULL)
@@ -198,13 +212,13 @@ thread_create (const char *name, int priority,
 
   /* Add to run queue. */
   thread_unblock (t);
- 	//printf("%d,  %d,  %d\n",t->tid, running_thread()->tid, thread_current()->tid);
- // if(!list_empty(&ready_list) && t->priority <\
-				list_entry(list_max(&ready_list,list_less,NULL),struct thread, elem)->priority)
   
-	if(priority_passed(NULL)) thread_yield();
- 
-
+	 /** 쓰레드 언블럭과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
+	 
+	if(t->priority > thread_current()->priority){ 
+          thread_yield();
+	}	
+		
   return tid;
 }
 
@@ -243,6 +257,12 @@ thread_unblock (struct thread *t)
   ASSERT (t->status == THREAD_BLOCKED);
   list_push_back (&ready_list, &t->elem);
   t->status = THREAD_READY;
+ 
+  /** 쓰레드 생성과 함께 순위를 체크하여 더 높은 것에게 양보!!!! 
+  또한 idle_thread는 unblock이 불가능하므로 아래와 같이 수정*/
+  if(thread_current() != idle_thread && t->priority > thread_current()->priority) 
+	thread_yield();
+	
   intr_set_level (old_level);
 }
 
@@ -309,74 +329,35 @@ thread_yield (void)
   ASSERT (!intr_context ());
 
   old_level = intr_disable ();
-  if (curr != idle_thread) 
-    list_push_back (&ready_list, &curr->elem);
+  if (curr != idle_thread) { 
+		list_push_back (&ready_list, &curr->elem);
+	}
   curr->status = THREAD_READY;
   schedule ();
   intr_set_level (old_level);
-}
-
-
-static bool
-list_less (const struct list_elem *ina, const struct list_elem *inb,\
-																				void *aux UNUSED)
-{	
-//	struct eval{struct list_elem elem; int eval;};
-
-	const struct thread *outa = list_entry(ina, struct thread, elem);
-	const struct thread *outb = list_entry(inb, struct thread, elem);
-	return outa->priority < outb->priority;
-}
-
-static bool
-priority_passed(struct thread* unused){
-	//struct thread *tmp;
-	int max_priority;
-	//*a = *list_entry(list_max(&ready_list,list_less,NULL),struct thread,elem);
-	max_priority = list_entry(list_max(&ready_list,list_less,NULL),\
-																			struct thread,elem)->priority;
-
-	//printf("  %d compare %d \n  ",thread_get_priority(),max_priority);
-	return thread_get_priority()<max_priority;
 }
 
 /* Sets the current thread's priority to NEW_PRIORITY. */
 void
 thread_set_priority (int new_priority) 
 {
-	//list_max(&ready_list,list_less,NULL);
-	//list_entry(list_head(&ready_list), struct thread, elem);
-  //printf("%d,%d",thread_current()->priority, running_thread()->priority);
-	//struct thread *tmp = list_entry(list_max(&ready_list,list_less,NULL),\
-	//													struct thread, elem);
-	//printf("%d,  %d,  %d", list_entry(list_max(&ready_list,list_less,NULL),\
-	//		struct thread,elem)->priority,tmp->tid, thread_current()->tid);
 
-	thread_current ()->priority = new_priority;
-	//struct thread a;	
-	if(priority_passed(NULL))
-		thread_yield();
-
-		//interrupt
-/*		{
-		printf("\n %d==%d\n",a.tid, thread_current()->tid);
-		   //list_entry(list_front(&ready_list),struct thread, elem)->tid);	
-			struct list_elem *b;
-			b = &a.elem;
-			static void
-			swap (struct list_elem **a, struct list_elem **b)
-			{
-				struct list_elem *t = *a;
-				*a = t;
-				*b = t;
-			}
-			printf("\n %d==%d\n",list_entry(b, struct thread ,elem)->tid, list_entry(list_front(&ready_list),struct thread, elem)->tid);
-			swap(b,list_front(&ready_list));
-			printf("\n %d==%d\n",list_entry(b, struct thread ,elem)->tid,\
-			list_entry(list_front(&ready_list),struct thread, elem)->tid);
-			//list_push_front(&ready_list,a.elem);
+	if(thread_current()->original_locked_priority == 0){
+		thread_current ()->priority = new_priority;
+	}
+	else{
+		thread_current()->original_locked_priority = new_priority;
+	}
+  	thread_current()->original_reference_priority = new_priority;
+  /**priority-change 구현을 위해 priority 수정 시에도 priority 검사 및 교체 proj#1
+  ready_list가 비어있는 경우를 감안하고, sort는....이미 된것 같다*/
+  if(list_size(&ready_list)!=0){
+	  struct list_elem *another_thread = list_front(&ready_list);
+	  struct thread *t = list_entry(another_thread, struct thread, elem);
+	  if(t->priority > thread_current()->priority){ 
+			  thread_yield();
 		}
-	*/
+	}
 }
 
 /* Returns the current thread's priority. */
@@ -502,6 +483,9 @@ init_thread (struct thread *t, const char *name, int priority)
   t->stack = (uint8_t *) t + PGSIZE;
   t->priority = priority;
   t->magic = THREAD_MAGIC;
+  t->original_locked_priority = 0;
+	t->original_reference_priority = priority;
+	t->swap_priority_count = 0;
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and
@@ -517,6 +501,8 @@ alloc_frame (struct thread *t, size_t size)
   return t->stack;
 }
 
+
+/** 단순한 fifo가 아닌 최고순위를 뽑도록 수정 proj#1 */
 /* Chooses and returns the next thread to be scheduled.  Should
    return a thread from the run queue, unless the run queue is
    empty.  (If the running thread can continue running, then it
@@ -527,11 +513,10 @@ next_thread_to_run (void)
 {
   if (list_empty (&ready_list))
     return idle_thread;
-  else
-		//printf("on next_thread_to_run %d\n", list_entry(list_max(&ready_list,list_less,NULL),struct thread,elem)->priority);
-    return list_entry (list_pop_front (&ready_list), struct thread, elem);
-		
-		//return list_entry(list_max(&ready_list,list_less,NULL),struct thread,elem);
+  else{		
+		list_sort(&ready_list, high_thread_priority, NULL);
+		return list_entry (list_pop_front (&ready_list), struct thread, elem);
+  }
 }
 
 /* Completes a thread switch by activating the new thread's page
