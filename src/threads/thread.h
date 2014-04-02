@@ -7,8 +7,8 @@
 
 /*****************proj#2*/
 #ifdef USERPROG
-struct list p_relation_list;
-struct list p_waiting_list;
+struct list parent_child_relation_list;
+struct list parent_thread_waiting_list;
 #endif
 
 
@@ -105,7 +105,7 @@ struct thread
     uint32_t *pagedir;                  /* Page directory. */
 	/*****************proj#2*/
 	struct file *fdtable[128];
-	struct file *excuted_file;
+	//truct file *excuted_file;
 #endif
 
     /* Owned by thread.c. */

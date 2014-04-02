@@ -1,6 +1,6 @@
-Copying tests/userprog/close-bad-fd into /tmp/w2BQZQL3Cb.dsk...
-Writing command line to /tmp/6oZTSowuhS.dsk...
-qemu -hda /tmp/6oZTSowuhS.dsk -hdb /tmp/GAldGGBViF.dsk -hdc /tmp/w2BQZQL3Cb.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/close-bad-fd into /tmp/7Oc4CdlFPB.dsk...
+Writing command line to /tmp/hK4b1zLAl5.dsk...
+qemu -hda /tmp/hK4b1zLAl5.dsk -hdb /tmp/dLaKdENPq7.dsk -hdc /tmp/7Oc4CdlFPB.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put close-bad-fd run close-bad-fd
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -15,20 +15,20 @@ Putting 'close-bad-fd' into the file system...
 Executing 'close-bad-fd':
 (close-bad-fd) begin
 Page fault at 0x405208fc: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b1e1
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b1a1
  cr2=405208fc error=00000000
  eax=c011c000 ebx=c011c000 ecx=bfffff94 edx=c011c000
  esi=20101234 edi=00000000 esp=c0120000 ebp=c011cf54
  cs=0008 ds=0010 es=0010 ss=ff90
 Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075f6 0xc010ad0f 0xc010adc9 0xc0101835 0xc0101a0b 0xc010b1e1 0xc010af26 0xc0101835 0xc0101a0b 0x804a09d 0x80480b2 0x80480e7 0x80486c0.
+Call stack: 0xc01075f6 0xc010accf 0xc010ad89 0xc0101835 0xc0101a0b 0xc010b1a1 0xc010aee6 0xc0101835 0xc0101a0b 0x804a09d 0x80480b2 0x80480e7 0x80486c0.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
 Timer: 61 ticks
 Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 60 reads, 154 writes
+hd0:1: 58 reads, 154 writes
 hd1:0: 73 reads, 0 writes
 Console: 1452 characters output
 Keyboard: 0 keys pressed

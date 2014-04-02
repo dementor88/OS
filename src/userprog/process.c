@@ -18,7 +18,7 @@
 #include "threads/thread.h"
 #include "threads/vaddr.h"
 
-struct p_relation
+struct parent_child_relation
 {
   tid_t parent_tid;
   tid_t child_tid;
@@ -26,7 +26,7 @@ struct p_relation
   struct list_elem elem;
 };
 
-struct p_waiter
+struct parent_thread_waiter
 {
   tid_t child_tid;    /* pid of process that waiter waits */
   struct thread *t;   /* kernel thread of waiting thread */
@@ -53,17 +53,17 @@ process_execute (const char *file_name)
   if (fn_copy == NULL)
     return TID_ERROR;
   strlcpy (fn_copy, file_name, PGSIZE);
-
+	//printf("%s\n",file_name);
   /* Create a new thread to execute FILE_NAME. */
   tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
 	if (tid == TID_ERROR)
 		palloc_free_page (fn_copy); 
 	else{
-		struct p_relation *p_rel = palloc_get_page (0);
-		p_rel->parent_tid = thread_tid();
-		p_rel->child_tid = tid;
-		p_rel->waiting = false;
-		list_push_back(&p_relation_list, &p_rel->elem);
+		struct parent_child_relation *pcr = palloc_get_page (0);
+		pcr->parent_tid = thread_tid();	//current thread tid
+		pcr->child_tid = tid;	//created thread tid
+		pcr->waiting = false;
+		list_push_back(&parent_child_relation_list, &pcr->elem);
 	}
   return tid;
 }
@@ -81,48 +81,56 @@ start_process (void *f_name)
 	char *command_line, *token, *save_ptr;
 	int argc = 0, bytes = 0;
 	struct file *f;
-	
-	/* copy command_line */
+		
 	command_line = palloc_get_page(0);
-	strlcpy(command_line, file_name, PGSIZE);
+	strlcpy(command_line, file_name, PGSIZE);	/* copy filename into command_line */
 
 	/* Argument parsing */
-	strlcpy(s, file_name, strlen(file_name)+1);
+	strlcpy(s, file_name, strlen(file_name)+1);	/* copy filename into string */
 	for( token = strtok_r(s, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){
 		if (argc == 0)
-			strlcpy(file_name, token, strlen(token)+1);
-		bytes = bytes+strlen(token)+1;
+			strlcpy(file_name, token, strlen(token)+1);	//size는 항상 token의 길이보다 1이 커야 한다
+		bytes = bytes + strlen(token) +1;	
+		//argument의 모든 요소들의 알파벳수를 구한다
+		//"args-none\0"->10
+		//"args-single\0onearg\0"->19
 		argc++;
 	}
 	/*****************/
+	//printf("%d\n",bytes);
 	
   /* Initialize interrupt frame and load executable. */
   memset (&if_, 0, sizeof if_);
-  if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;
-  if_.cs = SEL_UCSEG;
-  if_.eflags = FLAG_IF | FLAG_MBS;
+  if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;	//segment registers + data segment
+  if_.cs = SEL_UCSEG;	//code segment
+  if_.eflags = FLAG_IF | FLAG_MBS;	//saved cpu flags
+  
+  success = load (file_name, &if_.eip, &if_.esp);
+  
 	/*****************proj#2*/
 	// write protection
-	f = filesys_open(file_name);
+	//f = filesys_open(file_name);
 	//thread_current()->excuted_file = f;
-	if (f != NULL){
-		file_deny_write(f);
-	}
-	success = load (file_name, &if_.eip, &if_.esp);
+	//if (f != NULL){
+	//	file_deny_write(f);
+	//}	
 	
-	/* Argument passing */
+	/** Argument passing!!!!!!!!!!! proj#2 */
 	void *esp_start;
 	int i = 0;
-	int word_align = (bytes%4 == 0) ? 0 : 4-(bytes%4);
+	//int word_align = (bytes%4 == 0) ? 0 : 4-(bytes%4);
 	if_.esp = if_.esp - bytes;
-	esp_start = if_.esp - word_align - 4*(argc+1);
+	//esp_start = if_.esp - word_align - 4*(argc+1);
+	esp_start = if_.esp - 4*(argc+1);
 
 	for(token = strtok_r(command_line, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){	 	  
-	  /* push argument */
+	  // push argument 
 	  strlcpy((char *)if_.esp, token, strlen(token)+1);
-	  /* push address */
-	  *(unsigned int *)(esp_start + 4*i++) = (unsigned int)if_.esp;
-	  if_.esp = if_.esp + strlen(token) + 1;
+	  // push address 
+	  *(unsigned int *)(esp_start + 4*i) = (unsigned int)if_.esp;
+	  i++;
+	  //argument 마지막에 \0 붙이기
+	  if_.esp = if_.esp + strlen(token) + 1; 
 	  *(char *)if_.esp = '\0';			  
 	}
 	/* push addr. of argv */
@@ -137,7 +145,6 @@ start_process (void *f_name)
 	if_.esp = esp_start-12;
 	*(int *)if_.esp = 0;
 	/*****************proj#2*/
-  //success = load (file_name, &if_.eip, &if_.esp);
 
   /* If load failed, quit. */
   palloc_free_page (file_name);
@@ -171,10 +178,10 @@ process_wait (tid_t child_tid UNUSED)
   /*****************proj#2*/
   bool can_wait = false;
   struct list_elem *e;
-  for (e = list_begin (&p_relation_list); e != list_end (&p_relation_list); e = list_next(e)){
-    struct p_relation *r = list_entry (e, struct p_relation, elem);
-    if (r->parent_tid == thread_tid() && r->child_tid == child_tid && r->waiting == false){
-      r->waiting = true;
+  for (e = list_begin (&parent_child_relation_list); e != list_end (&parent_child_relation_list); e = list_next(e)){
+    struct parent_child_relation *pcr = list_entry (e, struct parent_child_relation, elem);
+    if (pcr->parent_tid == thread_tid() && pcr->child_tid == child_tid && pcr->waiting == false){
+      pcr->waiting = true;
       can_wait = true;
     }
   }
@@ -184,16 +191,42 @@ process_wait (tid_t child_tid UNUSED)
   enum intr_level old_level;
   old_level = intr_disable ();
 
-  struct p_waiter *w = palloc_get_page(0);
-  w->child_tid = child_tid;
-  w->t = thread_current();
-  list_push_back (&p_waiting_list, &w->elem);
+  struct parent_thread_waiter *pw = palloc_get_page(0);
+  pw->child_tid = child_tid;
+  pw->t = thread_current();
+  list_push_back (&parent_thread_waiting_list, &pw->elem);
   thread_block ();
   
   intr_set_level (old_level);
-  return w->status;
+  return pw->status;
   /*****************proj#2*/
 }
+
+/*************proj#2*/
+void
+process_wake_parent (int status){
+	tid_t tid = thread_tid();
+	struct list_elem *e;
+	// parent_child_relation_list
+	for (e = list_begin (&parent_child_relation_list); e != list_end (&parent_child_relation_list); e = list_next(e)){
+		struct parent_child_relation *r = list_entry (e, struct parent_child_relation, elem);
+		if (r->child_tid == tid){
+			list_remove (e);
+			break;
+		}
+	}
+	// awake parent
+	// parent_thread_waiting_list
+	for (e = list_begin (&parent_thread_waiting_list); e != list_end (&parent_thread_waiting_list); e = list_next(e)){
+		struct parent_thread_waiter *pw = list_entry (e, struct parent_thread_waiter, elem);
+		if (pw->child_tid == tid){
+			pw->status = status;
+			e = list_prev (list_remove (e));
+			thread_unblock (pw->t);
+		}
+	}
+}
+
 
 /* Free the current process's resources. */
 void
@@ -220,7 +253,7 @@ process_exit (void)
     }
 	
 	/*****************proj#2*/
-	//release fdtable
+	//release fdtable	
 	int i;
 	for(i=2;i<128;i++){
 		if(curr->fdtable[i]!=NULL){
@@ -247,29 +280,6 @@ process_activate (void)
   tss_update ();
 }
 
-void
-process_awake_waiter (int status){
-	tid_t tid = thread_tid();
-	struct list_elem *e;
-	// p_relation_list
-	for (e = list_begin (&p_relation_list); e != list_end (&p_relation_list); e = list_next(e)){
-		struct p_relation *r = list_entry (e, struct p_relation, elem);
-		if (r->child_tid == tid){
-			list_remove (e);
-			break;
-		}
-	}
-	// awake parent
-	// p_waiting_list
-	for (e = list_begin (&p_waiting_list); e != list_end (&p_waiting_list); e = list_next(e)){
-		struct p_waiter *w = list_entry (e, struct p_waiter, elem);
-		if (w->child_tid == tid){
-			w->status = status;
-			e = list_prev (list_remove (e));
-			thread_unblock (w->t);
-		}
-	}
-}
 
 
 /* We load ELF binaries.  The following definitions are taken

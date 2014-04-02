@@ -1,6 +1,6 @@
-Copying tests/userprog/create-null into /tmp/Y4SaWDkIIm.dsk...
-Writing command line to /tmp/ozPt9uS0ZA.dsk...
-qemu -hda /tmp/ozPt9uS0ZA.dsk -hdb /tmp/aSqPtX7WBB.dsk -hdc /tmp/Y4SaWDkIIm.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/create-null into /tmp/PiKJvYAK7o.dsk...
+Writing command line to /tmp/SWjdPrp6XG.dsk...
+qemu -hda /tmp/SWjdPrp6XG.dsk -hdb /tmp/Ww3hiOsw0w.dsk -hdc /tmp/PiKJvYAK7o.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put create-null run create-null
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -15,14 +15,14 @@ Putting 'create-null' into the file system...
 Executing 'create-null':
 (create-null) begin
 Kernel PANIC at ../../filesys/directory.c:149 in dir_add(): assertion `name != NULL' failed.
-Call stack: 0xc01075f6 0xc010c1ee 0xc010b7b0 0xc010b017 0xc010ae9d 0xc0101835 0xc0101a0b 0x804a019 0x80480ba 0x8048103 0x80486dc.
+Call stack: 0xc01075f6 0xc010c1ae 0xc010b770 0xc010afd7 0xc010ae5d 0xc0101835 0xc0101a0b 0x804a019 0x80480ba 0x8048103 0x80486dc.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
-Timer: 60 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 0 user ticks
+Timer: 61 ticks
+Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 64 reads, 157 writes
+hd0:1: 62 reads, 157 writes
 hd1:0: 73 reads, 0 writes
 Console: 1112 characters output
 Keyboard: 0 keys pressed

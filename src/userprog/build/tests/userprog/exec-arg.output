@@ -1,7 +1,7 @@
-Copying tests/userprog/exec-arg into /tmp/WUC0Dp2GWd.dsk...
-Copying tests/userprog/child-args into /tmp/WUC0Dp2GWd.dsk...
-Writing command line to /tmp/VxfbUwyMUk.dsk...
-qemu -hda /tmp/VxfbUwyMUk.dsk -hdb /tmp/Huc9yGiCra.dsk -hdc /tmp/WUC0Dp2GWd.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/exec-arg into /tmp/qL6gXTXcoh.dsk...
+Copying tests/userprog/child-args into /tmp/qL6gXTXcoh.dsk...
+Writing command line to /tmp/JxJdzC7M1y.dsk...
+qemu -hda /tmp/JxJdzC7M1y.dsk -hdb /tmp/URCq3C1Cgh.dsk -hdc /tmp/qL6gXTXcoh.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put exec-arg put child-args run exec-arg
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -26,10 +26,10 @@ child-args: exit(0)
 (exec-arg) end
 exec-arg: exit(0)
 Execution of 'exec-arg' complete.
-Timer: 69 ticks
+Timer: 70 ticks
 Thread: 30 idle ticks, 39 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 121 reads, 300 writes
+hd0:1: 116 reads, 300 writes
 hd1:0: 145 reads, 0 writes
 Console: 990 characters output
 Keyboard: 0 keys pressed

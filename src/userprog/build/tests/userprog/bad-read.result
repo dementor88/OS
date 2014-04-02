@@ -1,2 +1,2 @@
 FAIL
-run: TIMEOUT after 84 seconds of wall-clock time - load average: 0.60, 0.90, 0.78
+run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.14, 0.11, 0.03

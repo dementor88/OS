@@ -1,6 +1,6 @@
-Copying tests/filesys/base/lg-seq-block into /tmp/D1YHg9dSEw.dsk...
-Writing command line to /tmp/KSNYuuvjGc.dsk...
-qemu -hda /tmp/KSNYuuvjGc.dsk -hdb /tmp/ctRNGgVPdn.dsk -hdc /tmp/D1YHg9dSEw.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/lg-seq-block into /tmp/hzi4n1kqxi.dsk...
+Writing command line to /tmp/YinkdQQjiu.dsk...
+qemu -hda /tmp/YinkdQQjiu.dsk -hdb /tmp/BKKKq0EdJw.dsk -hdc /tmp/hzi4n1kqxi.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put lg-seq-block run lg-seq-block
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -24,10 +24,10 @@ Executing 'lg-seq-block':
 (lg-seq-block) end
 lg-seq-block: exit(0)
 Execution of 'lg-seq-block' complete.
-Timer: 89 ticks
-Thread: 30 idle ticks, 31 kernel ticks, 28 user ticks
+Timer: 87 ticks
+Thread: 30 idle ticks, 31 kernel ticks, 26 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 533 reads, 607 writes
+hd0:1: 531 reads, 607 writes
 hd1:0: 76 reads, 0 writes
 Console: 1064 characters output
 Keyboard: 0 keys pressed

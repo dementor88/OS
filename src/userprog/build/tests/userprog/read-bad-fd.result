@@ -1,15 +1,15 @@
 FAIL
 Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075f6 0xc010ad0f 0xc010adc9 0xc0101835 0xc0101a0b 0xc010b105 0xc010aee9 0xc0101835 0xc0101a0b 0x804a101 0x80480c1 0x804819b 0x8048774
+Call stack: 0xc01075f6 0xc010accf 0xc010ad89 0xc0101835 0xc0101a0b 0xc010b0c5 0xc010aea9 0xc0101835 0xc0101a0b 0x804a101 0x80480c1 0x804819b 0x8048774
 Translation of call stack:
 In kernel.o:
 0xc01075f6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ad0f: kill (.../userprog/exception.c:105)
-0xc010adc9: page_fault (.../userprog/exception.c:160)
+0xc010accf: kill (.../userprog/exception.c:105)
+0xc010ad89: page_fault (.../userprog/exception.c:160)
 0xc0101835: intr_handler (..../threads/interrupt.c:361)
 0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
-0xc010b105: sys_read (...../userprog/syscall.c:200)
-0xc010aee9: syscall_handler (.../../userprog/syscall.c:86)
+0xc010b0c5: sys_read (...../userprog/syscall.c:199)
+0xc010aea9: syscall_handler (.../../userprog/syscall.c:86)
 0xc0101835: intr_handler (..../threads/interrupt.c:361)
 0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
 In tests/userprog/read-bad-fd:

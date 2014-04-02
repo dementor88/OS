@@ -50,39 +50,39 @@ syscall_handler (struct intr_frame *f UNUSED)
 
 	int syscall_number = *esp++;
 	switch (syscall_number) {
-		case SYS_HALT:                   /* Halt the operating system. */
-		  power_off();
+		case SYS_HALT:	// Halt the operating system. 
+		  power_off();	//threads/init.h
 		  break;
 
-		case SYS_EXIT:                   /* Terminate this process. */
+		case SYS_EXIT:	// Terminate this process. 
 		  sys_exit(&esp);
 		  break;
 
-		case SYS_EXEC:                   /* Start another process. */
+		case SYS_EXEC:	// Start another process. 
 		  f->eax = sys_exec(&esp);
 		  break;
 
-		case SYS_WAIT:                   /* Wait for a child process to die. */
+		case SYS_WAIT:	// Wait for a child process to die.
 		  f->eax = sys_wait(&esp);
 		  break;
 
-		case SYS_CREATE:                 /* Create a file. */
+		case SYS_CREATE:	// Create a file. 
 		  f->eax = sys_create(&esp);
 		  break;
 
-		case SYS_REMOVE:                 /* Delete a file. */
+		case SYS_REMOVE:	// Delete a file.
 		  f->eax = sys_remove(&esp);
 		  break;
 
-		case SYS_OPEN:                   /* Open a file. */
+		case SYS_OPEN:	// Open a file. 
 		  f->eax = sys_open(&esp);
 		  break;
 		  
-		case SYS_FILESIZE:               /* Obtain a file's size. */
+		case SYS_FILESIZE:	// Obtain a file's size. 
 		  f->eax = sys_filesize(&esp);
 		  break;
 		  
-		case SYS_READ:                   /* Read from a file. */
+		case SYS_READ:	// Read from a file. 
 		  f->eax = sys_read(&esp);
 		  break;
 
@@ -90,15 +90,15 @@ syscall_handler (struct intr_frame *f UNUSED)
 		  f->eax = sys_write(&esp);
 		  break;
 
-		case SYS_SEEK:                   /* Change position in a file. */
+		case SYS_SEEK:	// Change position in a file. 
 		  sys_seek(&esp);
 		  break;
 
-		case SYS_TELL:                   /* Report current position in a file. */
+		case SYS_TELL: 	// Report current position in a file. 
 		  f->eax = sys_tell(&esp);
 		  break;
 		  
-		case SYS_CLOSE:                  /* Close a file. */
+		case SYS_CLOSE:	// Close a file.
 		  sys_close(&esp);
 		  break;
 
@@ -112,25 +112,24 @@ void
 sys_exit (uint32_t **esp){
   int status = (int)*(*esp)++; 
   sys_exit_real (status);
+  
 }
-
 void
-sys_exit_real (int status){
+sys_exit_real (int status)
+{
   struct thread *cur = thread_current();
   char *save_ptr;
   char *name = strtok_r(cur->name, " ", &save_ptr);
-  printf("%s: exit(%d)\n", name, status);  
+  printf("%s: exit(%d)\n", name, status);
+  
   // wake up waiting parent;
-  process_awake_waiter (status);
+  process_wake_parent (status);
 
   thread_exit();
 }
-
 tid_t
 sys_exec (uint32_t **esp){
   char *cmd_line = (char *)*(*esp)++;
-  // temporary implementation
-  // should implement in process.c
   tid_t tid = process_execute(cmd_line);
   return tid;
 }

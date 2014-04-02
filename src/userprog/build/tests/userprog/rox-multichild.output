@@ -1,7 +1,7 @@
-Copying tests/userprog/rox-multichild into /tmp/wtNGmE1W8O.dsk...
-Copying tests/userprog/child-rox into /tmp/wtNGmE1W8O.dsk...
-Writing command line to /tmp/X4dMeZQ4OZ.dsk...
-qemu -hda /tmp/X4dMeZQ4OZ.dsk -hdb /tmp/crYhJk46mD.dsk -hdc /tmp/wtNGmE1W8O.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/rox-multichild into /tmp/dtyWB2wHTG.dsk...
+Copying tests/userprog/child-rox into /tmp/dtyWB2wHTG.dsk...
+Writing command line to /tmp/Hav7KzDmhn.dsk...
+qemu -hda /tmp/Hav7KzDmhn.dsk -hdb /tmp/41IyZ6H8qR.dsk -hdc /tmp/dtyWB2wHTG.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put rox-multichild put child-rox run rox-multichild
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -22,43 +22,17 @@ Executing 'rox-multichild':
 (rox-multichild) exec "child-rox 5"
 (child-rox) begin
 (child-rox) try to write "child-rox"
-(child-rox) exec "child-rox 4"
-(child-rox) begin
-(child-rox) try to write "child-rox"
-(child-rox) exec "child-rox 3"
-(child-rox) begin
-(child-rox) try to write "child-rox"
-(child-rox) exec "child-rox 2"
-(child-rox) begin
-(child-rox) try to write "child-rox"
-(child-rox) exec "child-rox 1"
-(child-rox) begin
-(child-rox) try to write "child-rox"
-(child-rox) try to write "child-rox"
-(child-rox) end
-child-rox: exit(12)
-(child-rox) try to write "child-rox"
-(child-rox) end
-child-rox: exit(12)
-(child-rox) try to write "child-rox"
-(child-rox) end
-child-rox: exit(12)
-(child-rox) try to write "child-rox"
-(child-rox) end
-child-rox: exit(12)
-(child-rox) try to write "child-rox"
-(child-rox) end
-child-rox: exit(12)
-(rox-multichild) write "child-rox"
-(rox-multichild) write "child-rox": FAILED
+(child-rox) try to write "child-rox": FAILED
+child-rox: exit(1)
+(rox-multichild) wait for child: FAILED
 rox-multichild: exit(1)
 Execution of 'rox-multichild' complete.
-Timer: 75 ticks
-Thread: 30 idle ticks, 41 kernel ticks, 4 user ticks
+Timer: 72 ticks
+Thread: 30 idle ticks, 41 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 304 reads, 323 writes
+hd0:1: 129 reads, 324 writes
 hd1:0: 156 reads, 0 writes
-Console: 1856 characters output
+Console: 1173 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

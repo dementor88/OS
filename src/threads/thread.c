@@ -115,8 +115,8 @@ void
 thread_start (void) 
 {
 #ifdef USERPROG
-  list_init (&p_relation_list);
-  list_init (&p_waiting_list);
+  list_init (&parent_child_relation_list);
+  list_init (&parent_thread_waiting_list);
 #endif
   /* Create the idle thread. */
   struct semaphore idle_started;

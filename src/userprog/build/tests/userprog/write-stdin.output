@@ -1,6 +1,6 @@
-Copying tests/userprog/write-stdin into /tmp/tuyrxA8sS7.dsk...
-Writing command line to /tmp/SRDV9mfhbf.dsk...
-qemu -hda /tmp/SRDV9mfhbf.dsk -hdb /tmp/XmPEmXFevl.dsk -hdc /tmp/tuyrxA8sS7.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/write-stdin into /tmp/KrDC5i1Nn1.dsk...
+Writing command line to /tmp/X4KCdROTFx.dsk...
+qemu -hda /tmp/X4KCdROTFx.dsk -hdb /tmp/0BFV7y1SHJ.dsk -hdc /tmp/KrDC5i1Nn1.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put write-stdin run write-stdin
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -20,7 +20,7 @@ Execution of 'write-stdin' complete.
 Timer: 61 ticks
 Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 60 reads, 154 writes
+hd0:1: 58 reads, 154 writes
 hd1:0: 73 reads, 0 writes
 Console: 811 characters output
 Keyboard: 0 keys pressed

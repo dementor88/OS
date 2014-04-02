@@ -8,6 +8,6 @@ int process_wait (tid_t);
 void process_exit (void);
 void process_activate (void);
 /*****************proj#2*/
-void process_awake_waiter (int status);
+void process_wake_parent (int status);
 
 #endif /* userprog/process.h */
