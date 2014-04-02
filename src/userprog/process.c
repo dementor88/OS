@@ -118,30 +118,28 @@ start_process (void *f_name)
 	/** Argument passing!!!!!!!!!!! proj#2 */
 	void *esp_start;
 	int i = 0;
-	//int word_align = (bytes%4 == 0) ? 0 : 4-(bytes%4);
 	if_.esp = if_.esp - bytes;
-	//esp_start = if_.esp - word_align - 4*(argc+1);
 	esp_start = if_.esp - 4*(argc+1);
 
 	for(token = strtok_r(command_line, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){	 	  
 	  // push argument 
 	  strlcpy((char *)if_.esp, token, strlen(token)+1);
-	  // push address 
+	  // push argument address 
 	  *(unsigned int *)(esp_start + 4*i) = (unsigned int)if_.esp;
 	  i++;
 	  //argument 마지막에 \0 붙이기
 	  if_.esp = if_.esp + strlen(token) + 1; 
 	  *(char *)if_.esp = '\0';			  
 	}
-	/* push addr. of argv */
+	// push argv address 
 	if_.esp = esp_start-4;
 	*(unsigned int *)if_.esp = (unsigned int)(if_.esp+4);
 
-	/* push argc */
+	// push argc 
 	if_.esp = esp_start-8;
 	*(int *)if_.esp = argc;
 
-	/* push return addr. */
+	// push return address 
 	if_.esp = esp_start-12;
 	*(int *)if_.esp = 0;
 	/*****************proj#2*/
