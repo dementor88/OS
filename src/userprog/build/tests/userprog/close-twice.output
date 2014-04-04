@@ -1,7 +1,7 @@
-Copying tests/userprog/close-twice into /tmp/qotXmzbyt5.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/qotXmzbyt5.dsk...
-Writing command line to /tmp/kFZasHpBcv.dsk...
-qemu -hda /tmp/kFZasHpBcv.dsk -hdb /tmp/MhuZGfu0LU.dsk -hdc /tmp/qotXmzbyt5.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/close-twice into /tmp/DlZTdo7z3U.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/DlZTdo7z3U.dsk...
+Writing command line to /tmp/zESFnpbg7o.dsk...
+qemu -hda /tmp/zESFnpbg7o.dsk -hdb /tmp/YUaWBEPuzf.dsk -hdc /tmp/DlZTdo7z3U.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put close-twice put sample.txt run close-twice
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -19,15 +19,17 @@ Executing 'close-twice':
 (close-twice) open "sample.txt"
 (close-twice) close "sample.txt"
 (close-twice) close "sample.txt" again
-(close-twice) end
-close-twice: exit(0)
-Execution of 'close-twice' complete.
+Kernel PANIC at ../../filesys/inode.c:336 in inode_allow_write(): assertion `inode->deny_write_cnt <= inode->open_cnt' failed.
+Call stack: 0xc0107596 0xc010ca2c 0xc010bda9 0xc010bc33 0xc010b293 0xc010ae0f 0xc0101825 0xc01019fb 0x804a0ed 0x80480fa 0x8048133 0x804870c.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
 Timer: 61 ticks
 Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 90 reads, 160 writes
 hd1:0: 75 reads, 0 writes
-Console: 975 characters output
+Console: 1321 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

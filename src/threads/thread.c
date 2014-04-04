@@ -485,6 +485,8 @@ init_thread (struct thread *t, const char *name, int priority)
   t->original_locked_priority = 0;
 	t->original_reference_priority = priority;
 	t->swap_priority_count = 0;
+	t->fd = 2;	//proj#2 syscall.c sys_open(), 2가 가용 최소값!!!
+	list_init(&t->file_list);	//proj#2 syscall.c sys_open()
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and

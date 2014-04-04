@@ -1,7 +1,7 @@
-Copying tests/userprog/read-bad-ptr into /tmp/5K789xO8ks.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/5K789xO8ks.dsk...
-Writing command line to /tmp/JkOJNZ9VM0.dsk...
-qemu -hda /tmp/JkOJNZ9VM0.dsk -hdb /tmp/GVghsy33AT.dsk -hdc /tmp/5K789xO8ks.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/read-bad-ptr into /tmp/80VFClp4aF.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/80VFClp4aF.dsk...
+Writing command line to /tmp/VkuaE7XVMh.dsk...
+qemu -hda /tmp/VkuaE7XVMh.dsk -hdb /tmp/VYemWbdheZ.dsk -hdc /tmp/80VFClp4aF.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put read-bad-ptr put sample.txt run read-bad-ptr
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -17,5 +17,23 @@ Putting 'sample.txt' into the file system...
 Executing 'read-bad-ptr':
 (read-bad-ptr) begin
 (read-bad-ptr) open "sample.txt"
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.10, 0.28, 1.59
+Page fault at 0xc0100000: rights violation error writing page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0106a06
+ cr2=c0100000 error=00000003
+ eax=00000022 ebx=c011920d ecx=0000007a edx=c0100001
+ esi=c0100000 edi=c0100000 esp=c0111a2c ebp=c011ced4
+ cs=0008 ds=0010 es=0010 ss=920c
+Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc0106a06 0xc010c7b9 0xc010bc7e 0xc010b0ab 0xc010add2 0xc0101825 0xc01019fb 0x804a091 0x80480e7 0x8048127 0x8048700.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Timer: 61 ticks
+Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 91 reads, 160 writes
+hd1:0: 75 reads, 0 writes
+Console: 1583 characters output
+Keyboard: 0 keys pressed
+Exception: 1 page faults
+Powering off...

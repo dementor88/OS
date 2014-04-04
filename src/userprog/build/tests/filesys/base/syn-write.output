@@ -1,7 +1,7 @@
-Copying tests/filesys/base/syn-write into /tmp/O25wRi59kG.dsk...
-Copying tests/filesys/base/child-syn-wrt into /tmp/O25wRi59kG.dsk...
-Writing command line to /tmp/ixsklGQ4xS.dsk...
-qemu -hda /tmp/ixsklGQ4xS.dsk -hdb /tmp/RpEbDv3307.dsk -hdc /tmp/O25wRi59kG.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/syn-write into /tmp/v9SSDjKlrH.dsk...
+Copying tests/filesys/base/child-syn-wrt into /tmp/v9SSDjKlrH.dsk...
+Writing command line to /tmp/JNKJso4k5v.dsk...
+qemu -hda /tmp/JNKJso4k5v.dsk -hdb /tmp/B0JXNBCJlh.dsk -hdc /tmp/v9SSDjKlrH.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put syn-write put child-syn-wrt run syn-write
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -30,12 +30,12 @@ Executing 'syn-write':
 child-syn-wrt: exit(0)
 child-syn-wrt: exit(1)
 Kernel PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc01075e6 0xc0100aa1 0xc0109b20 0xc010aefa 0xc010adc0 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8.
+Call stack: 0xc0107596 0xc0100aa1 0xc0109ad7 0xc010ae8a 0xc010ad50 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
-Timer: 74 ticks
-Thread: 30 idle ticks, 41 kernel ticks, 3 user ticks
+Timer: 72 ticks
+Thread: 30 idle ticks, 40 kernel ticks, 2 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 186 reads, 346 writes
 hd1:0: 160 reads, 0 writes

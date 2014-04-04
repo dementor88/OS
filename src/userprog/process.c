@@ -73,7 +73,6 @@ start_process (void *f_name)
 	char s[] = "";
 	char *command_line, *token, *save_ptr;
 	int argc = 0, bytes = 0;
-	struct file *f;
 		
 	command_line = palloc_get_page(0);
 	strlcpy(command_line, file_name, PGSIZE);	// copy filename into command_line 
@@ -169,7 +168,7 @@ process_wait (tid_t child_tid UNUSED)
   /*****************proj#2*/
 	bool good_to_go = false;
 	struct list_elem *e;	
-	int returned_status;
+	int returned_status = -1;
 	for (e = list_begin(&parent_child_list); e != list_end(&parent_child_list); e = list_next(e)){		
 		struct parent_child *par_ch = list_entry(e, struct parent_child, elem);
 		if (par_ch->parent_tid == thread_tid() && par_ch->child_tid == child_tid && par_ch->waiting == false){
@@ -195,7 +194,6 @@ void
 process_wake_parent (int status){
 	tid_t tid = thread_tid();
 	struct list_elem *e;
-	struct parent_child *par_ch = list_entry (e, struct parent_child, elem);
 	for (e = list_begin (&parent_child_list); e != list_end (&parent_child_list); e = list_next(e)){		
 		struct parent_child *par_ch = list_entry (e, struct parent_child, elem);
 		if (par_ch->child_tid == tid){					
@@ -230,17 +228,6 @@ process_exit (void)
       pagedir_activate (NULL);
       pagedir_destroy (pd);
     }
-	
-	/*****************proj#2*/
-	//release fdtable	
-	int i;
-	for(i=2;i<128;i++){
-		if(curr->fdtable[i]!=NULL){
-			file_close(curr->fdtable[i]);
-			curr->fdtable[i]==NULL;
-		}
-	}
-	/*****************proj#2*/
 }
 
 /* Sets up the CPU for running user code in the current

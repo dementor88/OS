@@ -1,13 +1,13 @@
 FAIL
 Kernel panic in run: PANIC at ../../filesys/directory.c:149 in dir_add(): assertion `name != NULL' failed.
-Call stack: 0xc01075e6 0xc010c11e 0xc010b6e0 0xc010af5e 0xc010adf6 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc
+Call stack: 0xc0107596 0xc010c1ae 0xc010b770 0xc010af01 0xc010ad86 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc
 Translation of call stack:
 In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010c11e: dir_add (..../filesys/directory.c:152)
-0xc010b6e0: filesys_create (..../../filesys/filesys.c:51)
-0xc010af5e: sys_create (...../userprog/syscall.c:140)
-0xc010adf6: syscall_handler (.../../userprog/syscall.c:71)
+0xc0107596: debug_panic (.../../lib/kernel/debug.c:34)
+0xc010c1ae: dir_add (..../filesys/directory.c:152)
+0xc010b770: filesys_create (..../../filesys/filesys.c:51)
+0xc010af01: sys_create (...../userprog/syscall.c:140)
+0xc010ad86: syscall_handler (.../../userprog/syscall.c:70)
 0xc0101825: intr_handler (..../threads/interrupt.c:361)
 0xc01019fb: intr_entry (threads/intr-stubs.S:38)
 In tests/userprog/create-null:

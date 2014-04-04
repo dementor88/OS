@@ -100,10 +100,7 @@ struct thread
 
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
-    uint32_t *pagedir;                  /* Page directory. */
-	/*****************proj#2*/
-	struct file *fdtable[128];
-	//truct file *excuted_file;
+    uint32_t *pagedir;                  /* Page directory. */	
 #endif
 
     /* Owned by thread.c. */
@@ -118,6 +115,10 @@ struct thread
 	struct thread *lock_holder_thread;	//priority-donate-nest..?
 	int original_reference_priority; //priority-donate-multiple2
 	int swap_priority_count; //priority-donate-mul2
+	
+	/*****************proj#2*/
+	int fd;
+	struct list file_list;
 };
 
 

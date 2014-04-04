@@ -1,6 +1,6 @@
-Copying tests/userprog/open-null into /tmp/7OPmxaV0La.dsk...
-Writing command line to /tmp/WvYISWSgv9.dsk...
-qemu -hda /tmp/WvYISWSgv9.dsk -hdb /tmp/igRMwCsjtz.dsk -hdc /tmp/7OPmxaV0La.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/open-null into /tmp/80GjmaUwUr.dsk...
+Writing command line to /tmp/yYgLCDp6IX.dsk...
+qemu -hda /tmp/yYgLCDp6IX.dsk -hdb /tmp/KHZzQdR2nF.dsk -hdc /tmp/80GjmaUwUr.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put open-null run open-null
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -14,5 +14,17 @@ Boot complete.
 Putting 'open-null' into the file system...
 Executing 'open-null':
 (open-null) begin
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.05, 0.38, 1.82
+Kernel PANIC at ../../filesys/directory.c:125 in dir_lookup(): assertion `name != NULL' failed.
+Call stack: 0xc0107596 0xc010c0f2 0xc010b7d7 0xc010af57 0xc010adb2 0xc0101825 0xc01019fb 0x804a029 0x80480b2 0x80480e7 0x80486c0.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Timer: 61 ticks
+Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 59 reads, 154 writes
+hd1:0: 73 reads, 0 writes
+Console: 1105 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...

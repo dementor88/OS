@@ -11,9 +11,9 @@
 #include "devices/input.h"
 
 static void syscall_handler (struct intr_frame *);
+
 /*****************proj#2*/
 void sys_exit (uint32_t **esp);
-//void sys_exit_real (int status);
 tid_t sys_exec (uint32_t **esp);
 int sys_wait (uint32_t **esp);
 bool sys_create (uint32_t **esp);
@@ -26,20 +26,19 @@ void sys_seek (uint32_t **esp);
 unsigned sys_tell (uint32_t **esp);
 bool sys_remove (uint32_t **esp);
 bool validate_address (void *address);
-/*****************proj#2*/
+
+struct file_from_process{
+	struct file *file;
+	int fd;
+	struct list_elem elem;
+};
+
 void
 syscall_init (void) 
 {
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
 }
-/*****************proj#2
-static void
-syscall_handler (struct intr_frame *f UNUSED) 
-{
-  printf ("system call!\n");
-  thread_exit ();
-}
-*/
+
 static void
 syscall_handler (struct intr_frame *f UNUSED) 
 {
@@ -110,32 +109,33 @@ syscall_handler (struct intr_frame *f UNUSED)
 }
 
 void sys_exit (uint32_t **esp){
-  int status = (int)*(*esp)++; 
-  struct thread *curr = thread_current();
-  char *save_ptr;
-  char *name = strtok_r(curr->name, " ", &save_ptr);	//안그러면 쓸데없는 것까지 들어온다
-  printf("%s: exit(%d)\n", name, status);
-  // wake up waiting parent;
-  process_wake_parent (status);
-
-  thread_exit();
+	int status = (int)*(*esp)++; 
+	struct thread *curr = thread_current();
+	char *save_ptr;
+	char *name = strtok_r(curr->name, " ", &save_ptr);	//안그러면 쓸데없는 것까지 들어온다
+	printf("%s: exit(%d)\n", name, status);  
+	process_wake_parent (status);	// wake up waiting parent;
+	thread_exit();
   
 }
 
 tid_t sys_exec (uint32_t **esp){
-  char *cmd_line = (char *)*(*esp)++;
-  tid_t tid = process_execute(cmd_line);
-  return tid;
+	char *cmd_line = (char *)*(*esp)++;
+	tid_t tid = process_execute(cmd_line);
+	return tid;
 }
 
 int sys_wait (uint32_t **esp){
-  tid_t tid = (tid_t)*(*esp)++;
-  int status = process_wait(tid); 
-  return status;
+	tid_t tid = (tid_t)*(*esp)++;
+	int status = process_wait(tid); 
+	return status;
 }
 
 bool sys_create (uint32_t **esp){
 	char *filename = (char *)*(*esp)++;
+	if (!validate_address (filename)){
+		thread_exit();
+	}
 	uint32_t size = (uint32_t)*(*esp)++;
 	return filesys_create(filename,size);
 }
@@ -146,42 +146,38 @@ bool sys_remove (uint32_t **esp){
 }
 
 int  sys_open (uint32_t **esp){
-	char *filename = (char *)*(*esp)++;    
-	//checking if invalid pointer access
-	if (!validate_address (filename)) {
-		//sys_exit_real (-1);
+	char *filename = (char *)*(*esp)++;   
+	if (!validate_address (filename)){
 		thread_exit();
 	}
-	struct thread *t = thread_current();
-	int i;
-	for(i=2;i<128;i++){
-		if(t->fdtable[i]==NULL){
-			t->fdtable[i] = filesys_open(filename);
-			if(filename == NULL || t->fdtable[i] == NULL) return -1;
-			else return i;
-		}
-	}
-	return -1;
+	struct file *f = filesys_open(filename);
+	struct file_from_process *file_proc = malloc(sizeof(struct file_from_process));
+	file_proc->file = f;
+	file_proc->fd = thread_current()->fd++;
+	list_push_back(&thread_current()->file_list, &file_proc->elem);
+	return file_proc->fd;	
 }
 
 int sys_filesize (uint32_t **esp){
-	int fd = (int)*(*esp)++;
-	struct thread *t = thread_current();
-	if(t->fdtable[fd] == NULL) return -1;
-	else return (file_length(t->fdtable[fd]));
+	int fd = (int)*(*esp)++;	
+	struct thread *curr = thread_current();
+	struct list_elem *e;
+	for (e = list_begin(&curr->file_list); e != list_end(&curr->file_list); e = list_next(e)){
+		struct file_from_process *file_proc = list_entry(e, struct file_from_process, elem);
+		if(file_proc->fd == fd){
+			int size = file_length(file_proc->file);
+			return size; 
+		}
+	}	
+	
 }
 
 int sys_read (uint32_t **esp){
 	int fd = (int)*(*esp)++;
 	char *buffer = (char *)*(*esp)++;
 	uint32_t size = (uint32_t)*(*esp)++;
-
-	//checking if invalid pointer access
-	if (!validate_address (buffer)){
-		//sys_exit_real (-1);
-		thread_exit();
-	}
-	// read from console
+	
+	
 	if( fd == 0 ){
 		uint32_t cnt = 0;
 		while (1) {
@@ -198,12 +194,20 @@ int sys_read (uint32_t **esp){
 	}
 	// read from user file
 	else if( fd >= 2 ){
-		struct thread *t = thread_current();
-		if(t->fdtable[fd] == NULL ) return -1;
-		else return file_read(t->fdtable[fd],buffer,size);
+		struct thread *curr = thread_current();
+		
+		struct list_elem *e;
+		for (e = list_begin(&curr->file_list); e != list_end(&curr->file_list); e = list_next(e)){
+			struct file_from_process *file_proc = list_entry(e, struct file_from_process, elem);
+			if(file_proc->fd == fd){
+				int bytes = file_read(file_proc->file, buffer, size);
+				return bytes;
+			}
+		}	
+		
 	}
 	else
-		return -1;
+		return -1;	
 }
 
 
@@ -212,55 +216,79 @@ int sys_write (uint32_t **esp){
 	char *buffer = (char *)*(*esp)++;
 	uint32_t size = (uint32_t)*(*esp)++;
 
-  //checking if invalid pointer access
-  if (!validate_address (buffer)){
-    //sys_exit_real (-1);
-	thread_exit();
-  }
+	//checking if invalid pointer access
+	if (!validate_address (buffer)){
+		thread_exit();
+	}
+	if (!validate_address (buffer)){
+		//sys_exit_real (-1);
+		thread_exit();
+	}
 
-  // write to console
-  if ( fd == 1 ){
-    putbuf(buffer, size);
-    return size;
-  }
-  else if( fd >= 2){
-    struct thread *t = thread_current();
+	// write to console
+	if ( fd == 1 ){
+		putbuf(buffer, size);
+		return size;
+	}
+	else if( fd >= 2){
+		struct thread *curr = thread_current();
 
-    if (t->fdtable[fd] == NULL ) 
+		
+		
+		struct list_elem *e;
+		for (e = list_begin(&curr->file_list); e != list_end(&curr->file_list); e = list_next(e)){
+			struct file_from_process *file_proc = list_entry(e, struct file_from_process, elem);
+			if(file_proc->fd == fd){
+				int bytes = file_write(file_proc->file, buffer, size);
+				return bytes;
+			}		
+		}
+	}
+	else
 		return -1;
-    else 
-		return file_write(t->fdtable[fd],buffer,size);
-  }
-  else
-    return -1;
 }
 
 
 void  sys_seek (uint32_t **esp){
 	int fd = (int)*(*esp)++;
-	struct thread *t = thread_current();
 	uint32_t position = (uint32_t)*(*esp)++;
-
-	file_seek(t->fdtable[fd],position);
+	struct thread *curr = thread_current();
+	struct list_elem *e;
+	for (e = list_begin(&curr->file_list); e != list_end(&curr->file_list); e = list_next(e)){
+		struct file_from_process *file_proc = list_entry(e, struct file_from_process, elem);
+		if(file_proc->fd == fd){
+			file_seek(file_proc->file, position);
+		}
+	}	
 }
 
 unsigned sys_tell (uint32_t **esp){
 	int fd = (int)*(*esp)++;
-	struct thread *t = thread_current();
-	return (file_tell(t->fdtable[fd]));
+	struct thread *curr = thread_current();
+	struct list_elem *e;
+	for (e = list_begin(&curr->file_list); e != list_end(&curr->file_list); e = list_next(e)){
+		struct file_from_process *file_proc = list_entry(e, struct file_from_process, elem);
+		if(file_proc->fd == fd){
+			off_t offset = file_tell(file_proc->file);
+			return offset;
+		}
+	}
 }
 
 void sys_close (uint32_t **esp){
 	int fd = (int)*(*esp)++;
-	struct thread *t = thread_current();
-	file_close(t->fdtable[fd]);
-	t->fdtable[fd] = NULL;
+	struct thread *curr = thread_current(); 
+	struct list_elem *e;
+	for (e = list_begin(&curr->file_list); e != list_end(&curr->file_list); e = list_next(e)){
+		struct file_from_process *file_proc = list_entry(e, struct file_from_process, elem);
+		if(file_proc->fd == fd){
+			file_close(file_proc->file);
+		}
+	}
 }
-bool validate_address (void *address){
-	struct thread *cur = thread_current();
-	uint32_t *pd = cur->pagedir;  
 
-	if(is_user_vaddr (address) == 0 || pagedir_get_page (pd, address) == NULL){
+bool validate_address (void *address){
+	if(is_user_vaddr (address) == 0){
 		return false;
 	}   
 	return true;
