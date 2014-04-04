@@ -1,6 +1,6 @@
-Copying tests/userprog/args-none into /tmp/ecXiA3lP7C.dsk...
-Writing command line to /tmp/Q3g7E4o4t3.dsk...
-qemu -hda /tmp/Q3g7E4o4t3.dsk -hdb /tmp/YfkljAefCV.dsk -hdc /tmp/ecXiA3lP7C.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/args-none into /tmp/tuHRxFkrXT.dsk...
+Writing command line to /tmp/OEqowfDbP7.dsk...
+qemu -hda /tmp/OEqowfDbP7.dsk -hdb /tmp/ldSnvizRir.dsk -hdc /tmp/tuHRxFkrXT.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put args-none run args-none
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -20,8 +20,8 @@ Executing 'args-none':
 (args) end
 args-none: exit(0)
 Execution of 'args-none' complete.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+Timer: 62 ticks
+Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 59 reads, 152 writes
 hd1:0: 72 reads, 0 writes

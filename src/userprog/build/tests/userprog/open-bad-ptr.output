@@ -1,6 +1,6 @@
-Copying tests/userprog/open-bad-ptr into /tmp/54t9HhfUyU.dsk...
-Writing command line to /tmp/q7sTEqI3ac.dsk...
-qemu -hda /tmp/q7sTEqI3ac.dsk -hdb /tmp/C8xwQodKUx.dsk -hdc /tmp/54t9HhfUyU.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/open-bad-ptr into /tmp/WK99dMeuPE.dsk...
+Writing command line to /tmp/VS6ksJp5LH.dsk...
+qemu -hda /tmp/VS6ksJp5LH.dsk -hdb /tmp/GzzQzg9VUr.dsk -hdc /tmp/WK99dMeuPE.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put open-bad-ptr run open-bad-ptr
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -21,12 +21,12 @@ Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0106bfb
  esi=c011802c edi=20101234 esp=c011920c ebp=c011ce64
  cs=0008 ds=0010 es=0010 ss=0014
 Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc0106bfb 0xc010c014 0xc010c10d 0xc010b7d7 0xc010af57 0xc010adb2 0xc0101825 0xc01019fb 0x804a049 0x80480b2 0x8048103 0x80486dc.
+Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc0106bfb 0xc010bfc4 0xc010c0bd 0xc010b787 0xc010af32 0xc010adb2 0xc0101825 0xc01019fb 0x804a049 0x80480b2 0x8048103 0x80486dc.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
-Timer: 62 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 2 user ticks
+Timer: 61 ticks
+Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 61 reads, 154 writes
 hd1:0: 73 reads, 0 writes

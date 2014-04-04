@@ -1,6 +1,6 @@
 FAIL
 Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc0106a06 0xc010c7b9 0xc010bc7e 0xc010b0ab 0xc010add2 0xc0101825 0xc01019fb 0x804a091 0x80480e7 0x8048127 0x8048700
+Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc0106a06 0xc010c769 0xc010bc2e 0xc010b084 0xc010add2 0xc0101825 0xc01019fb 0x804a091 0x80480e7 0x8048127 0x8048700
 Translation of call stack:
 In kernel.o:
 0xc0107596: debug_panic (.../../lib/kernel/debug.c:34)
@@ -9,9 +9,9 @@ In kernel.o:
 0xc0101825: intr_handler (..../threads/interrupt.c:361)
 0xc01019fb: intr_entry (threads/intr-stubs.S:38)
 0xc0106a06: memcpy (...ild/../../lib/string.c:16)
-0xc010c7b9: inode_read_at (...../../filesys/inode.c:243)
-0xc010bc7e: file_read (...d/../../filesys/file.c:72)
-0xc010b0ab: sys_read (...../userprog/syscall.c:224)
+0xc010c769: inode_read_at (...../../filesys/inode.c:243)
+0xc010bc2e: file_read (...d/../../filesys/file.c:72)
+0xc010b084: sys_read (...../userprog/syscall.c:198)
 0xc010add2: syscall_handler (.../../userprog/syscall.c:86)
 0xc0101825: intr_handler (..../threads/interrupt.c:361)
 0xc01019fb: intr_entry (threads/intr-stubs.S:38)
