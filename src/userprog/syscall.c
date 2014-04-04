@@ -133,9 +133,6 @@ int sys_wait (uint32_t **esp){
 
 bool sys_create (uint32_t **esp){
 	char *filename = (char *)*(*esp)++;
-	if (!validate_address (filename)){
-		thread_exit();
-	}
 	uint32_t size = (uint32_t)*(*esp)++;
 	return filesys_create(filename,size);
 }
@@ -146,10 +143,7 @@ bool sys_remove (uint32_t **esp){
 }
 
 int  sys_open (uint32_t **esp){
-	char *filename = (char *)*(*esp)++;   
-	if (!validate_address (filename)){
-		thread_exit();
-	}
+	char *filename = (char *)*(*esp)++; 
 	struct file *f = filesys_open(filename);
 	struct file_from_process *file_proc = malloc(sizeof(struct file_from_process));
 	file_proc->file = f;
@@ -215,15 +209,6 @@ int sys_write (uint32_t **esp){
 	int fd = (int)*(*esp)++;
 	char *buffer = (char *)*(*esp)++;
 	uint32_t size = (uint32_t)*(*esp)++;
-
-	//checking if invalid pointer access
-	if (!validate_address (buffer)){
-		thread_exit();
-	}
-	if (!validate_address (buffer)){
-		//sys_exit_real (-1);
-		thread_exit();
-	}
 
 	// write to console
 	if ( fd == 1 ){
