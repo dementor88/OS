@@ -1,2 +1,18 @@
 FAIL
-run: wait for child 2 of 10 returned -1 (expected 1): FAILED
+Kernel panic in run: PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
+Call stack: 0xc01075e6 0xc0100aa1 0xc0109b20 0xc010aefa 0xc010adc0 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8
+Translation of call stack:
+In kernel.o:
+0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
+0xc0100aa1: thread_unblock (..../../threads/thread.c:255)
+0xc0109b20: process_wake_parent (...../userprog/process.c:199)
+0xc010aefa: sys_exit (...../userprog/syscall.c:121)
+0xc010adc0: syscall_handler (.../../userprog/syscall.c:60)
+0xc0101825: intr_handler (..../threads/interrupt.c:361)
+0xc01019fb: intr_entry (threads/intr-stubs.S:38)
+0x0804a5d3: (unknown)
+In tests/filesys/base/syn-write:
+0x080488d8: main (...uild/../../tests/main.c:8)
+Translations of user virtual addresses above are based on a guess at
+the binary to use.  If this guess is incorrect, then those
+translations will be misleading.

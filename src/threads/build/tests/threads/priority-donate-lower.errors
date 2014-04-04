@@ -1,3 +1,10 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LANG = "ko_KR.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
 ========================================================================
                        Bochs x86 Emulator 2.2.6
               Build from CVS snapshot on January 29, 2006

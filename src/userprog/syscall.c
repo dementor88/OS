@@ -13,7 +13,7 @@
 static void syscall_handler (struct intr_frame *);
 /*****************proj#2*/
 void sys_exit (uint32_t **esp);
-void sys_exit_real (int status);
+//void sys_exit_real (int status);
 tid_t sys_exec (uint32_t **esp);
 int sys_wait (uint32_t **esp);
 bool sys_create (uint32_t **esp);
@@ -45,7 +45,8 @@ syscall_handler (struct intr_frame *f UNUSED)
 {
 	uint32_t *esp = f->esp;
 	if (!validate_address(esp)){
-		sys_exit_real (-1);
+		//sys_exit_real (-1);
+		thread_exit();
 	}
 
 	int syscall_number = *esp++;
@@ -108,54 +109,48 @@ syscall_handler (struct intr_frame *f UNUSED)
 	}
 }
 
-void
-sys_exit (uint32_t **esp){
+void sys_exit (uint32_t **esp){
   int status = (int)*(*esp)++; 
-  sys_exit_real (status);
-  
-}
-void
-sys_exit_real (int status)
-{
-  struct thread *cur = thread_current();
+  struct thread *curr = thread_current();
   char *save_ptr;
-  char *name = strtok_r(cur->name, " ", &save_ptr);
+  char *name = strtok_r(curr->name, " ", &save_ptr);	//안그러면 쓸데없는 것까지 들어온다
   printf("%s: exit(%d)\n", name, status);
-  
   // wake up waiting parent;
   process_wake_parent (status);
 
   thread_exit();
+  
 }
-tid_t
-sys_exec (uint32_t **esp){
+
+tid_t sys_exec (uint32_t **esp){
   char *cmd_line = (char *)*(*esp)++;
   tid_t tid = process_execute(cmd_line);
   return tid;
 }
 
-int
-sys_wait (uint32_t **esp){
+int sys_wait (uint32_t **esp){
   tid_t tid = (tid_t)*(*esp)++;
-
-  int status = process_wait(tid);
+  int status = process_wait(tid); 
   return status;
 }
 
-bool
-sys_create (uint32_t **esp){
+bool sys_create (uint32_t **esp){
 	char *filename = (char *)*(*esp)++;
 	uint32_t size = (uint32_t)*(*esp)++;
-
 	return filesys_create(filename,size);
 }
 
-int 
-sys_open (uint32_t **esp){
+bool sys_remove (uint32_t **esp){
+	char *file_name = (char *)*(*esp)++;
+	return filesys_remove(file_name);
+}
+
+int  sys_open (uint32_t **esp){
 	char *filename = (char *)*(*esp)++;    
 	//checking if invalid pointer access
 	if (!validate_address (filename)) {
-		sys_exit_real (-1);
+		//sys_exit_real (-1);
+		thread_exit();
 	}
 	struct thread *t = thread_current();
 	int i;
@@ -169,6 +164,13 @@ sys_open (uint32_t **esp){
 	return -1;
 }
 
+int sys_filesize (uint32_t **esp){
+	int fd = (int)*(*esp)++;
+	struct thread *t = thread_current();
+	if(t->fdtable[fd] == NULL) return -1;
+	else return (file_length(t->fdtable[fd]));
+}
+
 int sys_read (uint32_t **esp){
 	int fd = (int)*(*esp)++;
 	char *buffer = (char *)*(*esp)++;
@@ -176,7 +178,8 @@ int sys_read (uint32_t **esp){
 
 	//checking if invalid pointer access
 	if (!validate_address (buffer)){
-		sys_exit_real (-1);
+		//sys_exit_real (-1);
+		thread_exit();
 	}
 	// read from console
 	if( fd == 0 ){
@@ -204,15 +207,15 @@ int sys_read (uint32_t **esp){
 }
 
 
-int
-sys_write (uint32_t **esp){ 
+int sys_write (uint32_t **esp){ 
 	int fd = (int)*(*esp)++;
 	char *buffer = (char *)*(*esp)++;
 	uint32_t size = (uint32_t)*(*esp)++;
 
   //checking if invalid pointer access
   if (!validate_address (buffer)){
-    sys_exit_real (-1);
+    //sys_exit_real (-1);
+	thread_exit();
   }
 
   // write to console
@@ -232,24 +235,8 @@ sys_write (uint32_t **esp){
     return -1;
 }
 
-void 
-sys_close (uint32_t **esp){
-	int fd = (int)*(*esp)++;
-	struct thread *t = thread_current();
-	file_close(t->fdtable[fd]);
-	t->fdtable[fd] = NULL;
-}
 
-int
-sys_filesize (uint32_t **esp){
-	int fd = (int)*(*esp)++;
-	struct thread *t = thread_current();
-	if(t->fdtable[fd] == NULL) return -1;
-	else return (file_length(t->fdtable[fd]));
-}
-
-void 
-sys_seek (uint32_t **esp){
+void  sys_seek (uint32_t **esp){
 	int fd = (int)*(*esp)++;
 	struct thread *t = thread_current();
 	uint32_t position = (uint32_t)*(*esp)++;
@@ -257,21 +244,19 @@ sys_seek (uint32_t **esp){
 	file_seek(t->fdtable[fd],position);
 }
 
-unsigned
-sys_tell (uint32_t **esp){
+unsigned sys_tell (uint32_t **esp){
 	int fd = (int)*(*esp)++;
 	struct thread *t = thread_current();
 	return (file_tell(t->fdtable[fd]));
 }
 
-bool
-sys_remove (uint32_t **esp){
-	char *file_name = (char *)*(*esp)++;
-	return filesys_remove(file_name);
+void sys_close (uint32_t **esp){
+	int fd = (int)*(*esp)++;
+	struct thread *t = thread_current();
+	file_close(t->fdtable[fd]);
+	t->fdtable[fd] = NULL;
 }
-
-bool
-validate_address (void *address){
+bool validate_address (void *address){
 	struct thread *cur = thread_current();
 	uint32_t *pd = cur->pagedir;  
 

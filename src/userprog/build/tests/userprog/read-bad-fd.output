@@ -1,6 +1,6 @@
-Copying tests/userprog/read-bad-fd into /tmp/HtCwKslbNT.dsk...
-Writing command line to /tmp/gubz8dadKC.dsk...
-qemu -hda /tmp/gubz8dadKC.dsk -hdb /tmp/TfE2yP9Zys.dsk -hdc /tmp/HtCwKslbNT.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/read-bad-fd into /tmp/iToKHkyYeq.dsk...
+Writing command line to /tmp/XYQ48zdR7r.dsk...
+qemu -hda /tmp/XYQ48zdR7r.dsk -hdb /tmp/pzl5GE4v6x.dsk -hdc /tmp/iToKHkyYeq.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put read-bad-fd run read-bad-fd
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -15,13 +15,13 @@ Putting 'read-bad-fd' into the file system...
 Executing 'read-bad-fd':
 (read-bad-fd) begin
 Page fault at 0x405208fc: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b0c5
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b09d
  cr2=405208fc error=00000000
- eax=ffffffff ebx=20101234 ecx=c0122ffc edx=c011c000
+ eax=ffffffff ebx=20101234 ecx=c0121ffc edx=c011c000
  esi=bfffffa7 edi=00000001 esp=bfffffa7 ebp=c011cf54
  cs=0008 ds=0010 es=0010 ss=ff78
 Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075f6 0xc010accf 0xc010ad89 0xc0101835 0xc0101a0b 0xc010b0c5 0xc010aea9 0xc0101835 0xc0101a0b 0x804a101 0x80480c1 0x804819b 0x8048774.
+Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b09d 0xc010ae42 0xc0101825 0xc01019fb 0x804a101 0x80480c1 0x804819b 0x8048774.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.

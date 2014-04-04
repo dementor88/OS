@@ -18,20 +18,13 @@
 #include "threads/thread.h"
 #include "threads/vaddr.h"
 
-struct parent_child_relation
-{
-  tid_t parent_tid;
-  tid_t child_tid;
-  bool waiting;
-  struct list_elem elem;
-};
-
-struct parent_thread_waiter
-{
-  tid_t child_tid;    /* pid of process that waiter waits */
-  struct thread *t;   /* kernel thread of waiting thread */
-  int status;
-  struct list_elem elem;
+struct parent_child{
+	struct thread *parent_thread;
+	tid_t parent_tid;
+	tid_t child_tid;
+	bool waiting;
+	int status;
+	struct list_elem elem;
 };
 
 static thread_func start_process NO_RETURN;
@@ -59,11 +52,11 @@ process_execute (const char *file_name)
 	if (tid == TID_ERROR)
 		palloc_free_page (fn_copy); 
 	else{
-		struct parent_child_relation *pcr = palloc_get_page (0);
-		pcr->parent_tid = thread_tid();	//current thread tid
-		pcr->child_tid = tid;	//created thread tid
-		pcr->waiting = false;
-		list_push_back(&parent_child_relation_list, &pcr->elem);
+		struct parent_child *par_ch = palloc_get_page (0);
+		par_ch->parent_tid = thread_tid();	//현재 스레드 tid가 부모
+		par_ch->child_tid = tid;	//새로 만들어진 스레드 tid가 자식
+		par_ch->waiting = false;	//아직 wait 중 아님
+		list_push_back(&parent_child_list, &par_ch->elem);
 	}
   return tid;
 }
@@ -83,10 +76,10 @@ start_process (void *f_name)
 	struct file *f;
 		
 	command_line = palloc_get_page(0);
-	strlcpy(command_line, file_name, PGSIZE);	/* copy filename into command_line */
+	strlcpy(command_line, file_name, PGSIZE);	// copy filename into command_line 
 
 	/* Argument parsing */
-	strlcpy(s, file_name, strlen(file_name)+1);	/* copy filename into string */
+	strlcpy(s, file_name, strlen(file_name)+1);	// copy filename into string 
 	for( token = strtok_r(s, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){
 		if (argc == 0)
 			strlcpy(file_name, token, strlen(token)+1);	//size는 항상 token의 길이보다 1이 커야 한다
@@ -101,9 +94,9 @@ start_process (void *f_name)
 	
   /* Initialize interrupt frame and load executable. */
   memset (&if_, 0, sizeof if_);
-  if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;	//segment registers + data segment
-  if_.cs = SEL_UCSEG;	//code segment
-  if_.eflags = FLAG_IF | FLAG_MBS;	//saved cpu flags
+  if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;	
+  if_.cs = SEL_UCSEG;	
+  if_.eflags = FLAG_IF | FLAG_MBS;	
   
   success = load (file_name, &if_.eip, &if_.esp);
   
@@ -174,30 +167,27 @@ process_wait (tid_t child_tid UNUSED)
 {
   //return -1;
   /*****************proj#2*/
-  bool can_wait = false;
-  struct list_elem *e;
-  for (e = list_begin (&parent_child_relation_list); e != list_end (&parent_child_relation_list); e = list_next(e)){
-    struct parent_child_relation *pcr = list_entry (e, struct parent_child_relation, elem);
-    if (pcr->parent_tid == thread_tid() && pcr->child_tid == child_tid && pcr->waiting == false){
-      pcr->waiting = true;
-      can_wait = true;
-    }
-  }
-  if (!can_wait)
-    return -1;
-
-  enum intr_level old_level;
-  old_level = intr_disable ();
-
-  struct parent_thread_waiter *pw = palloc_get_page(0);
-  pw->child_tid = child_tid;
-  pw->t = thread_current();
-  list_push_back (&parent_thread_waiting_list, &pw->elem);
-  thread_block ();
-  
-  intr_set_level (old_level);
-  return pw->status;
-  /*****************proj#2*/
+	bool good_to_go = false;
+	struct list_elem *e;	
+	int returned_status;
+	for (e = list_begin(&parent_child_list); e != list_end(&parent_child_list); e = list_next(e)){		
+		struct parent_child *par_ch = list_entry(e, struct parent_child, elem);
+		if (par_ch->parent_tid == thread_tid() && par_ch->child_tid == child_tid && par_ch->waiting == false){
+			enum intr_level old_level;
+			old_level = intr_disable ();
+			par_ch->parent_thread = thread_current();
+			thread_block();
+			intr_set_level (old_level);
+			returned_status = par_ch->status;
+			par_ch->waiting = true;	//parent는 waiting 중
+			good_to_go = true;
+		}
+	}
+	if(good_to_go == true){	
+		return returned_status;
+	}
+	else	//interrupt에 의해 중단되거나 우리가 원하는 parent_child가 아닌 경우
+		return -1;	
 }
 
 /*************proj#2*/
@@ -205,22 +195,13 @@ void
 process_wake_parent (int status){
 	tid_t tid = thread_tid();
 	struct list_elem *e;
-	// parent_child_relation_list
-	for (e = list_begin (&parent_child_relation_list); e != list_end (&parent_child_relation_list); e = list_next(e)){
-		struct parent_child_relation *r = list_entry (e, struct parent_child_relation, elem);
-		if (r->child_tid == tid){
-			list_remove (e);
-			break;
-		}
-	}
-	// awake parent
-	// parent_thread_waiting_list
-	for (e = list_begin (&parent_thread_waiting_list); e != list_end (&parent_thread_waiting_list); e = list_next(e)){
-		struct parent_thread_waiter *pw = list_entry (e, struct parent_thread_waiter, elem);
-		if (pw->child_tid == tid){
-			pw->status = status;
+	struct parent_child *par_ch = list_entry (e, struct parent_child, elem);
+	for (e = list_begin (&parent_child_list); e != list_end (&parent_child_list); e = list_next(e)){		
+		struct parent_child *par_ch = list_entry (e, struct parent_child, elem);
+		if (par_ch->child_tid == tid){					
+			par_ch->status = status;
 			e = list_prev (list_remove (e));
-			thread_unblock (pw->t);
+			thread_unblock(par_ch->parent_thread);			
 		}
 	}
 }

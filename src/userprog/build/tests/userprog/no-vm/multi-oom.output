@@ -1,6 +1,6 @@
-Copying tests/userprog/no-vm/multi-oom into /tmp/fG3V1QpndR.dsk...
-Writing command line to /tmp/nYAOtRLX29.dsk...
-qemu -hda /tmp/nYAOtRLX29.dsk -hdb /tmp/CnrUaDP50J.dsk -hdc /tmp/fG3V1QpndR.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/no-vm/multi-oom into /tmp/Tum5BkgaUi.dsk...
+Writing command line to /tmp/qBJAEMMwCf.dsk...
+qemu -hda /tmp/qBJAEMMwCf.dsk -hdb /tmp/fMEq3NO5jY.dsk -hdc /tmp/Tum5BkgaUi.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put multi-oom run multi-oom
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -14,16 +14,5 @@ Boot complete.
 Putting 'multi-oom' into the file system...
 Executing 'multi-oom':
 (multi-oom) begin
-multi-oom: exit(-1)
-multi-oom: exit(-1)
-multi-oom: exit(-1)
-multi-oom: exit(-1)
-Page fault at 0xc0000000: rights violation error reading page in user context.
-multi-oom 21 -k: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x804817e
- cr2=c0000000 error=00000005
- eax=00000002 ebx=c0000000 ecx=a73db9f4 edx=a73db9f2
- esi=c0000000 edi=0804ac43 esp=bfffff60 ebp=bfffff78
- cs=001b ds=0023 es=0023 ss=0023
 
-TIMEOUT after 361 seconds of wall-clock time - load average: 0.00, 0.01, 0.00
+TIMEOUT after 382 seconds of wall-clock time - load average: 0.08, 0.27, 0.88

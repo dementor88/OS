@@ -114,10 +114,9 @@ static bool high_thread_priority(const struct list_elem *a, const struct list_el
 void
 thread_start (void) 
 {
-#ifdef USERPROG
-  list_init (&parent_child_relation_list);
-  list_init (&parent_thread_waiting_list);
-#endif
+	/****proj#2*/
+	list_init (&parent_child_list);
+
   /* Create the idle thread. */
   struct semaphore idle_started;
   sema_init (&idle_started, 0);

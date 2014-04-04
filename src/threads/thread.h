@@ -6,10 +6,8 @@
 #include <stdint.h>
 
 /*****************proj#2*/
-#ifdef USERPROG
-struct list parent_child_relation_list;
-struct list parent_thread_waiting_list;
-#endif
+struct list parent_child_list;
+
 
 
 /* States in a thread's life cycle. */
