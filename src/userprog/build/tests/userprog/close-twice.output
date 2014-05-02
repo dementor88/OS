@@ -1,11 +1,11 @@
-Copying tests/userprog/close-twice into /tmp/sAVOSSfW1j.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/sAVOSSfW1j.dsk...
-Writing command line to /tmp/H8XT8A5wG0.dsk...
-qemu -hda /tmp/H8XT8A5wG0.dsk -hdb /tmp/cnuXBIlnVR.dsk -hdc /tmp/sAVOSSfW1j.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/close-twice into /tmp/76DdTEodVK.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/76DdTEodVK.dsk...
+Writing command line to /tmp/VYcz9g0Tts.dsk...
+qemu -hda /tmp/VYcz9g0Tts.dsk -hdb /tmp/gSipKMjovC.dsk -hdc /tmp/76DdTEodVK.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put close-twice put sample.txt run close-twice
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -19,17 +19,15 @@ Executing 'close-twice':
 (close-twice) open "sample.txt"
 (close-twice) close "sample.txt"
 (close-twice) close "sample.txt" again
-Kernel PANIC at ../../filesys/inode.c:336 in inode_allow_write(): assertion `inode->deny_write_cnt <= inode->open_cnt' failed.
-Call stack: 0xc0107596 0xc010c9dc 0xc010bd59 0xc010bbe3 0xc010b243 0xc010ae0f 0xc0101825 0xc01019fb 0x804a0ed 0x80480fa 0x8048133 0x804870c.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+(close-twice) end
+close-twice: exit(0)
+Execution of 'close-twice' complete.
+Timer: 62 ticks
+Thread: 0 idle ticks, 61 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 90 reads, 160 writes
 hd1:0: 75 reads, 0 writes
-Console: 1321 characters output
+Console: 974 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

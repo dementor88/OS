@@ -1,5 +1,6 @@
-Writing command line to /tmp/VnArbXeT8r.dsk...
-squish-pty bochs -q
+Writing command line to /tmp/panaFlPRIB.dsk...
+warning: can't find squish-pty, so terminal input will fail
+bochs -q
 Kernel command line: -q run alarm-simultaneous
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -29,7 +30,7 @@ Executing 'alarm-simultaneous':
 (alarm-simultaneous) end
 Execution of 'alarm-simultaneous' complete.
 Timer: 464 ticks
-Thread: 248 idle ticks, 219 kernel ticks, 0 user ticks
-Console: 1612 characters output
+Thread: 0 idle ticks, 468 kernel ticks, 0 user ticks
+Console: 1610 characters output
 Keyboard: 0 keys pressed
 Powering off...

@@ -1,10 +1,10 @@
-Copying tests/userprog/create-bound into /tmp/IJvhd41pfI.dsk...
-Writing command line to /tmp/EQfz17Npn4.dsk...
-qemu -hda /tmp/EQfz17Npn4.dsk -hdb /tmp/Jh11f7vakt.dsk -hdc /tmp/IJvhd41pfI.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/create-bound into /tmp/pAKhrFLIlN.dsk...
+Writing command line to /tmp/bT4XXexYBK.dsk...
+qemu -hda /tmp/bT4XXexYBK.dsk -hdb /tmp/NUGt9AtcsH.dsk -hdc /tmp/pAKhrFLIlN.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put create-bound run create-bound
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -18,12 +18,12 @@ Executing 'create-bound':
 (create-bound) end
 create-bound: exit(0)
 Execution of 'create-bound' complete.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+Timer: 62 ticks
+Thread: 0 idle ticks, 61 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 81 reads, 162 writes
 hd1:0: 75 reads, 0 writes
-Console: 856 characters output
+Console: 855 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

@@ -1,10 +1,10 @@
-Copying tests/filesys/base/sm-full into /tmp/KVY6vHK2rf.dsk...
-Writing command line to /tmp/JFogwF9ceS.dsk...
-qemu -hda /tmp/JFogwF9ceS.dsk -hdb /tmp/6ktVaFJyAJ.dsk -hdc /tmp/KVY6vHK2rf.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/sm-full into /tmp/3BsLYN53P2.dsk...
+Writing command line to /tmp/WGM8I0Rjz9.dsk...
+qemu -hda /tmp/WGM8I0Rjz9.dsk -hdb /tmp/YgLA2ERCFv.dsk -hdc /tmp/3BsLYN53P2.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put sm-full run sm-full
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -25,11 +25,11 @@ Executing 'sm-full':
 sm-full: exit(0)
 Execution of 'sm-full' complete.
 Timer: 61 ticks
-Thread: 30 idle ticks, 28 kernel ticks, 3 user ticks
+Thread: 0 idle ticks, 58 kernel ticks, 3 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 102 reads, 188 writes
 hd1:0: 76 reads, 0 writes
-Console: 974 characters output
+Console: 973 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

@@ -1,11 +1,11 @@
-Copying tests/userprog/wait-killed into /tmp/dprcMUb0sF.dsk...
-Copying tests/userprog/child-bad into /tmp/dprcMUb0sF.dsk...
-Writing command line to /tmp/8ey3GQ67q6.dsk...
-qemu -hda /tmp/8ey3GQ67q6.dsk -hdb /tmp/wqq7jNA8Kw.dsk -hdc /tmp/dprcMUb0sF.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/wait-killed into /tmp/Fi0fKiiPJw.dsk...
+Copying tests/userprog/child-bad into /tmp/Fi0fKiiPJw.dsk...
+Writing command line to /tmp/MoXT6AKfRL.dsk...
+qemu -hda /tmp/MoXT6AKfRL.dsk -hdb /tmp/jxIfKTGrV6.dsk -hdc /tmp/Fi0fKiiPJw.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put wait-killed put child-bad run wait-killed
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -17,23 +17,17 @@ Putting 'child-bad' into the file system...
 Executing 'wait-killed':
 (wait-killed) begin
 (child-bad) begin
-Page fault at 0x20101234: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010ad2e
- cr2=20101234 error=00000000
- eax=20101238 ebx=c011efb0 ecx=000000ad edx=20101234
- esi=c011efb0 edi=00000000 esp=20101234 ebp=c011ef74
- cs=0008 ds=0010 es=0010 ss=3009
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc010ad2e 0xc0101825 0xc01019fb 0x80480ad 0x80480ef 0x80486c8.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 70 ticks
-Thread: 30 idle ticks, 38 kernel ticks, 2 user ticks
+child-bad: exit(-1)
+(wait-killed) wait(exec()) = -1
+(wait-killed) end
+wait-killed: exit(0)
+Execution of 'wait-killed' complete.
+Timer: 71 ticks
+Thread: 0 idle ticks, 70 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 116 reads, 302 writes
+hd0:1: 120 reads, 302 writes
 hd1:0: 146 reads, 0 writes
-Console: 1505 characters output
+Console: 941 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 0 page faults
 Powering off...

@@ -1,5 +1,6 @@
-Writing command line to /tmp/KnEOCO3G6r.dsk...
-squish-pty bochs -q
+Writing command line to /tmp/1glOzw1qdQ.dsk...
+warning: can't find squish-pty, so terminal input will fail
+bochs -q
 Kernel command line: -q run alarm-priority
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -20,8 +21,8 @@ Executing 'alarm-priority':
 (alarm-priority) Thread priority 21 woke up.
 (alarm-priority) end
 Execution of 'alarm-priority' complete.
-Timer: 619 ticks
-Thread: 458 idle ticks, 164 kernel ticks, 0 user ticks
-Console: 837 characters output
+Timer: 626 ticks
+Thread: 0 idle ticks, 629 kernel ticks, 0 user ticks
+Console: 835 characters output
 Keyboard: 0 keys pressed
 Powering off...

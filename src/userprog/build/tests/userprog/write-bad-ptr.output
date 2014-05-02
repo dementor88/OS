@@ -1,11 +1,11 @@
-Copying tests/userprog/write-bad-ptr into /tmp/GfBBLdwcEY.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/GfBBLdwcEY.dsk...
-Writing command line to /tmp/MzyJcPLYQA.dsk...
-qemu -hda /tmp/MzyJcPLYQA.dsk -hdb /tmp/bAHC88aq3b.dsk -hdc /tmp/GfBBLdwcEY.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/write-bad-ptr into /tmp/SJR47tk57V.dsk...
+Copying ../../tests/userprog/sample.txt into /tmp/SJR47tk57V.dsk...
+Writing command line to /tmp/96i16d0oFf.dsk...
+qemu -hda /tmp/96i16d0oFf.dsk -hdb /tmp/qbyrpkdKFX.dsk -hdc /tmp/SJR47tk57V.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put write-bad-ptr put sample.txt run write-bad-ptr
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -17,23 +17,14 @@ Putting 'sample.txt' into the file system...
 Executing 'write-bad-ptr':
 (write-bad-ptr) begin
 (write-bad-ptr) open "sample.txt"
-Page fault at 0x10123420: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0106a02
- cr2=10123420 error=00000000
- eax=d013b601 ebx=10123420 ecx=0000007a edx=c0119201
- esi=c011920c edi=c011920c esp=c0111a2c ebp=c011cec4
- cs=0008 ds=0010 es=0010 ss=920c
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc0106a02 0xc010c937 0xc010bcda 0xc010b17f 0xc010ade2 0xc0101825 0xc01019fb 0x804a0a9 0x80480e7 0x8048127 0x8048700.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
+write-bad-ptr: exit(-1)
+Execution of 'write-bad-ptr' complete.
 Timer: 62 ticks
-Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
+Thread: 0 idle ticks, 62 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 91 reads, 160 writes
+hd0:1: 90 reads, 160 writes
 hd1:0: 75 reads, 0 writes
-Console: 1584 characters output
+Console: 901 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 0 page faults
 Powering off...

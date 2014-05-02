@@ -1,10 +1,10 @@
-Copying tests/userprog/read-stdout into /tmp/xO5IVFBpfz.dsk...
-Writing command line to /tmp/i5cYQtXc5v.dsk...
-qemu -hda /tmp/i5cYQtXc5v.dsk -hdb /tmp/XW43wwADwG.dsk -hdc /tmp/xO5IVFBpfz.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/read-stdout into /tmp/bDIE68yDSU.dsk...
+Writing command line to /tmp/u7jOdhS6f0.dsk...
+qemu -hda /tmp/u7jOdhS6f0.dsk -hdb /tmp/EoA9RJc1At.dsk -hdc /tmp/bDIE68yDSU.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put read-stdout run read-stdout
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -17,12 +17,12 @@ Executing 'read-stdout':
 (read-stdout) end
 read-stdout: exit(0)
 Execution of 'read-stdout' complete.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+Timer: 60 ticks
+Thread: 0 idle ticks, 59 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 58 reads, 154 writes
 hd1:0: 73 reads, 0 writes
-Console: 811 characters output
+Console: 810 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

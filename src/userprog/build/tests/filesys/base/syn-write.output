@@ -1,11 +1,11 @@
-Copying tests/filesys/base/syn-write into /tmp/v9SSDjKlrH.dsk...
-Copying tests/filesys/base/child-syn-wrt into /tmp/v9SSDjKlrH.dsk...
-Writing command line to /tmp/JNKJso4k5v.dsk...
-qemu -hda /tmp/JNKJso4k5v.dsk -hdb /tmp/B0JXNBCJlh.dsk -hdc /tmp/v9SSDjKlrH.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/syn-write into /tmp/sD4o9cBmMF.dsk...
+Copying tests/filesys/base/child-syn-wrt into /tmp/sD4o9cBmMF.dsk...
+Writing command line to /tmp/kVeXgnVb90.dsk...
+qemu -hda /tmp/kVeXgnVb90.dsk -hdb /tmp/B6wfJrgCB2.dsk -hdc /tmp/sD4o9cBmMF.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put syn-write put child-syn-wrt run syn-write
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -29,17 +29,17 @@ Executing 'syn-write':
 (syn-write) exec child 10 of 10: "child-syn-wrt 9"
 child-syn-wrt: exit(0)
 child-syn-wrt: exit(1)
-Kernel PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc0107596 0xc0100aa1 0xc0109ad7 0xc010ae8a 0xc010ad50 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8.
+Kernel PANIC at ../../threads/thread.c:273 in thread_unblock(): assertion `is_thread (t)' failed.
+Call stack: 0xc0107366 0xc0100aa6 0xc010988d 0xc010add1 0xc010ac4d 0xc0101835 0xc0101a0b 0x804a5d3 0x80488d8.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
-Timer: 72 ticks
-Thread: 30 idle ticks, 40 kernel ticks, 2 user ticks
+Timer: 74 ticks
+Thread: 0 idle ticks, 70 kernel ticks, 4 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 186 reads, 346 writes
+hd0:1: 226 reads, 346 writes
 hd1:0: 160 reads, 0 writes
-Console: 1730 characters output
+Console: 1729 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

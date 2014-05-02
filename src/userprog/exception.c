@@ -5,6 +5,12 @@
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 
+#include "threads/vaddr.h"
+#include "userprog/syscall.h"
+#include "userprog/pagedir.h"
+#include "vm/page.h"
+#include "vm/frame.h"
+
 /* Number of page faults processed. */
 static long long page_fault_cnt;
 
@@ -147,15 +153,52 @@ page_fault (struct intr_frame *f)
   not_present = (f->error_code & PF_P) == 0;
   write = (f->error_code & PF_W) != 0;
   user = (f->error_code & PF_U) != 0;
-
+	if(user)
+		_sys_exit();
+/*
+bool load = false;
+if(not_present && fault_addr>0x08084000 && is_user_vaddr(fault_addr)){
+struct sup_page_entry *spte = get_spte(fault_addr);
+if(spte){
+load = load_page(spte);
+spte->pinned = false;
+}else if(fault_addr >= f->esp - 32){
+load = grow_stack(fault_addr);
+}
+}
+*/
   /* To implement virtual memory, delete the rest of the function
      body, and replace it with code that brings in the page to
      which fault_addr refers. */
-  printf ("Page fault at %p: %s error %s page in %s context.\n",
-          fault_addr,
-          not_present ? "not present" : "rights violation",
-          write ? "writing" : "reading",
-          user ? "user" : "kernel");
-  kill (f);
+ 
+	if(not_present){
+		//check if the stack has to grow
+		if ( (write) && (f->esp >= PHYS_BASE - STACKMAX * PGSIZE) && (f->esp <= thread_current()->esp) ) {
+			//get the number of pages it has to grow
+			int number_pages = ( thread_current()->esp - pg_round_down(f->esp) ) / PGSIZE;
+			void * vaddr = thread_current()->esp - PGSIZE;
+			if (number_pages == 0) { 
+				number_pages++;
+			}
+			//and get a frame for the pages 	
+			int i;
+			for (i = 0; i < number_pages; i++) {
+				uint8_t * kpage = get_frame();
+				pagedir_set_page (thread_current()->pagedir, vaddr - i*PGSIZE, kpage, true);
+				page_add(vaddr - i*PGSIZE,kpage,true,PAGE_FRAME);
+			}
+			thread_current()->esp = vaddr - PGSIZE*(number_pages-1);
+		} else {
+			//look if the page exists in the supplemental page table
+			struct page * addr = page_lookup(fault_addr, thread_current());
+			if ( (addr == NULL) || ( write && addr->writable == false ) ) kill(f);	
+
+				//otherwise try to find the the virtual address in another memory
+			 page_swap_out(fault_addr);
+		} 
+	} else { 
+		//just kill the process	
+		kill(f);
+	}
 }
 

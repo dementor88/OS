@@ -1,10 +1,10 @@
-Copying tests/userprog/create-null into /tmp/q8jumwKe1d.dsk...
-Writing command line to /tmp/otWUDeIeDL.dsk...
-qemu -hda /tmp/otWUDeIeDL.dsk -hdb /tmp/hknhI1cQie.dsk -hdc /tmp/q8jumwKe1d.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/create-null into /tmp/lbmvw0RDcc.dsk...
+Writing command line to /tmp/X1txee0BZZ.dsk...
+qemu -hda /tmp/X1txee0BZZ.dsk -hdb /tmp/HttTxpQ5vL.dsk -hdc /tmp/lbmvw0RDcc.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put create-null run create-null
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -14,17 +14,14 @@ Boot complete.
 Putting 'create-null' into the file system...
 Executing 'create-null':
 (create-null) begin
-Kernel PANIC at ../../filesys/directory.c:149 in dir_add(): assertion `name != NULL' failed.
-Call stack: 0xc0107596 0xc010c15e 0xc010b720 0xc010aeee 0xc010ad86 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
+create-null: exit(-1)
+Execution of 'create-null' complete.
 Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+Thread: 0 idle ticks, 60 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 62 reads, 157 writes
+hd0:1: 59 reads, 154 writes
 hd1:0: 73 reads, 0 writes
-Console: 1112 characters output
+Console: 793 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

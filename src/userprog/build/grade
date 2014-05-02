@@ -1,4 +1,4 @@
-TOTAL TESTING SCORE: 65.7%
+TOTAL TESTING SCORE: 79.2%
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -6,12 +6,12 @@ SUMMARY BY TEST SET
 
 Test Set                                      Pts Max  % Ttl  % Max
 --------------------------------------------- --- --- ------ ------
-tests/userprog/Rubric.functionality            99/108  32.1%/ 35.0%
-tests/userprog/Rubric.robustness               41/ 88  11.6%/ 25.0%
+tests/userprog/Rubric.functionality           108/108  35.0%/ 35.0%
+tests/userprog/Rubric.robustness               78/ 88  22.2%/ 25.0%
 tests/userprog/no-vm/Rubric                     0/  1   0.0%/ 10.0%
 tests/filesys/base/Rubric                      22/ 30  22.0%/ 30.0%
 --------------------------------------------- --- --- ------ ------
-Total                                                  65.7%/100.0%
+Total                                                  79.2%/100.0%
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -66,32 +66,32 @@ Functionality of system calls (tests/userprog/Rubric.functionality):
 	    15/15 tests/userprog/multi-recurse
 
 	- Test read-only executable feature.
-	  ** 0/ 3 tests/userprog/rox-simple
-	  ** 0/ 3 tests/userprog/rox-child
-	  ** 0/ 3 tests/userprog/rox-multichild
+	     3/ 3 tests/userprog/rox-simple
+	     3/ 3 tests/userprog/rox-child
+	     3/ 3 tests/userprog/rox-multichild
 
 	- Section summary.
-	     25/ 28 tests passed
-	     99/108 points subtotal
+	     28/ 28 tests passed
+	    108/108 points subtotal
 
 Robustness of system calls (tests/userprog/Rubric.robustness):
 	- Test robustness of file descriptor handling.
 	     2/ 2 tests/userprog/close-stdin
 	     2/ 2 tests/userprog/close-stdout
-	  ** 0/ 2 tests/userprog/close-bad-fd
+	     2/ 2 tests/userprog/close-bad-fd
 	     2/ 2 tests/userprog/close-twice
-	  ** 0/ 2 tests/userprog/read-bad-fd
+	     2/ 2 tests/userprog/read-bad-fd
 	     2/ 2 tests/userprog/read-stdout
-	  ** 0/ 2 tests/userprog/write-bad-fd
+	     2/ 2 tests/userprog/write-bad-fd
 	     2/ 2 tests/userprog/write-stdin
 	     2/ 2 tests/userprog/multi-child-fd
 
 	- Test robustness of pointer handling.
-	  ** 0/ 3 tests/userprog/create-bad-ptr
-	  ** 0/ 3 tests/userprog/exec-bad-ptr
-	  ** 0/ 3 tests/userprog/open-bad-ptr
-	  ** 0/ 3 tests/userprog/read-bad-ptr
-	  ** 0/ 3 tests/userprog/write-bad-ptr
+	     3/ 3 tests/userprog/create-bad-ptr
+	     3/ 3 tests/userprog/exec-bad-ptr
+	     3/ 3 tests/userprog/open-bad-ptr
+	     3/ 3 tests/userprog/read-bad-ptr
+	     3/ 3 tests/userprog/write-bad-ptr
 
 	- Test robustness of buffer copying across page boundaries.
 	     3/ 3 tests/userprog/create-bound
@@ -100,32 +100,32 @@ Robustness of system calls (tests/userprog/Rubric.robustness):
 	     3/ 3 tests/userprog/write-boundary
 
 	- Test handling of null pointer and empty strings.
-	  ** 0/ 2 tests/userprog/create-null
-	  ** 0/ 2 tests/userprog/open-null
+	     2/ 2 tests/userprog/create-null
+	     2/ 2 tests/userprog/open-null
 	     2/ 2 tests/userprog/open-empty
 
 	- Test robustness of system call implementation.
-	  ** 0/ 3 tests/userprog/sc-bad-arg
-	  ** 0/ 3 tests/userprog/sc-bad-sp
-	     5/ 5 tests/userprog/sc-boundary
-	     5/ 5 tests/userprog/sc-boundary-2
+	     3/ 3 tests/userprog/sc-bad-arg
+	     3/ 3 tests/userprog/sc-bad-sp
+	  ** 0/ 5 tests/userprog/sc-boundary
+	  ** 0/ 5 tests/userprog/sc-boundary-2
 
 	- Test robustness of "exec" and "wait" system calls.
-	  ** 0/ 5 tests/userprog/exec-missing
+	     5/ 5 tests/userprog/exec-missing
 	     5/ 5 tests/userprog/wait-bad-pid
-	  ** 0/ 5 tests/userprog/wait-killed
+	     5/ 5 tests/userprog/wait-killed
 
 	- Test robustness of exception handling.
-	  ** 0/ 1 tests/userprog/bad-read
-	  ** 0/ 1 tests/userprog/bad-write
-	  ** 0/ 1 tests/userprog/bad-jump
-	  ** 0/ 1 tests/userprog/bad-read2
-	  ** 0/ 1 tests/userprog/bad-write2
-	  ** 0/ 1 tests/userprog/bad-jump2
+	     1/ 1 tests/userprog/bad-read
+	     1/ 1 tests/userprog/bad-write
+	     1/ 1 tests/userprog/bad-jump
+	     1/ 1 tests/userprog/bad-read2
+	     1/ 1 tests/userprog/bad-write2
+	     1/ 1 tests/userprog/bad-jump2
 
 	- Section summary.
-	     14/ 34 tests passed
-	     41/ 88 points subtotal
+	     32/ 34 tests passed
+	     78/ 88 points subtotal
 
 Functionality of features that VM might break (tests/userprog/no-vm/Rubric):
 
@@ -162,1018 +162,107 @@ Functionality of base file system (tests/filesys/base/Rubric):
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-DETAILS OF tests/userprog/rox-simple FAILURE:
-
-run: try to write "rox-simple": FAILED
-
-OUTPUT FROM tests/userprog/rox-simple:
-
-Copying tests/userprog/rox-simple into /tmp/mjO02ahd6k.dsk...
-Writing command line to /tmp/82wSmsrwZo.dsk...
-qemu -hda /tmp/82wSmsrwZo.dsk -hdb /tmp/W7HUfW6IdY.dsk -hdc /tmp/mjO02ahd6k.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put rox-simple run rox-simple
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'rox-simple' into the file system...
-Executing 'rox-simple':
-(rox-simple) begin
-(rox-simple) open "rox-simple"
-(rox-simple) read "rox-simple"
-(rox-simple) try to write "rox-simple"
-(rox-simple) try to write "rox-simple": FAILED
-rox-simple: exit(1)
-Execution of 'rox-simple' complete.
-Timer: 62 ticks
-Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 64 reads, 155 writes
-hd1:0: 73 reads, 0 writes
-Console: 934 characters output
-Keyboard: 0 keys pressed
-Exception: 0 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/rox-child FAILURE:
-
-run: try to write "child-rox": FAILED
-
-OUTPUT FROM tests/userprog/rox-child:
-
-Copying tests/userprog/rox-child into /tmp/GnV6ocQaTz.dsk...
-Copying tests/userprog/child-rox into /tmp/GnV6ocQaTz.dsk...
-Writing command line to /tmp/bitbeUuRLF.dsk...
-qemu -hda /tmp/bitbeUuRLF.dsk -hdb /tmp/S3U7619ujL.dsk -hdc /tmp/GnV6ocQaTz.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put rox-child put child-rox run rox-child
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 156 sector (78 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'rox-child' into the file system...
-Putting 'child-rox' into the file system...
-Executing 'rox-child':
-(rox-child) begin
-(rox-child) open "child-rox"
-(rox-child) read "child-rox"
-(rox-child) write "child-rox"
-(rox-child) exec "child-rox 1"
-(child-rox) begin
-(child-rox) try to write "child-rox"
-(child-rox) try to write "child-rox": FAILED
-child-rox: exit(1)
-(rox-child) wait for child: FAILED
-rox-child: exit(1)
-Execution of 'rox-child' complete.
-Timer: 72 ticks
-Thread: 30 idle ticks, 41 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 129 reads, 324 writes
-hd1:0: 156 reads, 0 writes
-Console: 1113 characters output
-Keyboard: 0 keys pressed
-Exception: 0 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/rox-multichild FAILURE:
-
-run: try to write "child-rox": FAILED
-
-OUTPUT FROM tests/userprog/rox-multichild:
-
-Copying tests/userprog/rox-multichild into /tmp/CXbDsbXqid.dsk...
-Copying tests/userprog/child-rox into /tmp/CXbDsbXqid.dsk...
-Writing command line to /tmp/zGnLOsWkZm.dsk...
-qemu -hda /tmp/zGnLOsWkZm.dsk -hdb /tmp/ePTpXRrmFn.dsk -hdc /tmp/CXbDsbXqid.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put rox-multichild put child-rox run rox-multichild
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 156 sector (78 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'rox-multichild' into the file system...
-Putting 'child-rox' into the file system...
-Executing 'rox-multichild':
-(rox-multichild) begin
-(rox-multichild) open "child-rox"
-(rox-multichild) read "child-rox"
-(rox-multichild) write "child-rox"
-(rox-multichild) exec "child-rox 5"
-(child-rox) begin
-(child-rox) try to write "child-rox"
-(child-rox) try to write "child-rox": FAILED
-child-rox: exit(1)
-(rox-multichild) wait for child: FAILED
-rox-multichild: exit(1)
-Execution of 'rox-multichild' complete.
-Timer: 72 ticks
-Thread: 30 idle ticks, 40 kernel ticks, 2 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 129 reads, 324 writes
-hd1:0: 156 reads, 0 writes
-Console: 1173 characters output
-Keyboard: 0 keys pressed
-Exception: 0 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/close-bad-fd FAILURE:
-
-Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b1d9 0xc010ae7f 0xc0101825 0xc01019fb 0x804a09d 0x80480b2 0x80480e7 0x80486c0
-Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ac6f: kill (.../userprog/exception.c:105)
-0xc010ad29: page_fault (.../userprog/exception.c:160)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0xc010b1d9: sys_close (...../userprog/syscall.c:256)
-0xc010ae7f: syscall_handler (...../userprog/syscall.c:103)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-In tests/userprog/close-bad-fd:
-0x0804a09d: close (...../lib/user/syscall.c:141)
-0x080480b2: test_main (...serprog/close-bad-fd.c:11)
-0x080480e7: main (...ild/../../tests/main.c:13)
-0x080486c0: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
-
-OUTPUT FROM tests/userprog/close-bad-fd:
-
-Copying tests/userprog/close-bad-fd into /tmp/zjfDjEkQ56.dsk...
-Writing command line to /tmp/XRrXnTzqZJ.dsk...
-qemu -hda /tmp/XRrXnTzqZJ.dsk -hdb /tmp/zpYxNyuy0f.dsk -hdc /tmp/zjfDjEkQ56.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put close-bad-fd run close-bad-fd
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'close-bad-fd' into the file system...
-Executing 'close-bad-fd':
-(close-bad-fd) begin
-Page fault at 0x405208fc: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b1d9
- cr2=405208fc error=00000000
- eax=c011c000 ebx=c011c000 ecx=bfffff94 edx=c011c000
- esi=20101234 edi=00000000 esp=c011f000 ebp=c011cf54
- cs=0008 ds=0010 es=0010 ss=ff90
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b1d9 0xc010ae7f 0xc0101825 0xc01019fb 0x804a09d 0x80480b2 0x80480e7 0x80486c0.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 58 reads, 154 writes
-hd1:0: 73 reads, 0 writes
-Console: 1452 characters output
-Keyboard: 0 keys pressed
-Exception: 1 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/read-bad-fd FAILURE:
-
-Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b09d 0xc010ae42 0xc0101825 0xc01019fb 0x804a101 0x80480c1 0x804819b 0x8048774
-Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ac6f: kill (.../userprog/exception.c:105)
-0xc010ad29: page_fault (.../userprog/exception.c:160)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0xc010b09d: sys_read (...../userprog/syscall.c:202)
-0xc010ae42: syscall_handler (.../../userprog/syscall.c:87)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-In tests/userprog/read-bad-fd:
-0x0804a101: read (...../lib/user/syscall.c:117)
-0x080480c1: test_main (...userprog/read-bad-fd.c:15)
-0x0804819b: main (...ild/../../tests/main.c:13)
-0x08048774: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
-
-OUTPUT FROM tests/userprog/read-bad-fd:
-
-Copying tests/userprog/read-bad-fd into /tmp/iToKHkyYeq.dsk...
-Writing command line to /tmp/XYQ48zdR7r.dsk...
-qemu -hda /tmp/XYQ48zdR7r.dsk -hdb /tmp/pzl5GE4v6x.dsk -hdc /tmp/iToKHkyYeq.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put read-bad-fd run read-bad-fd
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'read-bad-fd' into the file system...
-Executing 'read-bad-fd':
-(read-bad-fd) begin
-Page fault at 0x405208fc: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b09d
- cr2=405208fc error=00000000
- eax=ffffffff ebx=20101234 ecx=c0121ffc edx=c011c000
- esi=bfffffa7 edi=00000001 esp=bfffffa7 ebp=c011cf54
- cs=0008 ds=0010 es=0010 ss=ff78
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b09d 0xc010ae42 0xc0101825 0xc01019fb 0x804a101 0x80480c1 0x804819b 0x8048774.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 59 reads, 154 writes
-hd1:0: 73 reads, 0 writes
-Console: 1447 characters output
-Keyboard: 0 keys pressed
-Exception: 1 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/write-bad-fd FAILURE:
-
-Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b12c 0xc010ae52 0xc0101825 0xc01019fb 0x804a129 0x80480c5 0x804819f 0x8048778
-Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ac6f: kill (.../userprog/exception.c:105)
-0xc010ad29: page_fault (.../userprog/exception.c:160)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0xc010b12c: sys_write (...../userprog/syscall.c:229)
-0xc010ae52: syscall_handler (.../../userprog/syscall.c:91)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-In tests/userprog/write-bad-fd:
-0x0804a129: write (...../lib/user/syscall.c:123)
-0x080480c5: test_main (...serprog/write-bad-fd.c:14)
-0x0804819f: main (...ild/../../tests/main.c:13)
-0x08048778: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
-
-OUTPUT FROM tests/userprog/write-bad-fd:
-
-Copying tests/userprog/write-bad-fd into /tmp/xtOm6wzLGo.dsk...
-Writing command line to /tmp/gZQjjWxwYZ.dsk...
-qemu -hda /tmp/gZQjjWxwYZ.dsk -hdb /tmp/Q605cQMkG8.dsk -hdc /tmp/xtOm6wzLGo.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put write-bad-fd run write-bad-fd
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'write-bad-fd' into the file system...
-Executing 'write-bad-fd':
-(write-bad-fd) begin
-Page fault at 0xc4164d34: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010b12c
- cr2=c4164d34 error=00000000
- eax=ffffffff ebx=01012342 ecx=c0121ffc edx=c011c000
- esi=bfffffa7 edi=00000001 esp=bfffffa7 ebp=c011cf54
- cs=0008 ds=0010 es=0010 ss=ff78
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010b12c 0xc010ae52 0xc0101825 0xc01019fb 0x804a129 0x80480c5 0x804819f 0x8048778.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 59 reads, 154 writes
-hd1:0: 73 reads, 0 writes
-Console: 1452 characters output
-Keyboard: 0 keys pressed
-Exception: 1 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/create-bad-ptr FAILURE:
-
-Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010c11e 0xc010b6e0 0xc010af5e 0xc010adf6 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc
-Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ac6f: kill (.../userprog/exception.c:105)
-0xc010ad29: page_fault (.../userprog/exception.c:160)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0xc010c11e: dir_add (..../filesys/directory.c:152)
-0xc010b6e0: filesys_create (..../../filesys/filesys.c:51)
-0xc010af5e: sys_create (...../userprog/syscall.c:140)
-0xc010adf6: syscall_handler (.../../userprog/syscall.c:71)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-In tests/userprog/create-bad-ptr:
-0x0804a019: create (.../../lib/user/syscall.c:93)
-0x080480ba: test_main (...rprog/create-bad-ptr.c:11)
-0x08048103: main (...ild/../../tests/main.c:13)
-0x080486dc: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
-
-OUTPUT FROM tests/userprog/create-bad-ptr:
-
-Copying tests/userprog/create-bad-ptr into /tmp/TfnMdpflgT.dsk...
-Writing command line to /tmp/yP6LWVNJOi.dsk...
-qemu -hda /tmp/yP6LWVNJOi.dsk -hdb /tmp/1ZExfcpuFN.dsk -hdc /tmp/TfnMdpflgT.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put create-bad-ptr run create-bad-ptr
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'create-bad-ptr' into the file system...
-Executing 'create-bad-ptr':
-(create-bad-ptr) begin
-Page fault at 0x20101234: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010c11e
- cr2=20101234 error=00000000
- eax=20101234 ebx=20101234 ecx=c011920c edx=c011c000
- esi=c011802c edi=00000000 esp=c011940c ebp=c011cf14
- cs=0008 ds=0010 es=0010 ss=1770
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc010c11e 0xc010b6e0 0xc010af5e 0xc010adf6 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 62 ticks
-Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 62 reads, 157 writes
-hd1:0: 73 reads, 0 writes
-Console: 1484 characters output
-Keyboard: 0 keys pressed
-Exception: 1 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/exec-bad-ptr FAILURE:
-
-Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc01070ff 0xc0109766 0xc010af19 0xc010add0 0xc0101825 0xc01019fb 0x8049fd5 0x80480b2 0x80480e7 0x80486c0
-Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ac6f: kill (.../userprog/exception.c:105)
-0xc010ad29: page_fault (.../userprog/exception.c:160)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0xc01070ff: strlcpy (...ld/../../lib/string.c:333)
-0xc0109766: process_execute (.../../userprog/process.c:51)
-0xc010af19: sys_exec (...../userprog/syscall.c:129)
-0xc010add0: syscall_handler (.../../userprog/syscall.c:63)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-In tests/userprog/exec-bad-ptr:
-0x08049fd5: exec (.../../lib/user/syscall.c:81)
-0x080480b2: test_main (...serprog/exec-bad-ptr.c:11)
-0x080480e7: main (...ild/../../tests/main.c:13)
-0x080486c0: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
-
-OUTPUT FROM tests/userprog/exec-bad-ptr:
-
-Copying tests/userprog/exec-bad-ptr into /tmp/JoQ89qOXNT.dsk...
-Writing command line to /tmp/OJCli0SDt3.dsk...
-qemu -hda /tmp/OJCli0SDt3.dsk -hdb /tmp/HbbF0TJTl2.dsk -hdc /tmp/JoQ89qOXNT.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put exec-bad-ptr run exec-bad-ptr
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'exec-bad-ptr' into the file system...
-Executing 'exec-bad-ptr':
-(exec-bad-ptr) begin
-Page fault at 0x20101234: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc01070ff
- cr2=20101234 error=00000000
- eax=00000000 ebx=c011b000 ecx=ffffffff edx=20101234
- esi=c011b000 edi=20101234 esp=0000000a ebp=c011cf24
- cs=0008 ds=0010 es=0010 ss=ffff
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc01070ff 0xc0109766 0xc010af19 0xc010add0 0xc0101825 0xc01019fb 0x8049fd5 0x80480b2 0x80480e7 0x80486c0.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 58 reads, 154 writes
-hd1:0: 73 reads, 0 writes
-Console: 1474 characters output
-Keyboard: 0 keys pressed
-Exception: 1 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/open-bad-ptr FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.04, 0.31, 1.70
-
-OUTPUT FROM tests/userprog/open-bad-ptr:
-
-Copying tests/userprog/open-bad-ptr into /tmp/34WCZKiLnV.dsk...
-Writing command line to /tmp/v5umqlZxyU.dsk...
-qemu -hda /tmp/v5umqlZxyU.dsk -hdb /tmp/T1lU8LQCua.dsk -hdc /tmp/34WCZKiLnV.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put open-bad-ptr run open-bad-ptr
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'open-bad-ptr' into the file system...
-Executing 'open-bad-ptr':
-(open-bad-ptr) begin
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.04, 0.31, 1.70
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/read-bad-ptr FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.10, 0.28, 1.59
-
-OUTPUT FROM tests/userprog/read-bad-ptr:
-
-Copying tests/userprog/read-bad-ptr into /tmp/5K789xO8ks.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/5K789xO8ks.dsk...
-Writing command line to /tmp/JkOJNZ9VM0.dsk...
-qemu -hda /tmp/JkOJNZ9VM0.dsk -hdb /tmp/GVghsy33AT.dsk -hdc /tmp/5K789xO8ks.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put read-bad-ptr put sample.txt run read-bad-ptr
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'read-bad-ptr' into the file system...
-Putting 'sample.txt' into the file system...
-Executing 'read-bad-ptr':
-(read-bad-ptr) begin
-(read-bad-ptr) open "sample.txt"
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.10, 0.28, 1.59
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/write-bad-ptr FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.52, 0.35, 1.52
-
-OUTPUT FROM tests/userprog/write-bad-ptr:
-
-Copying tests/userprog/write-bad-ptr into /tmp/bGvZzkyb4n.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/bGvZzkyb4n.dsk...
-Writing command line to /tmp/H2jQu1GT68.dsk...
-qemu -hda /tmp/H2jQu1GT68.dsk -hdb /tmp/qJ5cVsWXGg.dsk -hdc /tmp/bGvZzkyb4n.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put write-bad-ptr put sample.txt run write-bad-ptr
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'write-bad-ptr' into the file system...
-Putting 'sample.txt' into the file system...
-Executing 'write-bad-ptr':
-(write-bad-ptr) begin
-(write-bad-ptr) open "sample.txt"
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.52, 0.35, 1.52
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/create-null FAILURE:
-
-Kernel panic in run: PANIC at ../../filesys/directory.c:149 in dir_add(): assertion `name != NULL' failed.
-Call stack: 0xc01075e6 0xc010c11e 0xc010b6e0 0xc010af5e 0xc010adf6 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc
-Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010c11e: dir_add (..../filesys/directory.c:152)
-0xc010b6e0: filesys_create (..../../filesys/filesys.c:51)
-0xc010af5e: sys_create (...../userprog/syscall.c:140)
-0xc010adf6: syscall_handler (.../../userprog/syscall.c:71)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-In tests/userprog/create-null:
-0x0804a019: create (.../../lib/user/syscall.c:93)
-0x080480ba: test_main (...userprog/create-null.c:10)
-0x08048103: main (...ild/../../tests/main.c:13)
-0x080486dc: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
-
-OUTPUT FROM tests/userprog/create-null:
-
-Copying tests/userprog/create-null into /tmp/QQgs8FP2lw.dsk...
-Writing command line to /tmp/dQvfFjrjvP.dsk...
-qemu -hda /tmp/dQvfFjrjvP.dsk -hdb /tmp/qv7BVnRidi.dsk -hdc /tmp/QQgs8FP2lw.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put create-null run create-null
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'create-null' into the file system...
-Executing 'create-null':
-(create-null) begin
-Kernel PANIC at ../../filesys/directory.c:149 in dir_add(): assertion `name != NULL' failed.
-Call stack: 0xc01075e6 0xc010c11e 0xc010b6e0 0xc010af5e 0xc010adf6 0xc0101825 0xc01019fb 0x804a019 0x80480ba 0x8048103 0x80486dc.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 61 ticks
-Thread: 30 idle ticks, 31 kernel ticks, 0 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 62 reads, 157 writes
-hd1:0: 73 reads, 0 writes
-Console: 1112 characters output
-Keyboard: 0 keys pressed
-Exception: 0 page faults
-Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/open-null FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.05, 0.38, 1.82
-
-OUTPUT FROM tests/userprog/open-null:
-
-Copying tests/userprog/open-null into /tmp/7OPmxaV0La.dsk...
-Writing command line to /tmp/WvYISWSgv9.dsk...
-qemu -hda /tmp/WvYISWSgv9.dsk -hdb /tmp/igRMwCsjtz.dsk -hdc /tmp/7OPmxaV0La.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put open-null run open-null
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'open-null' into the file system...
-Executing 'open-null':
-(open-null) begin
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.05, 0.38, 1.82
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/sc-bad-arg FAILURE:
+DETAILS OF tests/userprog/sc-boundary FAILURE:
 
 Test output failed to match any acceptable form.
 
 Acceptable output:
-  (sc-bad-arg) begin
-  sc-bad-arg: exit(-1)
+  (sc-boundary) begin
+  sc-boundary: exit(42)
 Differences in `diff -u' format:
-  (sc-bad-arg) begin
-- sc-bad-arg: exit(-1)
-+ sc-bad-arg: exit(-268370176)
+  (sc-boundary) begin
+- sc-boundary: exit(42)
++ sc-boundary: exit(-1)
 
-OUTPUT FROM tests/userprog/sc-bad-arg:
+OUTPUT FROM tests/userprog/sc-boundary:
 
-Copying tests/userprog/sc-bad-arg into /tmp/Y63G2ZUXcO.dsk...
-Writing command line to /tmp/6owp4blzsN.dsk...
-qemu -hda /tmp/6owp4blzsN.dsk -hdb /tmp/NzGgRlSg4X.dsk -hdc /tmp/Y63G2ZUXcO.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put sc-bad-arg run sc-bad-arg
+Copying tests/userprog/sc-boundary into /tmp/hW9Z2uaNdm.dsk...
+Writing command line to /tmp/HiymrtYwF8.dsk...
+qemu -hda /tmp/HiymrtYwF8.dsk -hdb /tmp/DjTh9Q8xmv.dsk -hdc /tmp/hW9Z2uaNdm.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f put sc-boundary run sc-boundary
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 Formatting file system...done.
 Boot complete.
-Putting 'sc-bad-arg' into the file system...
-Executing 'sc-bad-arg':
-(sc-bad-arg) begin
-sc-bad-arg: exit(-268370176)
-Execution of 'sc-bad-arg' complete.
+Putting 'sc-boundary' into the file system...
+Executing 'sc-boundary':
+(sc-boundary) begin
+sc-boundary: exit(-1)
+Execution of 'sc-boundary' complete.
 Timer: 61 ticks
-Thread: 30 idle ticks, 30 kernel ticks, 1 user ticks
+Thread: 0 idle ticks, 60 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 59 reads, 154 writes
-hd1:0: 73 reads, 0 writes
-Console: 795 characters output
+hd0:1: 59 reads, 158 writes
+hd1:0: 75 reads, 0 writes
+Console: 793 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-DETAILS OF tests/userprog/sc-bad-sp FAILURE:
+DETAILS OF tests/userprog/sc-boundary-2 FAILURE:
 
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.01, 0.45, 1.97
+Test output failed to match any acceptable form.
 
-OUTPUT FROM tests/userprog/sc-bad-sp:
+Acceptable output:
+  (sc-boundary-2) begin
+  sc-boundary-2: exit(67)
+Differences in `diff -u' format:
+  (sc-boundary-2) begin
+- sc-boundary-2: exit(67)
++ sc-boundary-2: exit(-1)
 
-Copying tests/userprog/sc-bad-sp into /tmp/x8c6nBJLDw.dsk...
-Writing command line to /tmp/WfBwSgjZIu.dsk...
-qemu -hda /tmp/WfBwSgjZIu.dsk -hdb /tmp/TBI3evDyOn.dsk -hdc /tmp/x8c6nBJLDw.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put sc-bad-sp run sc-bad-sp
+OUTPUT FROM tests/userprog/sc-boundary-2:
+
+Copying tests/userprog/sc-boundary-2 into /tmp/261FTouVfM.dsk...
+Writing command line to /tmp/sVBSBHM83C.dsk...
+qemu -hda /tmp/sVBSBHM83C.dsk -hdb /tmp/PzuZzxZMYH.dsk -hdc /tmp/261FTouVfM.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f put sc-boundary-2 run sc-boundary-2
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 Formatting file system...done.
 Boot complete.
-Putting 'sc-bad-sp' into the file system...
-Executing 'sc-bad-sp':
-(sc-bad-sp) begin
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.01, 0.45, 1.97
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/exec-missing FAILURE:
-
-Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc0106a56 0xc0107126 0xc0109989 0xc0100dd3
-Translation of call stack:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010ac6f: kill (.../userprog/exception.c:105)
-0xc010ad29: page_fault (.../userprog/exception.c:160)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0xc0106a56: memcpy (...ild/../../lib/string.c:16)
-0xc0107126: strlcpy (...ld/../../lib/string.c:340)
-0xc0109989: start_process (...../userprog/process.c:121)
-0xc0100dd3: kernel_thread (..../../threads/thread.c:446)
-
-OUTPUT FROM tests/userprog/exec-missing:
-
-Copying tests/userprog/exec-missing into /tmp/6sGz0xH3E2.dsk...
-Writing command line to /tmp/D4UsrgFsJJ.dsk...
-qemu -hda /tmp/D4UsrgFsJJ.dsk -hdb /tmp/wFNK9dQMIH.dsk -hdc /tmp/6sGz0xH3E2.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put exec-missing run exec-missing
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'exec-missing' into the file system...
-Executing 'exec-missing':
-(exec-missing) begin
-(exec-missing) exec("no-such-file"): 4
-(exec-missing) end
-exec-missing: exit(0)
-load: no-such-file: open failed
-Page fault at 0xfffffff3: not present error writing page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0106a56
- cr2=fffffff3 error=00000002
- eax=0000006e ebx=c011c001 ecx=0000000b edx=c011c001
- esi=fffffff3 edi=fffffff3 esp=c0112084 ebp=c011ef00
- cs=0008 ds=0010 es=0010 ss=0000
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01075e6 0xc010ac6f 0xc010ad29 0xc0101825 0xc01019fb 0xc0106a56 0xc0107126 0xc0109989 0xc0100dd3.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
+Putting 'sc-boundary-2' into the file system...
+Executing 'sc-boundary-2':
+(sc-boundary-2) begin
+sc-boundary-2: exit(-1)
+Execution of 'sc-boundary-2' complete.
 Timer: 61 ticks
-Thread: 30 idle ticks, 29 kernel ticks, 2 user ticks
+Thread: 0 idle ticks, 60 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 76 reads, 154 writes
-hd1:0: 73 reads, 0 writes
-Console: 1524 characters output
+hd0:1: 59 reads, 158 writes
+hd1:0: 75 reads, 0 writes
+Console: 807 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 0 page faults
 Powering off...
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/wait-killed FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 0.88, 0.49, 1.49
-
-OUTPUT FROM tests/userprog/wait-killed:
-
-Copying tests/userprog/wait-killed into /tmp/HWuQPXCQdX.dsk...
-Copying tests/userprog/child-bad into /tmp/HWuQPXCQdX.dsk...
-Writing command line to /tmp/wmmr8v1XOM.dsk...
-qemu -hda /tmp/wmmr8v1XOM.dsk -hdb /tmp/U7tF1PQR90.dsk -hdc /tmp/HWuQPXCQdX.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put wait-killed put child-bad run wait-killed
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 146 sector (73 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'wait-killed' into the file system...
-Putting 'child-bad' into the file system...
-Executing 'wait-killed':
-(wait-killed) begin
-(child-bad) begin
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 0.88, 0.49, 1.49
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/bad-read FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.02, 0.62, 1.46
-
-OUTPUT FROM tests/userprog/bad-read:
-
-Copying tests/userprog/bad-read into /tmp/qApCT0oMP3.dsk...
-Writing command line to /tmp/Ma99fAtImv.dsk...
-qemu -hda /tmp/Ma99fAtImv.dsk -hdb /tmp/JvjvOIgi1p.dsk -hdc /tmp/qApCT0oMP3.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put bad-read run bad-read
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'bad-read' into the file system...
-Executing 'bad-read':
-(bad-read) begin
-Page fault at 0: not present error reading page in user context.
-bad-read: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480a6
- cr2=00000000 error=00000004
- eax=00000027 ebx=00000000 ecx=000000ad edx=0000000e
- esi=00000000 edi=00000000 esp=bfffffa0 ebp=bfffffa8
- cs=001b ds=0023 es=0023 ss=0023
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 1.02, 0.62, 1.46
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/bad-write FAILURE:
-
-run: TIMEOUT after 62 seconds of wall-clock time - load average: 1.00, 0.69, 1.43
-
-OUTPUT FROM tests/userprog/bad-write:
-
-Copying tests/userprog/bad-write into /tmp/AMC5vzN1sH.dsk...
-Writing command line to /tmp/F6Zg6fuFpL.dsk...
-qemu -hda /tmp/F6Zg6fuFpL.dsk -hdb /tmp/wyaORDY8Wq.dsk -hdc /tmp/AMC5vzN1sH.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put bad-write run bad-write
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'bad-write' into the file system...
-Executing 'bad-write':
-(bad-write) begin
-Page fault at 0: not present error writing page in user context.
-bad-write: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480a6
- cr2=00000000 error=00000006
- eax=00000027 ebx=00000000 ecx=000000ad edx=0000000e
- esi=00000000 edi=00000000 esp=bfffffa0 ebp=bfffffa8
- cs=001b ds=0023 es=0023 ss=0023
-
-TIMEOUT after 62 seconds of wall-clock time - load average: 1.00, 0.69, 1.43
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/bad-jump FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.00, 0.83, 1.34
-
-OUTPUT FROM tests/userprog/bad-jump:
-
-Copying tests/userprog/bad-jump into /tmp/5QHxIqofKL.dsk...
-Writing command line to /tmp/eEiMPxlqZc.dsk...
-qemu -hda /tmp/eEiMPxlqZc.dsk -hdb /tmp/mejX0Pi7hR.dsk -hdc /tmp/5QHxIqofKL.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put bad-jump run bad-jump
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'bad-jump' into the file system...
-Executing 'bad-jump':
-(bad-jump) begin
-Page fault at 0: not present error reading page in user context.
-bad-jump: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0
- cr2=00000000 error=00000004
- eax=00000000 ebx=00000000 ecx=000000ad edx=0000000e
- esi=00000000 edi=00000000 esp=bfffff9c ebp=bfffffa8
- cs=001b ds=0023 es=0023 ss=0023
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 1.00, 0.83, 1.34
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/bad-read2 FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.00, 0.74, 1.40
-
-OUTPUT FROM tests/userprog/bad-read2:
-
-Copying tests/userprog/bad-read2 into /tmp/RGx4r2UJr6.dsk...
-Writing command line to /tmp/NAn8xevubK.dsk...
-qemu -hda /tmp/NAn8xevubK.dsk -hdb /tmp/mMabnTCzhv.dsk -hdc /tmp/RGx4r2UJr6.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put bad-read2 run bad-read2
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'bad-read2' into the file system...
-Executing 'bad-read2':
-(bad-read2) begin
-Page fault at 0xc0000000: rights violation error reading page in user context.
-bad-read2: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480a6
- cr2=c0000000 error=00000005
- eax=00000027 ebx=00000000 ecx=000000ad edx=0000000e
- esi=00000000 edi=00000000 esp=bfffffa0 ebp=bfffffa8
- cs=001b ds=0023 es=0023 ss=0023
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 1.00, 0.74, 1.40
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/bad-write2 FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.00, 0.79, 1.37
-
-OUTPUT FROM tests/userprog/bad-write2:
-
-Copying tests/userprog/bad-write2 into /tmp/PGJbnsxhUt.dsk...
-Writing command line to /tmp/0WnXF6b6ev.dsk...
-qemu -hda /tmp/0WnXF6b6ev.dsk -hdb /tmp/GDcHF7IwPg.dsk -hdc /tmp/PGJbnsxhUt.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put bad-write2 run bad-write2
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'bad-write2' into the file system...
-Executing 'bad-write2':
-(bad-write2) begin
-Page fault at 0xc0000000: rights violation error writing page in user context.
-bad-write2: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0x80480a6
- cr2=c0000000 error=00000007
- eax=00000027 ebx=00000000 ecx=000000ad edx=0000000e
- esi=00000000 edi=00000000 esp=bfffffa0 ebp=bfffffa8
- cs=001b ds=0023 es=0023 ss=0023
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 1.00, 0.79, 1.37
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-DETAILS OF tests/userprog/bad-jump2 FAILURE:
-
-run: TIMEOUT after 61 seconds of wall-clock time - load average: 1.06, 0.87, 1.32
-
-OUTPUT FROM tests/userprog/bad-jump2:
-
-Copying tests/userprog/bad-jump2 into /tmp/MJsaOe1VTa.dsk...
-Writing command line to /tmp/0l6zkApVSz.dsk...
-qemu -hda /tmp/0l6zkApVSz.dsk -hdb /tmp/VvHp8LgnBj.dsk -hdc /tmp/MJsaOe1VTa.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put bad-jump2 run bad-jump2
-Pintos booting with 4,096 kB RAM...
-374 pages available in kernel pool.
-373 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
-hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
-Formatting file system...done.
-Boot complete.
-Putting 'bad-jump2' into the file system...
-Executing 'bad-jump2':
-(bad-jump2) begin
-Page fault at 0xc0000000: rights violation error reading page in user context.
-bad-jump2: dying due to interrupt 0x0e (#PF Page-Fault Exception).
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0000000
- cr2=c0000000 error=00000005
- eax=c0000000 ebx=00000000 ecx=000000ad edx=0000000e
- esi=00000000 edi=00000000 esp=bfffff9c ebp=bfffffa8
- cs=001b ds=0023 es=0023 ss=0023
-
-TIMEOUT after 61 seconds of wall-clock time - load average: 1.06, 0.87, 1.32
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 DETAILS OF tests/userprog/no-vm/multi-oom FAILURE:
 
-run: TIMEOUT after 382 seconds of wall-clock time - load average: 0.08, 0.27, 0.88
+run: TIMEOUT after 361 seconds of wall-clock time - load average: 0.47, 0.81, 0.63
 
 OUTPUT FROM tests/userprog/no-vm/multi-oom:
 
-Copying tests/userprog/no-vm/multi-oom into /tmp/Tum5BkgaUi.dsk...
-Writing command line to /tmp/qBJAEMMwCf.dsk...
-qemu -hda /tmp/qBJAEMMwCf.dsk -hdb /tmp/fMEq3NO5jY.dsk -hdc /tmp/Tum5BkgaUi.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/no-vm/multi-oom into /tmp/qLmeGfKh6A.dsk...
+Writing command line to /tmp/iUkbpaYDpa.dsk...
+qemu -hda /tmp/iUkbpaYDpa.dsk -hdb /tmp/SWwMatZpWB.dsk -hdc /tmp/qLmeGfKh6A.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put multi-oom run multi-oom
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -1183,41 +272,37 @@ Boot complete.
 Putting 'multi-oom' into the file system...
 Executing 'multi-oom':
 (multi-oom) begin
+multi-oom: exit(-1)
 
-TIMEOUT after 382 seconds of wall-clock time - load average: 0.08, 0.27, 0.88
+TIMEOUT after 361 seconds of wall-clock time - load average: 0.47, 0.81, 0.63
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 DETAILS OF tests/filesys/base/syn-read FAILURE:
 
-Kernel panic in run: PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc01075e6 0xc0100aa1 0xc0109b20 0xc010aefa 0xc010adc0 0xc0101825 0xc01019fb 0x804a5e3 0x80488e4
+Kernel panic in run: PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc0107366 0xc010aa2f 0xc010aaf5 0xc0101835 0xc0101a0b 0xc01067d6 0xc0106ea6 0xc0109699 0xc0100dda
 Translation of call stack:
-In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc0100aa1: thread_unblock (..../../threads/thread.c:255)
-0xc0109b20: process_wake_parent (...../userprog/process.c:199)
-0xc010aefa: sys_exit (...../userprog/syscall.c:121)
-0xc010adc0: syscall_handler (.../../userprog/syscall.c:60)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
-0x0804a5e3: (unknown)
-In tests/filesys/base/syn-read:
-0x080488e4: main (...ild/../../tests/main.c:11)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
+0xc0107366: debug_panic (.../../lib/kernel/debug.c:34)
+0xc010aa2f: kill (.../userprog/exception.c:105)
+0xc010aaf5: page_fault (.../userprog/exception.c:162)
+0xc0101835: intr_handler (..../threads/interrupt.c:361)
+0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
+0xc01067d6: memcpy (...ild/../../lib/string.c:16)
+0xc0106ea6: strlcpy (...ld/../../lib/string.c:340)
+0xc0109699: start_process (...../userprog/process.c:125)
+0xc0100dda: kernel_thread (..../../threads/thread.c:466)
 
 OUTPUT FROM tests/filesys/base/syn-read:
 
-Copying tests/filesys/base/syn-read into /tmp/h852unZjbs.dsk...
-Copying tests/filesys/base/child-syn-read into /tmp/h852unZjbs.dsk...
-Writing command line to /tmp/4HEZa6fNaD.dsk...
-qemu -hda /tmp/4HEZa6fNaD.dsk -hdb /tmp/gPHrQ9q66E.dsk -hdc /tmp/h852unZjbs.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/syn-read into /tmp/oLeUc0Yy8r.dsk...
+Copying tests/filesys/base/child-syn-read into /tmp/oLeUc0Yy8r.dsk...
+Writing command line to /tmp/Fv60vzhz1X.dsk...
+qemu -hda /tmp/Fv60vzhz1X.dsk -hdb /tmp/1XTOyJLalr.dsk -hdc /tmp/oLeUc0Yy8r.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put syn-read put child-syn-read run syn-read
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -1242,38 +327,43 @@ Executing 'syn-read':
 (syn-read) exec child 8 of 10: "child-syn-read 7"
 (syn-read) exec child 9 of 10: "child-syn-read 8"
 (syn-read) exec child 10 of 10: "child-syn-read 9"
-child-syn-read: exit(0)
-child-syn-read: exit(2)
-Kernel PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc01075e6 0xc0100aa1 0xc0109b20 0xc010aefa 0xc010adc0 0xc0101825 0xc01019fb 0x804a5e3 0x80488e4.
+load: child-syn-read: open failed
+Page fault at 0xffffffef: not present error writing page in kernel context.
+Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc01067d6
+ cr2=ffffffef error=00000002
+ eax=00000063 ebx=c0142001 ecx=0000000d edx=c0142001
+ esi=ffffffef edi=ffffffef esp=c0111e04 ebp=c0127f00
+ cs=0008 ds=0010 es=0010 ss=0000
+Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
+Call stack: 0xc0107366 0xc010aa2f 0xc010aaf5 0xc0101835 0xc0101a0b 0xc01067d6 0xc0106ea6 0xc0109699 0xc0100dda.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
-Timer: 82 ticks
-Thread: 30 idle ticks, 39 kernel ticks, 13 user ticks
+Timer: 77 ticks
+Thread: 0 idle ticks, 70 kernel ticks, 7 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 3290 reads, 340 writes
+hd0:1: 1105 reads, 340 writes
 hd1:0: 161 reads, 0 writes
-Console: 1800 characters output
+Console: 2094 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 1 page faults
 Powering off...
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 DETAILS OF tests/filesys/base/syn-write FAILURE:
 
-Kernel panic in run: PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc01075e6 0xc0100aa1 0xc0109b20 0xc010aefa 0xc010adc0 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8
+Kernel panic in run: PANIC at ../../threads/thread.c:273 in thread_unblock(): assertion `is_thread (t)' failed.
+Call stack: 0xc0107366 0xc0100aa6 0xc010988d 0xc010add1 0xc010ac4d 0xc0101835 0xc0101a0b 0x804a5d3 0x80488d8
 Translation of call stack:
 In kernel.o:
-0xc01075e6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc0100aa1: thread_unblock (..../../threads/thread.c:255)
-0xc0109b20: process_wake_parent (...../userprog/process.c:199)
-0xc010aefa: sys_exit (...../userprog/syscall.c:121)
-0xc010adc0: syscall_handler (.../../userprog/syscall.c:60)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
+0xc0107366: debug_panic (.../../lib/kernel/debug.c:34)
+0xc0100aa6: thread_unblock (..../../threads/thread.c:275)
+0xc010988d: process_wake_parent (...../userprog/process.c:242)
+0xc010add1: exit (...../userprog/syscall.c:177)
+0xc010ac4d: syscall_handler (...../userprog/syscall.c:107)
+0xc0101835: intr_handler (..../threads/interrupt.c:361)
+0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
 0x0804a5d3: (unknown)
 In tests/filesys/base/syn-write:
 0x080488d8: main (...uild/../../tests/main.c:8)
@@ -1283,14 +373,14 @@ translations will be misleading.
 
 OUTPUT FROM tests/filesys/base/syn-write:
 
-Copying tests/filesys/base/syn-write into /tmp/O25wRi59kG.dsk...
-Copying tests/filesys/base/child-syn-wrt into /tmp/O25wRi59kG.dsk...
-Writing command line to /tmp/ixsklGQ4xS.dsk...
-qemu -hda /tmp/ixsklGQ4xS.dsk -hdb /tmp/RpEbDv3307.dsk -hdc /tmp/O25wRi59kG.dsk -m 4 -net none -nographic -monitor null
+Copying tests/filesys/base/syn-write into /tmp/sD4o9cBmMF.dsk...
+Copying tests/filesys/base/child-syn-wrt into /tmp/sD4o9cBmMF.dsk...
+Writing command line to /tmp/kVeXgnVb90.dsk...
+qemu -hda /tmp/kVeXgnVb90.dsk -hdb /tmp/B6wfJrgCB2.dsk -hdc /tmp/sD4o9cBmMF.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put syn-write put child-syn-wrt run syn-write
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -1314,17 +404,17 @@ Executing 'syn-write':
 (syn-write) exec child 10 of 10: "child-syn-wrt 9"
 child-syn-wrt: exit(0)
 child-syn-wrt: exit(1)
-Kernel PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc01075e6 0xc0100aa1 0xc0109b20 0xc010aefa 0xc010adc0 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8.
+Kernel PANIC at ../../threads/thread.c:273 in thread_unblock(): assertion `is_thread (t)' failed.
+Call stack: 0xc0107366 0xc0100aa6 0xc010988d 0xc010add1 0xc010ac4d 0xc0101835 0xc0101a0b 0x804a5d3 0x80488d8.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
 Timer: 74 ticks
-Thread: 30 idle ticks, 41 kernel ticks, 3 user ticks
+Thread: 0 idle ticks, 70 kernel ticks, 4 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 186 reads, 346 writes
+hd0:1: 226 reads, 346 writes
 hd1:0: 160 reads, 0 writes
-Console: 1730 characters output
+Console: 1729 characters output
 Keyboard: 0 keys pressed
 Exception: 0 page faults
 Powering off...

@@ -1,15 +1,15 @@
 FAIL
-Kernel panic in run: PANIC at ../../threads/thread.c:253 in thread_unblock(): assertion `is_thread (t)' failed.
-Call stack: 0xc0107596 0xc0100aa1 0xc0109ad7 0xc010ae8a 0xc010ad50 0xc0101825 0xc01019fb 0x804a5d3 0x80488d8
+Kernel panic in run: PANIC at ../../threads/thread.c:273 in thread_unblock(): assertion `is_thread (t)' failed.
+Call stack: 0xc0107366 0xc0100aa6 0xc010988d 0xc010add1 0xc010ac4d 0xc0101835 0xc0101a0b 0x804a5d3 0x80488d8
 Translation of call stack:
 In kernel.o:
-0xc0107596: debug_panic (.../../lib/kernel/debug.c:34)
-0xc0100aa1: thread_unblock (..../../threads/thread.c:255)
-0xc0109ad7: process_wake_parent (...../userprog/process.c:197)
-0xc010ae8a: sys_exit (...../userprog/syscall.c:118)
-0xc010ad50: syscall_handler (.../../userprog/syscall.c:59)
-0xc0101825: intr_handler (..../threads/interrupt.c:361)
-0xc01019fb: intr_entry (threads/intr-stubs.S:38)
+0xc0107366: debug_panic (.../../lib/kernel/debug.c:34)
+0xc0100aa6: thread_unblock (..../../threads/thread.c:275)
+0xc010988d: process_wake_parent (...../userprog/process.c:242)
+0xc010add1: exit (...../userprog/syscall.c:177)
+0xc010ac4d: syscall_handler (...../userprog/syscall.c:107)
+0xc0101835: intr_handler (..../threads/interrupt.c:361)
+0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
 0x0804a5d3: (unknown)
 In tests/filesys/base/syn-write:
 0x080488d8: main (...uild/../../tests/main.c:8)

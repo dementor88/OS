@@ -1,10 +1,10 @@
-Copying tests/userprog/no-vm/multi-oom into /tmp/9M0qWqTaAj.dsk...
-Writing command line to /tmp/KtD7PL8reU.dsk...
-qemu -hda /tmp/KtD7PL8reU.dsk -hdb /tmp/ezYdbFfJiU.dsk -hdc /tmp/9M0qWqTaAj.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/no-vm/multi-oom into /tmp/qLmeGfKh6A.dsk...
+Writing command line to /tmp/iUkbpaYDpa.dsk...
+qemu -hda /tmp/iUkbpaYDpa.dsk -hdb /tmp/SWwMatZpWB.dsk -hdc /tmp/qLmeGfKh6A.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put multi-oom run multi-oom
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -14,5 +14,6 @@ Boot complete.
 Putting 'multi-oom' into the file system...
 Executing 'multi-oom':
 (multi-oom) begin
+multi-oom: exit(-1)
 
-TIMEOUT after 361 seconds of wall-clock time - load average: 0.07, 0.04, 0.17
+TIMEOUT after 361 seconds of wall-clock time - load average: 0.47, 0.81, 0.63

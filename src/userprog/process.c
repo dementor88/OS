@@ -17,7 +17,11 @@
 #include "threads/palloc.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
+#include "threads/synch.h"
 
+#include "vm/frame.h"
+#include "vm/page.h"
+/*
 struct parent_child{
 	struct thread *parent_thread;
 	tid_t parent_tid;
@@ -26,10 +30,11 @@ struct parent_child{
 	int status;
 	struct list_elem elem;
 };
-
+*/
 static thread_func start_process NO_RETURN;
 static bool load (const char *cmdline, void (**eip) (void), void **esp);
-
+struct parent_child* getchild(struct thread* parent, tid_t tid);
+extern struct lock flock;
 /* Starts a new thread running a user program loaded from
    FILENAME.  The new thread may be scheduled (and may even exit)
    before process_execute() returns.  Returns the new process's
@@ -46,7 +51,9 @@ process_execute (const char *file_name)
   if (fn_copy == NULL)
     return TID_ERROR;
   strlcpy (fn_copy, file_name, PGSIZE);
-	//printf("%s\n",file_name);
+//	NOT_REACHED();
+//	printf("%s\n",file_name);
+//	NOT_REACHED();
   /* Create a new thread to execute FILE_NAME. */
   tid = thread_create (file_name, PRI_DEFAULT, start_process, fn_copy);
 	if (tid == TID_ERROR)
@@ -58,6 +65,8 @@ process_execute (const char *file_name)
 		par_ch->waiting = false;	//아직 wait 중 아님
 		list_push_back(&parent_child_list, &par_ch->elem);
 	}
+	//NOT_REACHED();
+	//printf("%d\n",tid);*/
   return tid;
 }
 
@@ -76,7 +85,6 @@ start_process (void *f_name)
 		
 	command_line = palloc_get_page(0);
 	strlcpy(command_line, file_name, PGSIZE);	// copy filename into command_line 
-
 	/* Argument parsing */
 	strlcpy(s, file_name, strlen(file_name)+1);	// copy filename into string 
 	for( token = strtok_r(s, " ", &save_ptr); token != NULL; token = strtok_r(NULL, " ", &save_ptr)){
@@ -96,9 +104,9 @@ start_process (void *f_name)
   if_.gs = if_.fs = if_.es = if_.ds = if_.ss = SEL_UDSEG;	
   if_.cs = SEL_UCSEG;	
   if_.eflags = FLAG_IF | FLAG_MBS;	
-  
+// 	lock_acquire(&flock); 
   success = load (file_name, &if_.eip, &if_.esp);
-  
+//  lock_release(&flock);
 	/*****************proj#2*/
 	// write protection
 	//f = filesys_open(file_name);
@@ -141,7 +149,12 @@ start_process (void *f_name)
    palloc_free_page (command_line);/*****************proj#2*/
   if (!success) 
     thread_exit ();
-
+/*	struct parent_child* par_ch = getchild(thread_current()->parent_ptr,thread_current()->tid);
+//	if(par_ch == NULL)
+//		NOT_REACHED();
+	par_ch->loaded = true;
+	sema_up(&par_ch->load);
+*/
   /* Start the user process by simulating a return from an
      interrupt, implemented by intr_exit (in
      threads/intr-stubs.S).  Because intr_exit takes all of its
@@ -151,7 +164,18 @@ start_process (void *f_name)
   asm volatile ("movl %0, %%esp; jmp intr_exit" : : "g" (&if_) : "memory");
   NOT_REACHED ();
 }
-
+struct parent_child* getchild(struct thread* parent, tid_t tid){
+	struct list_elem *e;
+	struct parent_child *ch = NULL;
+	for(e = list_begin(&parent->child); e!=list_end(&parent->child);
+			e = list_next(e)){
+		ch = list_entry(e,struct parent_child, elem);
+		if(ch->child_tid == tid)
+			return ch;
+	}
+	return NULL;
+		
+}
 /* Waits for thread TID to die and returns its exit status.  If
    it was terminated by the kernel (i.e. killed due to an
    exception), returns -1.  If TID is invalid or if it was not a
@@ -169,24 +193,42 @@ process_wait (tid_t child_tid UNUSED)
 	bool good_to_go = false;
 	struct list_elem *e;	
 	int returned_status = -1;
-	for (e = list_begin(&parent_child_list); e != list_end(&parent_child_list); e = list_next(e)){		
+	for (e = list_begin(&parent_child_list); e != list_end(&parent_child_list); e = list_next(e)){	
 		struct parent_child *par_ch = list_entry(e, struct parent_child, elem);
+		
 		if (par_ch->parent_tid == thread_tid() && par_ch->child_tid == child_tid && par_ch->waiting == false){
+			
 			enum intr_level old_level;
 			old_level = intr_disable ();
-			par_ch->parent_thread = thread_current();
+			par_ch->parent_ptr = thread_current();
 			thread_block();
 			intr_set_level (old_level);
 			returned_status = par_ch->status;
 			par_ch->waiting = true;	//parent는 waiting 중
 			good_to_go = true;
+			list_remove(&par_ch->elem);	
 		}
 	}
-	if(good_to_go == true){	
+	if(good_to_go == true){
 		return returned_status;
 	}
 	else	//interrupt에 의해 중단되거나 우리가 원하는 parent_child가 아닌 경우
 		return -1;	
+/*
+
+
+	struct parent_child *par_ch = getchild(thread_current(), child_tid);
+	int status;
+	if(par_ch!=NULL&&par_ch->parent_ptr == thread_current()){
+		sema_down(&par_ch->exit);
+		status = par_ch->status;
+		list_remove(&par_ch->elem);
+		free(par_ch);
+		return status;
+	}else
+		return -1;
+*/
+//	struct parent_child *par_ch = getchild(thread_current(),child_tid);
 }
 
 /*************proj#2*/
@@ -199,7 +241,8 @@ process_wake_parent (int status){
 		if (par_ch->child_tid == tid){					
 			par_ch->status = status;
 			e = list_prev (list_remove (e));
-			thread_unblock(par_ch->parent_thread);			
+			thread_unblock(par_ch->parent_ptr);		
+			list_remove(&par_ch->elem);
 		}
 	}
 }
@@ -211,8 +254,27 @@ process_exit (void)
 {
   struct thread *curr = thread_current ();
   uint32_t *pd;
-
-  /* Destroy the current process's page directory and switch back
+/*	if(!lock_held_by_current_thread(&flock))
+		lock_acquire(&flock);
+	while(!list_empty(&thread_current()->file_list)){
+		struct list_elem *e;
+		struct files *fe;
+		e = list_pop_front(&thread_current()->file_list);
+		fe = list_entry(e, struct files, elem);
+		file_close(fe->file);
+		list_remove(&fe->elem);
+		free(fe);
+	}lock_release(&flock);*/
+	while(!list_empty(&thread_current()->child)){
+		struct list_elem *e;
+		struct parent_child *par_ch;
+		e = list_pop_front(&thread_current()->child);
+		par_ch = list_entry(e,struct parent_child, elem);
+		//
+		list_remove(&par_ch->elem);
+		free(par_ch);
+	}
+	/* Destroy the current process's page directory and switch back
      to the kernel-only page directory. */
   pd = curr->pagedir;
   if (pd != NULL) 
@@ -228,6 +290,18 @@ process_exit (void)
       pagedir_activate (NULL);
       pagedir_destroy (pd);
     }
+		
+//		struct parent_child* par_ch = getchild(curr->parent_ptr, curr->tid);
+//		if(par_ch!=NULL){
+//			par_ch->status = curr->exit;
+//			sema_up(&par_ch->load);
+//			sema_up(&par_ch->exit);
+//		}
+		if(curr->exec!=NULL){
+			file_allow_write(curr->exec);
+			file_close(curr->exec);
+		}
+
 }
 
 /* Sets up the CPU for running user code in the current
@@ -428,13 +502,18 @@ load (const char *file_name, void (**eip) (void), void **esp)
 
  done:
   /* We arrive here whether the load is successful or not. */
-  file_close (file);
+//  file_close (file);
+	if(success){
+		t->exec = file;
+		file_deny_write(file);
+	}else
+		file_close(file);
   return success;
 }
 
 /* load() helpers. */
 
-static bool install_page (void *upage, void *kpage, bool writable);
+//bool install_page (void *upage, void *kpage, bool writable);
 
 /* Checks whether PHDR describes a valid, loadable segment in
    FILE and returns true if so, false otherwise. */
@@ -569,7 +648,7 @@ setup_stack (void **esp)
    with palloc_get_page().
    Returns true on success, false if UPAGE is already mapped or
    if memory allocation fails. */
-static bool
+bool
 install_page (void *upage, void *kpage, bool writable)
 {
   struct thread *t = thread_current ();
@@ -578,4 +657,14 @@ install_page (void *upage, void *kpage, bool writable)
      address, then map our page there. */
   return (pagedir_get_page (t->pagedir, upage) == NULL
           && pagedir_set_page (t->pagedir, upage, kpage, writable));
+}
+
+bool 
+process_add_mmap (struct sup_page_entry *spte){
+ struct mmap_file *mm = malloc(sizeof(struct mmap_file)); 
+if (!mm) {return false;}
+mm -> spte =spte;
+mm->mapid = thread_current()->mapid;
+list_push_back(&thread_current()->mmap_list, &mm->elem);
+return true;
 }

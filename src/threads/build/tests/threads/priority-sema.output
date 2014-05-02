@@ -1,5 +1,6 @@
-Writing command line to /tmp/yv3M1EgSEA.dsk...
-squish-pty bochs -q
+Writing command line to /tmp/jbZjWxqPzh.dsk...
+warning: can't find squish-pty, so terminal input will fail
+bochs -q
 Kernel command line: -q run priority-sema
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
@@ -8,13 +9,6 @@ Calibrating timer...  102,400 loops/s.
 Boot complete.
 Executing 'priority-sema':
 (priority-sema) begin
-(priority-sema) Thread priority 30 woke up.
-(priority-sema) Back in main thread.
-(priority-sema) Thread priority 29 woke up.
-(priority-sema) Back in main thread.
-(priority-sema) Thread priority 28 woke up.
-(priority-sema) Back in main thread.
-(priority-sema) Thread priority 27 woke up.
 (priority-sema) Back in main thread.
 (priority-sema) Thread priority 26 woke up.
 (priority-sema) Back in main thread.
@@ -28,10 +22,16 @@ Executing 'priority-sema':
 (priority-sema) Back in main thread.
 (priority-sema) Thread priority 21 woke up.
 (priority-sema) Back in main thread.
+(priority-sema) Thread priority 30 woke up.
+(priority-sema) Back in main thread.
+(priority-sema) Thread priority 29 woke up.
+(priority-sema) Back in main thread.
+(priority-sema) Thread priority 28 woke up.
+(priority-sema) Back in main thread.
 (priority-sema) end
 Execution of 'priority-sema' complete.
-Timer: 199 ticks
-Thread: 0 idle ticks, 202 kernel ticks, 0 user ticks
-Console: 1190 characters output
+Timer: 189 ticks
+Thread: 0 idle ticks, 191 kernel ticks, 0 user ticks
+Console: 1146 characters output
 Keyboard: 0 keys pressed
 Powering off...

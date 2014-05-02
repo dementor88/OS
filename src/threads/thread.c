@@ -13,7 +13,10 @@
 #include "threads/vaddr.h"
 #ifdef USERPROG
 #include "userprog/process.h"
+#include "vm/page.h"
 #endif
+#include "vm/frame.h"
+#include "vm/swap.h"
 
 /* Random value for struct thread's `magic' member.
    Used to detect stack overflow.  See the big comment at the top
@@ -90,8 +93,9 @@ thread_init (void)
   ASSERT (intr_get_level () == INTR_OFF);
 
   lock_init (&tid_lock);
+	lock_init (&flock);	
   list_init (&ready_list);
-	
+		
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
   init_thread (initial_thread, "main", PRI_DEFAULT);
@@ -193,8 +197,22 @@ thread_create (const char *name, int priority,
 
   /* Initialize thread. */
   init_thread (t, name, priority);
+	list_init(&t->file_list);
   tid = t->tid = allocate_tid ();
-
+//	t->assignfd = 100;
+//	t->parent_ptr = thread_current();
+//	t->exit = -1;	
+//	t->user = function!=idle;
+//	struct parent_child* par_ch = 
+//							(struct parent_child*)malloc(sizeof(struct parent_child));
+//	sema_init(&par_ch->load,0);
+//	sema_init(&par_ch->exit,0);
+//	par_ch->loaded = false;
+//	par_ch->parent_ptr = t->parent_ptr; 
+//	par_ch->child_tid = tid;
+//	par_ch->status = -1;
+	
+//	list_push_front(&thread_current()->child,&par_ch->elem);
   /* Stack frame for kernel_thread(). */
   kf = alloc_frame (t, sizeof *kf);
   kf->eip = NULL;
@@ -208,16 +226,30 @@ thread_create (const char *name, int priority,
   /* Stack frame for switch_threads(). */
   sf = alloc_frame (t, sizeof *sf);
   sf->eip = switch_entry;
+  
+  
+  /****************proj3-1*******************/
+  //initiate the supplemental page table
+  t->page_table  = (struct hash *) malloc (sizeof(struct hash));
+  hash_init (t->page_table, page_hash, page_less, NULL);
+  lock_init(&t->page_lock);  
+
+
 
   /* Add to run queue. */
   thread_unblock (t);
   
 	 /** 쓰레드 언블럭과 함께 순위를 체크하여 더 높은 것에게 양보!!!! */
-	 
+/*	 
 	if(t->priority > thread_current()->priority){ 
           thread_yield();
 	}	
-		
+	*/
+/*	if(t->user){
+		sema_down(&par_ch->load);
+		if(!par_ch->loaded)
+			return TID_ERROR;
+	}*/
   return tid;
 }
 
@@ -487,6 +519,7 @@ init_thread (struct thread *t, const char *name, int priority)
 	t->swap_priority_count = 0;
 	t->fd = 2;	//proj#2 syscall.c sys_open(), 2가 가용 최소값!!!
 	list_init(&t->file_list);	//proj#2 syscall.c sys_open()
+	list_init(&t->child);
 }
 
 /* Allocates a SIZE-byte frame at the top of thread T's stack and

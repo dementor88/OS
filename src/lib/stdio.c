@@ -635,3 +635,9 @@ hex_dump (uintptr_t ofs, const void *buf_, size_t size, bool ascii)
       size -= n;
     }
 }
+
+void
+print_human_readable_size (uint64_t size){
+
+}
+

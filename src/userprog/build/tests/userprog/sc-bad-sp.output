@@ -1,10 +1,10 @@
-Copying tests/userprog/sc-bad-sp into /tmp/nm6nrTFZeg.dsk...
-Writing command line to /tmp/AMIvgFpfhR.dsk...
-qemu -hda /tmp/AMIvgFpfhR.dsk -hdb /tmp/ROTQhv3fQM.dsk -hdc /tmp/nm6nrTFZeg.dsk -m 4 -net none -nographic -monitor null
+Copying tests/userprog/sc-bad-sp into /tmp/IkgJhbH5Mz.dsk...
+Writing command line to /tmp/QE3G1xwgOY.dsk...
+qemu -hda /tmp/QE3G1xwgOY.dsk -hdb /tmp/kAtmLcp4U9.dsk -hdc /tmp/IkgJhbH5Mz.dsk -m 4 -net none -nographic -monitor null
 Kernel command line: -q -f put sc-bad-sp run sc-bad-sp
 Pintos booting with 4,096 kB RAM...
 374 pages available in kernel pool.
-373 pages available in user pool.
+374 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
 hd0:0: detected 137 sector (68 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
@@ -14,23 +14,14 @@ Boot complete.
 Putting 'sc-bad-sp' into the file system...
 Executing 'sc-bad-sp':
 (sc-bad-sp) begin
-Page fault at 0x40480a6: not present error reading page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc010ad2e
- cr2=040480a6 error=00000000
- eax=040480aa ebx=c011cfb0 ecx=000000ad edx=040480a6
- esi=c011cfb0 edi=00000000 esp=040480a6 ebp=c011cf74
- cs=0008 ds=0010 es=0010 ss=e009
-Kernel PANIC at ../../userprog/exception.c:100 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc0107596 0xc010abff 0xc010acb9 0xc0101825 0xc01019fb 0xc010ad2e 0xc0101825 0xc01019fb 0x80480ad 0x80480ef 0x80486c8.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 62 ticks
-Thread: 30 idle ticks, 31 kernel ticks, 1 user ticks
+sc-bad-sp: exit(-1)
+Execution of 'sc-bad-sp' complete.
+Timer: 61 ticks
+Thread: 0 idle ticks, 60 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 59 reads, 154 writes
 hd1:0: 73 reads, 0 writes
-Console: 1415 characters output
+Console: 779 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 0 page faults
 Powering off...
