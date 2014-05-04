@@ -67,26 +67,21 @@ void
 syscall_init (void) 
 {
   intr_register_int (0x30, 3, INTR_ON, syscall_handler, "syscall");
-  lock_init(&filesys_lock);
 }
 
 static void
 syscall_handler (struct intr_frame *f UNUSED) 
 {
-    	if(!validate_address(f->esp)){
-			_sys_exit();
-		}
 	void *esp = (void*)pagedir_get_page(thread_current()->pagedir,f->esp);//f->esp;
 //	printf("fesp:%d, esp:%d",esp, f->esp);
 	if(esp==NULL)
 		_sys_exit();
-/*
 	if(!validate_address(f->esp)){
 //		printf("first fault\n");
 //		NOT_REACHED();
 		_sys_exit();
 		}
-*/
+
 //	uint32_t *esp = 
 	
 	uint32_t syscall_number =*(uint32_t*)esp;//*((int *)kernel_addr(f->esp));//*esp++;

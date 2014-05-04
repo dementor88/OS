@@ -30,9 +30,6 @@ devices_SRC += devices/serial.c		# Serial port device.
 devices_SRC += devices/disk.c		# IDE disk device.
 devices_SRC += devices/input.c		# Serial and keyboard input.
 devices_SRC += devices/intq.c		# Interrupt queue.
-devices_SRC += devices/block.c
-devices_SRC += devices/partition.c
-devices_SRC += devices/ide.c
 
 # Library code shared between kernel and user programs.
 lib_SRC  = lib/debug.c			# Debug helpers.
@@ -59,9 +56,6 @@ userprog_SRC += userprog/tss.c		# TSS management.
 
 # No virtual memory code yet.
 #vm_SRC = vm/file.c			# Some file.
-vm_SRC = vm/frame.c
-vm_SRC += vm/page.c
-vm_SRC += vm/swap.c
 
 # Filesystem code.
 filesys_SRC  = filesys/filesys.c	# Filesystem core.

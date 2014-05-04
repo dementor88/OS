@@ -3,10 +3,9 @@
 
 #include <debug.h>
 #include <list.h>
+#include <hash.h>
 #include <stdint.h>
 #include "threads/synch.h"
-
-#include <hash.h>
 /*****************proj#2*/
 struct list parent_child_list;
 struct lock flock;
@@ -30,8 +29,6 @@ typedef int tid_t;
 #define PRI_MIN 0                       /* Lowest priority. */
 #define PRI_DEFAULT 31                  /* Default priority. */
 #define PRI_MAX 63                      /* Highest priority. */
-
-#define STACKMAX 2048
 
 /* A kernel thread or user process.
 
@@ -105,11 +102,6 @@ struct thread
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
     uint32_t *pagedir;                  /* Page directory. */	
-	
-	/**********proj3-1*****************************************************/
-	struct hash * page_table;		/* the supplemental page table */
-    struct lock page_lock;		/* the lock of the supplemental page table */
-    void * esp;				/* the end of stack pointer for stack growth */
 #endif
 
     /* Owned by thread.c. */
@@ -129,15 +121,15 @@ struct thread
 	int fd;
 	struct list file_list;
 	struct list child;
+	struct list lock_list;
 	struct thread* parent_ptr;
 	struct file *exec;
 	int exit;
 	int user;
 	uint32_t assignfd;
-
+	
+	/**********proj3*****/
 	struct hash spt;
-	struct list mmap_list;
-	int mapid;
 
 };
 struct parent_child{

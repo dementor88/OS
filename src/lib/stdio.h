@@ -31,7 +31,7 @@ void __vprintf (const char *format, va_list args,
                 void (*output) (char, void *), void *aux);
 void __printf (const char *format,
                void (*output) (char, void *), void *aux, ...);
-void print_human_readable_size (uint64_t size);
+
 /* Try to be helpful. */
 #define sprintf dont_use_sprintf_use_snprintf
 #define vsprintf dont_use_vsprintf_use_vsnprintf

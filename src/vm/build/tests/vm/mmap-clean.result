@@ -1,0 +1,17 @@
+FAIL
+Kernel panic in run: PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
+Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a2f1 0x80480f5 0x80488d7 0x8048904
+Translation of call stack:
+In kernel.o:
+0xc01085b6: debug_panic (.../../lib/kernel/debug.c:34)
+0xc010bfc0: syscall_handler (...../userprog/syscall.c:159)
+0xc0101835: intr_handler (..../threads/interrupt.c:361)
+0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
+In tests/vm/mmap-clean:
+0x0804a2f1: mmap (...../lib/user/syscall.c:147)
+0x080480f5: test_main (.../tests/vm/mmap-clean.c:21)
+0x080488d7: main (...ild/../../tests/main.c:13)
+0x08048904: _start (.../../../lib/user/entry.c:9)
+Translations of user virtual addresses above are based on a guess at
+the binary to use.  If this guess is incorrect, then those
+translations will be misleading.

@@ -1,41 +1,43 @@
 #ifndef VM_PAGE_H
 #define VM_PAGE_H
 
-//to identify where the page should be
-enum page_type
-  {
-	PAGE_FRAME,
-	PAGE_SWAP,
-	PAGE_MMAP
-};
+#include <hash.h>
+#include "vm/frame.h"
 
-struct page {
-	//pointer to the user memory page in the frame
-	void * vaddr;
-	// we use paddr to save the physical address or the SWAP slot
-	void * paddr;
-	struct hash_elem hash_elem;
+#define FILE 0
+#define SWAP 1
+#define MMAP 2
+
+// 256 KB
+#define MAX_STACK_SIZE (1 << 23)
+
+struct sup_page_entry {
+	uint8_t type;
+	void *uva;
 	bool writable;
-	enum page_type type;
- 	//this is for memory mapped files
-	/*
-	int mapid;
-	off_t readbytes;
-	off_t offset;
-	*/
+
+	bool is_loaded;
+
+	// For files
+	struct file *file;
+	size_t offset;
+	size_t read_bytes;
+	size_t zero_bytes;
+
+	// For swap
+	size_t swap_index;
+
+	struct hash_elem elem;
 };
 
-bool page_less (const struct hash_elem *a_, const struct hash_elem *b_, void *aux UNUSED);
-struct page *page_lookup (const void *address, struct thread *);
-unsigned page_hash (const struct hash_elem *p_, void *aux UNUSED);
-void page_add (void * , void * ,bool,enum page_type); 
-const char * page_type_name (enum page_type type);
-void * get_vaddr_page (void *,struct thread *);
+void page_table_init (struct hash *spt);
+void page_table_destroy (struct hash *spt);
 
-void page_swap_in (void * ,struct thread *);
-void page_swap_out (void * );
-void page_clean (void);
-void page_add_mmap (void * , void * ,bool );
-void page_remove (void *);
+bool load_page (struct sup_page_entry *spte);
+bool load_swap (struct sup_page_entry *spte);
+bool load_file (struct sup_page_entry *spte);
+bool add_file_to_page_table (struct file *file, int32_t ofs, uint8_t *upage,uint32_t read_bytes, uint32_t zero_bytes,bool writable);
+bool grow_stack (void *uva);
+struct sup_page_entry* get_spte (void *uva);
 
 #endif /* vm/page.h */

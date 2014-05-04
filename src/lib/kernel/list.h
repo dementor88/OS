@@ -1,7 +1,6 @@
 #ifndef __LIB_KERNEL_LIST_H
 #define __LIB_KERNEL_LIST_H
 
-#define LIST_INITIALIZER(NAME) {{NULL,&(NAME).tail},{&(NAME).head, NULL}}
 /* Doubly linked list.
 
    This implementation of a doubly linked list does not require

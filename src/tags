@@ -23,19 +23,10 @@ B	examples/matmult.c	/^int B[DIM][DIM];$/;"	v
 BEST_ELEMS_PER_BUCKET	lib/kernel/hash.c	344;"	d	file:
 BITMAP_ERROR	lib/kernel/bitmap.h	36;"	d
 BITMASK	threads/vaddr.h	15;"	d
-BLOCK_CNT	devices/block.h	/^    BLOCK_CNT                    \/* Number of Pintos block types. *\/$/;"	e	enum:block_type
-BLOCK_FILESYS	devices/block.h	/^    BLOCK_FILESYS,               \/* File system. *\/$/;"	e	enum:block_type
-BLOCK_FOREIGN	devices/block.h	/^    BLOCK_FOREIGN,               \/* Owned by non-Pintos operating system. *\/$/;"	e	enum:block_type
-BLOCK_KERNEL	devices/block.h	/^    BLOCK_KERNEL,                \/* Pintos OS kernel. *\/$/;"	e	enum:block_type
-BLOCK_RAW	devices/block.h	/^    BLOCK_RAW = BLOCK_ROLE_CNT,  \/* "Raw" device with unidentified contents. *\/$/;"	e	enum:block_type
-BLOCK_ROLE_CNT	devices/block.h	/^    BLOCK_ROLE_CNT,$/;"	e	enum:block_type
-BLOCK_SCRATCH	devices/block.h	/^    BLOCK_SCRATCH,               \/* Scratch. *\/$/;"	e	enum:block_type
-BLOCK_SECTOR_SIZE	devices/block.h	11;"	d
 BLOCK_SIZE	tests/filesys/base/lg-random.c	5;"	d	file:
 BLOCK_SIZE	tests/filesys/base/lg-seq-block.c	6;"	d	file:
 BLOCK_SIZE	tests/filesys/base/sm-random.c	5;"	d	file:
 BLOCK_SIZE	tests/filesys/base/sm-seq-block.c	6;"	d	file:
-BLOCK_SWAP	devices/block.h	/^    BLOCK_SWAP,                  \/* Swap. *\/$/;"	e	enum:block_type
 BUF_SIZE	tests/filesys/base/syn-read.h	4;"	d
 BUF_SIZE	tests/filesys/base/syn-write.h	6;"	d
 BUF_SIZE	tests/filesys/extended/syn-rw.h	6;"	d
@@ -45,7 +36,6 @@ C	examples/matmult.c	/^int C[DIM][DIM];$/;"	v
 CC	utils/Makefile	/^CC = gcc$/;"	m
 CFLAGS	utils/Makefile	/^CFLAGS = -Wall -W$/;"	m
 CHANNEL_CNT	devices/disk.c	82;"	d	file:
-CHANNEL_CNT	devices/ide.c	79;"	d	file:
 CHAR	lib/stdio.c	/^        CHAR = 1,               \/* hh *\/$/;"	e	enum:printf_conversion::__anon4	file:
 CHAR_BIT	lib/limits.h	4;"	d
 CHAR_MAX	lib/limits.h	12;"	d
@@ -59,8 +49,6 @@ CHILD_CNT	tests/filesys/extended/syn-rw.c	12;"	d	file:
 CHILD_CNT	tests/userprog/rox-child.c	4;"	d	file:
 CHILD_CNT	tests/userprog/rox-multichild.c	4;"	d	file:
 CHILD_CNT	tests/vm/page-parallel.c	7;"	d	file:
-CHILD_CNT	userprog/rox-child.c	4;"	d	file:
-CHILD_CNT	userprog/rox-multichild.c	4;"	d	file:
 CHUNK_CNT	tests/filesys/extended/syn-rw.h	5;"	d
 CHUNK_CNT	tests/vm/page-merge-seq.c	15;"	d	file:
 CHUNK_CNT	tests/vm/parallel-merge.c	14;"	d	file:
@@ -74,11 +62,8 @@ CLS_CODE_DATA	utils/userprog/gdt.c	/^    CLS_CODE_DATA = 1           \/* Code or
 CLS_SYSTEM	userprog/gdt.c	/^    CLS_SYSTEM = 0,             \/* System segment. *\/$/;"	e	enum:seg_class	file:
 CLS_SYSTEM	utils/userprog/gdt.c	/^    CLS_SYSTEM = 0,             \/* System segment. *\/$/;"	e	enum:seg_class	file:
 CMD_IDENTIFY_DEVICE	devices/disk.c	47;"	d	file:
-CMD_IDENTIFY_DEVICE	devices/ide.c	49;"	d	file:
 CMD_READ_SECTOR_RETRY	devices/disk.c	48;"	d	file:
-CMD_READ_SECTOR_RETRY	devices/ide.c	50;"	d	file:
 CMD_WRITE_SECTOR_RETRY	devices/disk.c	49;"	d	file:
-CMD_WRITE_SECTOR_RETRY	devices/ide.c	51;"	d	file:
 COL_CNT	devices/vga.c	13;"	d	file:
 CR0_EM	threads/loader.S	/^#define CR0_EM 0x00000004      \/* (Floating-point) Emulation. *\/$/;"	d
 CR0_PE	threads/loader.S	/^#define CR0_PE 0x00000001      \/* Protection Enable. *\/$/;"	d
@@ -86,7 +71,6 @@ CR0_PG	threads/loader.S	/^#define CR0_PG 0x80000000      \/* Paging. *\/$/;"	d
 CR0_WP	threads/loader.S	/^#define CR0_WP 0x00010000      \/* Write-Protect enable in kernel mode. *\/$/;"	d
 CRASH	tests/userprog/no-vm/multi-oom.c	/^enum child_termination_mode { RECURSE, CRASH };$/;"	e	enum:child_termination_mode	file:
 CTL_SRST	devices/disk.c	37;"	d	file:
-CTL_SRST	devices/ide.c	39;"	d	file:
 Copy	tests/Algorithm/Diff.pm	/^sub Copy$/;"	s
 DATA_REG	devices/kbd.c	11;"	d	file:
 DATA_SIZE	tests/vm/page-merge-seq.c	16;"	d	file:
@@ -94,23 +78,16 @@ DATA_SIZE	tests/vm/parallel-merge.c	15;"	d	file:
 DEPENDS	threads/build/Makefile	/^DEPENDS = $(patsubst %.o,%.d,$(OBJECTS))$/;"	m
 DEPENDS	userprog/build/Makefile	/^DEPENDS = $(patsubst %.o,%.d,$(OBJECTS))$/;"	m
 DEPENDS	utils/userprog/build/Makefile	/^DEPENDS = $(patsubst %.o,%.d,$(OBJECTS))$/;"	m
-DEPENDS	vm/build/Makefile	/^DEPENDS = $(patsubst %.o,%.d,$(OBJECTS))$/;"	m
-DEVICES_BLOCK_H	devices/block.h	2;"	d
 DEVICES_DISK_H	devices/disk.h	2;"	d
-DEVICES_IDE_H	devices/ide.h	2;"	d
 DEVICES_INPUT_H	devices/input.h	2;"	d
 DEVICES_INTQ_H	devices/intq.h	2;"	d
 DEVICES_KBD_H	devices/kbd.h	2;"	d
-DEVICES_PARTITION_H	devices/partition.h	2;"	d
 DEVICES_SERIAL_H	devices/serial.h	2;"	d
 DEVICES_TIMER_H	devices/timer.h	2;"	d
 DEVICES_VGA_H	devices/vga.h	2;"	d
 DEV_DEV	devices/disk.c	42;"	d	file:
-DEV_DEV	devices/ide.c	44;"	d	file:
 DEV_LBA	devices/disk.c	41;"	d	file:
-DEV_LBA	devices/ide.c	43;"	d	file:
 DEV_MBS	devices/disk.c	40;"	d	file:
-DEV_MBS	devices/ide.c	42;"	d	file:
 DIM	examples/matmult.c	29;"	d	file:
 DIRECTORY	tests/filesys/extended/grow-dir-lg.c	5;"	d	file:
 DISK_SECTOR_SIZE	devices/disk.h	8;"	d
@@ -135,7 +112,6 @@ Elf32_Phdr	utils/userprog/process.c	/^struct Elf32_Phdr$/;"	s	file:
 Elf32_Word	userprog/process.c	/^typedef uint32_t Elf32_Word, Elf32_Addr, Elf32_Off;$/;"	t	file:
 Elf32_Word	utils/userprog/process.c	/^typedef uint32_t Elf32_Word, Elf32_Addr, Elf32_Off;$/;"	t	file:
 FCR_REG	devices/serial.c	31;"	d	file:
-FILE	vm/page.h	7;"	d
 FILESYS_DIRECTORY_H	filesys/directory.h	2;"	d
 FILESYS_FILESYS_H	filesys/filesys.h	2;"	d
 FILESYS_FILE_H	filesys/file.h	2;"	d
@@ -147,7 +123,6 @@ FILE_CNT	tests/filesys/extended/grow-dir-lg.c	4;"	d	file:
 FILE_CNT	tests/filesys/extended/grow-root-lg.c	3;"	d	file:
 FILE_CNT	tests/filesys/extended/grow-root-sm.c	3;"	d	file:
 FILE_SIZE	tests/filesys/extended/grow-two-files.c	9;"	d	file:
-FIXED_POINT	threads/fixed_pointer.h	/^int64_t FIXED_POINT = 16384;$/;"	v
 FLAG_IF	threads/flags.h	6;"	d
 FLAG_MBS	threads/flags.h	5;"	d
 FNV_32_BASIS	lib/kernel/hash.c	262;"	d	file:
@@ -160,7 +135,6 @@ GRAN_PAGE	utils/userprog/gdt.c	/^    GRAN_PAGE = 1               \/* Limit has 4
 GRAY_ON_BLACK	devices/vga.c	21;"	d	file:
 GROUP	lib/stdio.c	/^        GROUP = 1 << 5          \/* '\\'' *\/$/;"	e	enum:printf_conversion::__anon3	file:
 Get	tests/Algorithm/Diff.pm	/^sub Get$/;"	s
-HASH_ERROR	vm/page.h	10;"	d
 IER_RECV	devices/serial.c	37;"	d	file:
 IER_REG	devices/serial.c	23;"	d	file:
 IER_XMIT	devices/serial.c	38;"	d	file:
@@ -196,7 +170,6 @@ LCS	tests/Algorithm/Diff.pm	/^sub LCS$/;"	s
 LCS_length	tests/Algorithm/Diff.pm	/^sub LCS_length$/;"	s
 LCSidx	tests/Algorithm/Diff.pm	/^sub LCSidx$/;"	s
 LDFLAGS	utils/Makefile	/^LDFLAGS = -lm$/;"	m
-LIST_INITIALIZER	lib/kernel/list.h	4;"	d
 LLONG_MAX	lib/limits.h	30;"	d
 LLONG_MIN	lib/limits.h	31;"	d
 LOADER_ARGS	threads/loader.h	22;"	d
@@ -224,13 +197,11 @@ MAX_CNT	tests/internal/stdlib.c	19;"	d	file:
 MAX_ELEMS_PER_BUCKET	lib/kernel/hash.c	345;"	d	file:
 MAX_LEVEL	examples/pwd.c	76;"	d	file:
 MAX_SIZE	tests/internal/list.c	19;"	d	file:
-MAX_STACK_SIZE	vm/page.h	13;"	d
 MAX_THREAD_CNT	tests/threads/mlfqs-fair.c	54;"	d	file:
 MCR_OUT2	devices/serial.c	45;"	d	file:
 MCR_REG	devices/serial.c	33;"	d	file:
 MINUS	lib/stdio.c	/^        MINUS = 1 << 0,         \/* '-' *\/$/;"	e	enum:printf_conversion::__anon3	file:
 MIN_ELEMS_PER_BUCKET	lib/kernel/hash.c	343;"	d	file:
-MMAP	vm/page.h	9;"	d
 MS_REG	devices/serial.c	27;"	d	file:
 Max	tests/Algorithm/Diff.pm	/^sub Max {$/;"	s
 Min	tests/Algorithm/Diff.pm	/^sub Min {$/;"	s
@@ -251,9 +222,7 @@ Next	tests/Algorithm/Diff.pm	/^sub Next {$/;"	s
 OBJECTS	threads/build/Makefile	/^OBJECTS = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(SOURCES)))$/;"	m
 OBJECTS	userprog/build/Makefile	/^OBJECTS = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(SOURCES)))$/;"	m
 OBJECTS	utils/userprog/build/Makefile	/^OBJECTS = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(SOURCES)))$/;"	m
-OBJECTS	vm/build/Makefile	/^OBJECTS = $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(SOURCES)))$/;"	m
 Options	utils/pintos-mkdisk	/^Options:$/;"	l
-PACKED	lib/packed.h	8;"	d
 PAL_ASSERT	threads/palloc.h	/^    PAL_ASSERT = 001,           \/* Panic on failure. *\/$/;"	e	enum:palloc_flags
 PAL_USER	threads/palloc.h	/^    PAL_USER = 004              \/* User page. *\/$/;"	e	enum:palloc_flags
 PAL_ZERO	threads/palloc.h	/^    PAL_ZERO = 002,             \/* Zero page contents. *\/$/;"	e	enum:palloc_flags
@@ -290,7 +259,6 @@ PID_ERROR	lib/user/syscall.h	9;"	d
 PLUS	lib/stdio.c	/^        PLUS = 1 << 1,          \/* '+' *\/$/;"	e	enum:printf_conversion::__anon3	file:
 POLL	devices/serial.c	/^static enum { UNINIT, POLL, QUEUE } mode;$/;"	e	enum:__anon1	file:
 POUND	lib/stdio.c	/^        POUND = 1 << 3,         \/* '#' *\/$/;"	e	enum:printf_conversion::__anon3	file:
-PRDSNu	devices/block.h	19;"	d
 PRDSNu	devices/disk.h	16;"	d
 PRINTF_FORMAT	lib/debug.h	10;"	d
 PRIX16	lib/inttypes.h	18;"	d
@@ -300,11 +268,11 @@ PRIX8	lib/inttypes.h	11;"	d
 PRIXMAX	lib/inttypes.h	39;"	d
 PRIXPTR	lib/inttypes.h	46;"	d
 PRI_DEFAULT	threads/tests/thread.h	29;"	d
-PRI_DEFAULT	threads/thread.h	31;"	d
+PRI_DEFAULT	threads/thread.h	29;"	d
 PRI_MAX	threads/tests/thread.h	30;"	d
-PRI_MAX	threads/thread.h	32;"	d
+PRI_MAX	threads/thread.h	30;"	d
 PRI_MIN	threads/tests/thread.h	28;"	d
-PRI_MIN	threads/thread.h	30;"	d
+PRI_MIN	threads/thread.h	28;"	d
 PRId16	lib/inttypes.h	13;"	d
 PRId32	lib/inttypes.h	20;"	d
 PRId64	lib/inttypes.h	27;"	d
@@ -382,7 +350,6 @@ Range	tests/Algorithm/Diff.pm	/^sub Range {$/;"	s
 Reset	tests/Algorithm/Diff.pm	/^sub Reset$/;"	s
 SCHAR_MAX	lib/limits.h	6;"	d
 SCHAR_MIN	lib/limits.h	7;"	d
-SECTORS_PER_PAGE	vm/swap.h	12;"	d
 SEL_CNT	userprog/gdt.h	11;"	d
 SEL_CNT	utils/userprog/gdt.h	11;"	d
 SEL_KCSEG	threads/loader.h	35;"	d
@@ -408,25 +375,17 @@ SORT_SIZE	examples/bubsort.c	12;"	d	file:
 SOURCES	threads/build/Makefile	/^SOURCES = $(foreach dir,$(KERNEL_SUBDIRS),$($(dir)_SRC))$/;"	m
 SOURCES	userprog/build/Makefile	/^SOURCES = $(foreach dir,$(KERNEL_SUBDIRS),$($(dir)_SRC))$/;"	m
 SOURCES	utils/userprog/build/Makefile	/^SOURCES = $(foreach dir,$(KERNEL_SUBDIRS),$($(dir)_SRC))$/;"	m
-SOURCES	vm/build/Makefile	/^SOURCES = $(foreach dir,$(KERNEL_SUBDIRS),$($(dir)_SRC))$/;"	m
 SPACE	lib/stdio.c	/^        SPACE = 1 << 2,         \/* ' ' *\/$/;"	e	enum:printf_conversion::__anon3	file:
 SRCDIR	examples/Makefile	/^SRCDIR = ..$/;"	m
 SRCDIR	threads/build/Makefile	/^SRCDIR = ..\/..$/;"	m
 SRCDIR	userprog/build/Makefile	/^SRCDIR = ..\/..$/;"	m
 SRCDIR	utils/userprog/build/Makefile	/^SRCDIR = ..\/..$/;"	m
-SRCDIR	vm/build/Makefile	/^SRCDIR = ..\/..$/;"	m
 STA_BSY	devices/disk.c	32;"	d	file:
-STA_BSY	devices/ide.c	34;"	d	file:
 STA_DRDY	devices/disk.c	33;"	d	file:
-STA_DRDY	devices/ide.c	35;"	d	file:
 STA_DRQ	devices/disk.c	34;"	d	file:
-STA_DRQ	devices/ide.c	36;"	d	file:
 STDIN_FILENO	lib/stdio.h	15;"	d
 STDOUT_FILENO	lib/stdio.h	16;"	d
 STUB	threads/intr-stubs.S	/^#define STUB(NUMBER, TYPE)                      \\$/;"	d
-SWAP	vm/page.h	8;"	d
-SWAP_FREE	vm/swap.h	9;"	d
-SWAP_IN_USE	vm/swap.h	10;"	d
 SWITCH_CUR	threads/switch.h	36;"	d
 SWITCH_NEXT	threads/switch.h	37;"	d
 SYS_CHDIR	lib/syscall-nr.h	/^    SYS_CHDIR,                  \/* Change the current directory. *\/$/;"	e	enum:__anon2
@@ -463,7 +422,6 @@ TESTS_LIB_H	tests/lib.h	2;"	d
 TESTS_MAIN_H	tests/main.h	2;"	d
 TESTS_THREADS_TESTS_H	tests/threads/tests.h	2;"	d
 TESTS_USERPROG_BOUNDARY_H	tests/userprog/boundary.h	2;"	d
-TESTS_USERPROG_BOUNDARY_H	userprog/boundary.h	2;"	d
 TESTS_VM_PARALLEL_MERGE	tests/vm/parallel-merge.h	2;"	d
 TESTS_VM_QSORT_H	tests/vm/qsort.h	2;"	d
 TEST_SIZE	tests/filesys/base/lg-create.c	4;"	d	file:
@@ -510,7 +468,7 @@ THREAD_RUNNING	threads/tests/thread.h	/^    THREAD_RUNNING,     \/* Running thre
 THREAD_RUNNING	threads/thread.h	/^    THREAD_RUNNING,     \/* Running thread. *\/$/;"	e	enum:thread_status
 THR_REG	devices/serial.c	22;"	d	file:
 TID_ERROR	threads/tests/thread.h	25;"	d
-TID_ERROR	threads/thread.h	27;"	d
+TID_ERROR	threads/thread.h	25;"	d
 TIMER_FREQ	devices/timer.h	8;"	d
 TIME_SLICE	threads/tests/thread.c	54;"	d	file:
 TIME_SLICE	threads/thread.c	54;"	d	file:
@@ -543,9 +501,6 @@ USERPROG_TSS_H	utils/userprog/tss.h	2;"	d
 USHRT_MAX	lib/limits.h	20;"	d
 Usage	utils/pintos	/^Usage: pintos [OPTION...] -- [ARGUMENT...]$/;"	l
 Usage	utils/pintos-mkdisk	/^Usage: pintos DISKFILE MB$/;"	l
-VM_FRAME_H	vm/frame.h	2;"	d
-VM_PAGE_H	vm/page.h	2;"	d
-VM_SWAP_H	vm/swap.h	2;"	d
 ZERO	lib/stdio.c	/^        ZERO = 1 << 4,          \/* '0' *\/$/;"	e	enum:printf_conversion::__anon3	file:
 _Base	tests/Algorithm/Diff.pm	/^sub _Base() { 5 } # $me->[_Base]: Added to range's min and max$/;"	s
 _ChkPos	tests/Algorithm/Diff.pm	/^sub _ChkPos$/;"	s
@@ -567,7 +522,6 @@ __LIB_KERNEL_HASH_H	lib/kernel/hash.h	2;"	d
 __LIB_KERNEL_LIST_H	lib/kernel/list.h	2;"	d
 __LIB_KERNEL_STDIO_H	lib/kernel/stdio.h	2;"	d
 __LIB_LIMITS_H	lib/limits.h	2;"	d
-__LIB_PACKED_H	lib/packed.h	2;"	d
 __LIB_RANDOM_H	lib/random.h	2;"	d
 __LIB_ROUND_H	lib/round.h	2;"	d
 __LIB_STDARG_H	lib/stdarg.h	2;"	d
@@ -604,17 +558,14 @@ _end	threads/build/threads/kernel.lds.s	/^  _end = .;$/;"	d
 _end	threads/kernel.lds.S	/^  _end = .;$/;"	d
 _end	userprog/build/threads/kernel.lds.s	/^  _end = .;$/;"	d
 _end	utils/userprog/build/threads/kernel.lds.s	/^  _end = .;$/;"	d
-_end	vm/build/threads/kernel.lds.s	/^  _end = .;$/;"	d
 _end_bss	threads/build/threads/kernel.lds.s	/^  _end_bss = .;$/;"	d
 _end_bss	threads/kernel.lds.S	/^  _end_bss = .;$/;"	d
 _end_bss	userprog/build/threads/kernel.lds.s	/^  _end_bss = .;$/;"	d
 _end_bss	utils/userprog/build/threads/kernel.lds.s	/^  _end_bss = .;$/;"	d
-_end_bss	vm/build/threads/kernel.lds.s	/^  _end_bss = .;$/;"	d
 _end_kernel_text	threads/build/threads/kernel.lds.s	/^       _end_kernel_text = .; }$/;"	d
 _end_kernel_text	threads/kernel.lds.S	/^	      _end_kernel_text = .; }$/;"	d
 _end_kernel_text	userprog/build/threads/kernel.lds.s	/^       _end_kernel_text = .; }$/;"	d
 _end_kernel_text	utils/userprog/build/threads/kernel.lds.s	/^       _end_kernel_text = .; }$/;"	d
-_end_kernel_text	vm/build/threads/kernel.lds.s	/^       _end_kernel_text = .; }$/;"	d
 _longestCommonSubsequence	tests/Algorithm/Diff.pm	/^sub _longestCommonSubsequence$/;"	s
 _replaceNextLargerWith	tests/Algorithm/Diff.pm	/^sub _replaceNextLargerWith$/;"	s
 _start	lib/user/entry.c	/^_start (int argc, char *argv[]) $/;"	f
@@ -622,12 +573,10 @@ _start	threads/build/threads/kernel.lds.s	/^  _start = .;$/;"	d
 _start	threads/kernel.lds.S	/^  _start = .;$/;"	d
 _start	userprog/build/threads/kernel.lds.s	/^  _start = .;$/;"	d
 _start	utils/userprog/build/threads/kernel.lds.s	/^  _start = .;$/;"	d
-_start	vm/build/threads/kernel.lds.s	/^  _start = .;$/;"	d
 _start_bss	threads/build/threads/kernel.lds.s	/^  _start_bss = .;$/;"	d
 _start_bss	threads/kernel.lds.S	/^  _start_bss = .;$/;"	d
 _start_bss	userprog/build/threads/kernel.lds.s	/^  _start_bss = .;$/;"	d
 _start_bss	utils/userprog/build/threads/kernel.lds.s	/^  _start_bss = .;$/;"	d
-_start_bss	vm/build/threads/kernel.lds.s	/^  _start_bss = .;$/;"	d
 _sys_exit	userprog/syscall.c	/^void _sys_exit(void){$/;"	f
 _sys_exit	userprog/syscall2.c	/^void _sys_exit(void){$/;"	f
 _sys_exit	userprog/syscall3.c	/^void _sys_exit(void){$/;"	f
@@ -646,12 +595,8 @@ acquire_thread_func	tests/threads/priority-donate-lower.c	/^acquire_thread_func 
 acquire_thread_func	tests/threads/priority-donate-lower.c	/^static thread_func acquire_thread_func;$/;"	v	file:
 active_pd	userprog/pagedir.c	/^active_pd (void) $/;"	f	file:
 active_pd	utils/userprog/pagedir.c	/^active_pd (void) $/;"	f	file:
-add	threads/fixed_pointer.h	/^int64_t add(int64_t a, int64_t b){$/;"	f
 add_char	lib/user/console.c	/^add_char (char c, void *aux_) $/;"	f	file:
 add_file	utils/pintos	/^sub add_file {$/;"	s
-add_file_to_page_table	vm/page.c	/^bool add_file_to_page_table (struct file *file, int32_t ofs, uint8_t *upage,$/;"	f
-add_int	threads/fixed_pointer.h	/^int64_t add_int(int64_t a, int b){$/;"	f
-add_mmap_to_page_table	vm/page.c	/^bool add_mmap_to_page_table(struct file *file, int32_t ofs, uint8_t *upage,$/;"	f
 adj	examples/insult.c	/^char *adj[] = { "3", "4", "2", ",", "1" };$/;"	v
 adj1	examples/insult.c	/^char *adj1[] =$/;"	v
 adj1Loc	examples/insult.c	/^char adj1Loc[] =$/;"	v
@@ -666,7 +611,6 @@ afflictors	examples/insult.c	/^char *afflictors[] =$/;"	v
 afflictorsLoc	examples/insult.c	/^char afflictorsLoc[] = { 6, 0, 2, 4, 6, 8, 12, 16 };$/;"	v
 alarm_priority_thread	tests/threads/alarm-priority.c	/^alarm_priority_thread (void *aux UNUSED) $/;"	f	file:
 alarm_priority_thread	tests/threads/alarm-priority.c	/^static thread_func alarm_priority_thread;$/;"	v	file:
-all_blocks	devices/block.c	/^static struct list all_blocks = LIST_INITIALIZER (all_blocks);$/;"	v	typeref:struct:list	file:
 alloc_frame	threads/tests/thread.c	/^alloc_frame (struct thread *t, size_t size) $/;"	f	file:
 alloc_frame	threads/thread.c	/^alloc_frame (struct thread *t, size_t size) $/;"	f	file:
 allocate_tid	threads/tests/thread.c	/^allocate_tid (void) $/;"	f	file:
@@ -686,9 +630,7 @@ arena_to_block	threads/malloc.c	/^arena_to_block (struct arena *a, size_t idx) $
 arg_cnt	threads/loader.S	/^arg_cnt:$/;"	l
 args	threads/loader.S	/^args:$/;"	l
 assignfd	threads/thread.h	/^	uint32_t assignfd;$/;"	m	struct:thread
-ata_disk	devices/ide.c	/^struct ata_disk$/;"	s	file:
 atoi	lib/stdlib.c	/^atoi (const char *s) $/;"	f
-aux	devices/block.c	/^    void *aux;                          \/* Extra data owned by driver. *\/$/;"	m	struct:block	file:
 aux	lib/kernel/hash.h	/^    void *aux;                  \/* Auxiliary data for `hash' and `less'. *\/$/;"	m	struct:hash
 aux	threads/tests/thread.c	/^    void *aux;                  \/* Auxiliary data for function. *\/$/;"	m	struct:kernel_thread_frame	file:
 aux	threads/thread.c	/^    void *aux;                  \/* Auxiliary data for function. *\/$/;"	m	struct:kernel_thread_frame	file:
@@ -753,30 +695,11 @@ bitmap_size	lib/kernel/bitmap.c	/^bitmap_size (const struct bitmap *b)$/;"	f
 bitmap_test	lib/kernel/bitmap.c	/^bitmap_test (const struct bitmap *b, size_t idx) $/;"	f
 bitmap_write	lib/kernel/bitmap.c	/^bitmap_write (const struct bitmap *b, struct file *file)$/;"	f
 bits	lib/kernel/bitmap.c	/^    elem_type *bits;    \/* Elements that represent bits. *\/$/;"	m	struct:bitmap	file:
-block	devices/block.c	/^struct block$/;"	s	file:
-block	devices/partition.c	/^    struct block *block;                \/* Underlying block device. *\/$/;"	m	struct:partition	typeref:struct:partition::block	file:
 block	threads/malloc.c	/^struct block $/;"	s	file:
-block_by_role	devices/block.c	/^static struct block *block_by_role[BLOCK_ROLE_CNT];$/;"	v	typeref:struct:block	file:
-block_first	devices/block.c	/^block_first (void)$/;"	f
-block_get_by_name	devices/block.c	/^block_get_by_name (const char *name)$/;"	f
-block_get_role	devices/block.c	/^block_get_role (enum block_type role)$/;"	f
-block_name	devices/block.c	/^block_name (struct block *block)$/;"	f
-block_next	devices/block.c	/^block_next (struct block *block)$/;"	f
-block_operations	devices/block.h	/^struct block_operations$/;"	s
-block_print_stats	devices/block.c	/^block_print_stats (void)$/;"	f
-block_read	devices/block.c	/^block_read (struct block *block, block_sector_t sector, void *buffer)$/;"	f
-block_register	devices/block.c	/^block_register (const char *name, enum block_type type,$/;"	f
-block_sector_t	devices/block.h	/^typedef uint32_t block_sector_t;$/;"	t
-block_set_role	devices/block.c	/^block_set_role (enum block_type role, struct block *block)$/;"	f
-block_size	devices/block.c	/^block_size (struct block *block)$/;"	f
 block_size	threads/malloc.c	/^    size_t block_size;          \/* Size of each element in bytes. *\/$/;"	m	struct:desc	file:
 block_size	threads/malloc.c	/^block_size (void *block) $/;"	f	file:
 block_thread	tests/threads/mlfqs-block.c	/^block_thread (void *lock_) $/;"	f	file:
 block_to_arena	threads/malloc.c	/^block_to_arena (struct block *b)$/;"	f	file:
-block_type	devices/block.c	/^block_type (struct block *block)$/;"	f
-block_type	devices/block.h	/^enum block_type$/;"	g
-block_type_name	devices/block.c	/^block_type_name (enum block_type type)$/;"	f
-block_write	devices/block.c	/^block_write (struct block *block, block_sector_t sector, const void *buffer)$/;"	f
 blocks_per_arena	threads/malloc.c	/^    size_t blocks_per_arena;    \/* Number of blocks in an arena. *\/$/;"	m	struct:desc	file:
 body_parts	examples/insult.c	/^char *body_parts[] =$/;"	v
 body_partsLoc	examples/insult.c	/^char body_partsLoc[] = { 6, 0, 1, 2, 3, 4, 5, 6 };$/;"	v
@@ -828,10 +751,7 @@ changing_thread	tests/threads/priority-change.c	/^changing_thread (void *aux UNU
 changing_thread	tests/threads/priority-change.c	/^static thread_func changing_thread;$/;"	v	file:
 channel	devices/disk.c	/^    struct channel *channel;    \/* Channel disk is on. *\/$/;"	m	struct:disk	typeref:struct:disk::channel	file:
 channel	devices/disk.c	/^struct channel $/;"	s	file:
-channel	devices/ide.c	/^    struct channel *channel;    \/* Channel that disk is attached to. *\/$/;"	m	struct:ata_disk	typeref:struct:ata_disk::channel	file:
-channel	devices/ide.c	/^struct channel$/;"	s	file:
 channels	devices/disk.c	/^static struct channel channels[CHANNEL_CNT];$/;"	v	typeref:struct:channel	file:
-channels	devices/ide.c	/^static struct channel channels[CHANNEL_CNT];$/;"	v	typeref:struct:channel	file:
 char_cnt	lib/user/console.c	/^    int char_cnt;       \/* Total characters written so far. *\/$/;"	m	struct:vhprintf_aux	file:
 chars	devices/kbd.c	/^    const char *chars;          \/* chars[0] has scancode first_scancode,$/;"	m	struct:keymap	file:
 chdir	lib/user/syscall.c	/^chdir (const char *dir)$/;"	f
@@ -839,7 +759,6 @@ check_alarm	tests/threads/alarm.pm	/^sub check_alarm {$/;"	s
 check_archive	tests/tests.pm	/^sub check_archive {$/;"	s
 check_arg	userprog/syscall.c	/^void* check_arg(struct intr_frame *f, int num){$/;"	f
 check_device_type	devices/disk.c	/^check_device_type (struct disk *d) $/;"	f	file:
-check_device_type	devices/ide.c	/^check_device_type (struct ata_disk *d) $/;"	f	file:
 check_expected	tests/tests.pm	/^sub check_expected {$/;"	s
 check_file	tests/lib.c	/^check_file (const char *file_name, const void *buf, size_t size) $/;"	f
 check_file_handle	tests/lib.c	/^check_file_handle (int fd,$/;"	f
@@ -849,7 +768,6 @@ check_for_panic	tests/tests.pm	/^sub check_for_panic {$/;"	s
 check_for_triple_fault	tests/tests.pm	/^sub check_for_triple_fault {$/;"	s
 check_mlfqs_fair	tests/threads/mlfqs.pm	/^sub check_mlfqs_fair {$/;"	s
 check_process_death	tests/vm/process_death.pm	/^sub check_process_death {$/;"	s
-check_sector	devices/block.c	/^check_sector (struct block *block, block_sector_t sector)$/;"	f	file:
 check_tell	tests/filesys/extended/grow-tell.c	/^check_tell (int fd, long ofs) $/;"	f	file:
 checkf	tests/internal/stdio.c	/^checkf (const char *expect, const char *format, ...) $/;"	f	file:
 child	threads/thread.h	/^	struct list child;$/;"	m	struct:thread	typeref:struct:thread::list
@@ -871,7 +789,6 @@ compare_ints	tests/internal/stdlib.c	/^compare_ints (const void *a_, const void 
 compare_output	tests/tests.pm	/^sub compare_output {$/;"	s
 compare_thunk	lib/stdlib.c	/^compare_thunk (const void *a, const void *b, void *aux) $/;"	f	file:
 completion_wait	devices/disk.c	/^    struct semaphore completion_wait;   \/* Up'd by interrupt handler. *\/$/;"	m	struct:channel	typeref:struct:channel::semaphore	file:
-completion_wait	devices/ide.c	/^    struct semaphore completion_wait;   \/* Up'd by interrupt handler. *\/$/;"	m	struct:channel	typeref:struct:channel::semaphore	file:
 cond_broadcast	threads/synch.c	/^cond_broadcast (struct condition *cond, struct lock *lock) $/;"	f
 cond_init	threads/synch.c	/^cond_init (struct condition *cond)$/;"	f
 cond_signal	threads/synch.c	/^cond_signal (struct condition *cond, struct lock *lock UNUSED) $/;"	f
@@ -890,7 +807,6 @@ consume_some_resources	tests/userprog/no-vm/multi-oom.c	/^consume_some_resources
 consume_some_resources_and_die	tests/userprog/no-vm/multi-oom.c	/^consume_some_resources_and_die (int seed)$/;"	f	file:
 copy_file	utils/pintos	/^sub copy_file {$/;"	s
 copy_string_across_boundary	tests/userprog/boundary.c	/^copy_string_across_boundary (const char *src) $/;"	f
-copy_string_across_boundary	userprog/boundary.c	/^copy_string_across_boundary (const char *src) $/;"	f
 cp_SRC	examples/Makefile	/^cp_SRC = cp.c$/;"	m
 cpu	utils/pintos	/^cpu: ips=1000000$/;"	l
 cr3	userprog/tss.c	/^    uint32_t cr3;$/;"	m	struct:tss	file:
@@ -902,7 +818,6 @@ cs	threads/interrupt.h	/^    uint16_t cs, :16;           \/* Code segment for ei
 cs	userprog/tss.c	/^    uint16_t cs, :16;$/;"	m	struct:tss	file:
 cs	utils/userprog/tss.c	/^    uint16_t cs, :16;$/;"	m	struct:tss	file:
 cur	threads/switch.h	/^    struct thread *cur;         \/* 20: switch_threads()'s CUR argument. *\/$/;"	m	struct:switch_threads_frame	typeref:struct:switch_threads_frame::thread
-current_max_priority	threads/fixed_pointer.h	/^int current_max_priority = 0;$/;"	v
 curse	examples/insult.c	/^char *curse[] =$/;"	v
 curseLoc	examples/insult.c	/^char curseLoc[] = { 4, 0, 3, 7, 13, 20 };$/;"	v
 cx	devices/vga.c	/^static size_t cx, cy;$/;"	v	file:
@@ -919,16 +834,12 @@ deny_write_cnt	filesys/inode.c	/^    int deny_write_cnt;                 \/* 0: 
 desc	threads/malloc.c	/^    struct desc *desc;          \/* Owning descriptor, null for big block. *\/$/;"	m	struct:arena	typeref:struct:arena::desc	file:
 desc	threads/malloc.c	/^struct desc$/;"	s	file:
 desc_cnt	threads/malloc.c	/^static size_t desc_cnt;         \/* Number of descriptors. *\/$/;"	v	file:
-descramble_ata_string	devices/ide.c	/^descramble_ata_string (char *string, int size) $/;"	f	file:
 descs	threads/malloc.c	/^static struct desc descs[10];   \/* Descriptors. *\/$/;"	v	typeref:struct:desc	file:
 dev_no	devices/disk.c	/^    int dev_no;                 \/* Device 0 or 1 for master or slave. *\/$/;"	m	struct:disk	file:
-dev_no	devices/ide.c	/^    int dev_no;                 \/* Device 0 or 1 for master or slave. *\/$/;"	m	struct:ata_disk	file:
 devices	devices/disk.c	/^    struct disk devices[2];     \/* The devices on this channel. *\/$/;"	m	struct:channel	typeref:struct:channel::disk	file:
-devices	devices/ide.c	/^    struct ata_disk devices[2];     \/* The devices on this channel. *\/$/;"	m	struct:channel	typeref:struct:channel::ata_disk	file:
 devices_SRC	threads/build/Makefile	/^devices_SRC  = devices\/timer.c		# Timer device.$/;"	m
 devices_SRC	userprog/build/Makefile	/^devices_SRC  = devices\/timer.c		# Timer device.$/;"	m
 devices_SRC	utils/userprog/build/Makefile	/^devices_SRC  = devices\/timer.c		# Timer device.$/;"	m
-devices_SRC	vm/build/Makefile	/^devices_SRC  = devices\/timer.c		# Timer device.$/;"	m
 diff	tests/Algorithm/Diff.pm	/^sub diff$/;"	s
 digits	lib/stdio.c	/^    const char *digits;         \/* Collection of digits. *\/$/;"	m	struct:integer_base	file:
 dir	filesys/directory.c	/^struct dir $/;"	s	file:
@@ -952,8 +863,6 @@ disk_read	devices/disk.c	/^disk_read (struct disk *d, disk_sector_t sec_no, void
 disk_sector_t	devices/disk.h	/^typedef uint32_t disk_sector_t;$/;"	t
 disk_size	devices/disk.c	/^disk_size (struct disk *d) $/;"	f
 disk_write	devices/disk.c	/^disk_write (struct disk *d, disk_sector_t sec_no, const void *buffer)$/;"	f
-div	threads/fixed_pointer.h	/^int64_t div(int64_t a, int64_t b){$/;"	f
-div_int	threads/fixed_pointer.h	/^int64_t div_int(int64_t a, int b){$/;"	f
 divl	lib/arithmetic.c	/^divl (uint64_t n, uint32_t d)$/;"	f	file:
 do_compare	lib/stdlib.c	/^do_compare (unsigned char *array, size_t a_idx, size_t b_idx, size_t size,$/;"	f	file:
 do_format	filesys/filesys.c	/^do_format (void)$/;"	f	file:
@@ -968,7 +877,6 @@ ds	threads/interrupt.h	/^    uint16_t ds, :16;           \/* Saved DS segment re
 ds	userprog/tss.c	/^    uint16_t ds, :16;$/;"	m	struct:tss	file:
 ds	utils/userprog/tss.c	/^    uint16_t ds, :16;$/;"	m	struct:tss	file:
 dst	tests/userprog/boundary.c	/^static char dst[8192];$/;"	v	file:
-dst	userprog/boundary.c	/^static char dst[8192];$/;"	v	file:
 duration	tests/threads/alarm-wait.c	/^    int duration;               \/* Number of ticks to sleep. *\/$/;"	m	struct:sleep_thread	file:
 e_ehsize	userprog/process.c	/^    Elf32_Half    e_ehsize;$/;"	m	struct:Elf32_Ehdr	file:
 e_ehsize	utils/userprog/process.c	/^    Elf32_Half    e_ehsize;$/;"	m	struct:Elf32_Ehdr	file:
@@ -1041,8 +949,6 @@ elem	threads/thread.h	/^    struct list_elem elem;              \/* List element
 elem	userprog/syscall.c	/^	struct list_elem elem;$/;"	m	struct:file_from_process	typeref:struct:file_from_process::list_elem	file:
 elem	userprog/syscall2.c	/^	struct list_elem elem;$/;"	m	struct:file_from_process	typeref:struct:file_from_process::list_elem	file:
 elem	userprog/syscall3.c	/^	struct list_elem elem;$/;"	m	struct:file_from_process	typeref:struct:file_from_process::list_elem	file:
-elem	vm/frame.h	/^  struct list_elem elem;$/;"	m	struct:frame_entry	typeref:struct:frame_entry::list_elem
-elem	vm/page.h	/^  struct hash_elem elem;$/;"	m	struct:sup_page_entry	typeref:struct:sup_page_entry::hash_elem
 elem_cnt	lib/kernel/bitmap.c	/^elem_cnt (size_t bit_cnt)$/;"	f	file:
 elem_cnt	lib/kernel/hash.h	/^    size_t elem_cnt;            \/* Number of elements in table. *\/$/;"	m	struct:hash
 elem_idx	lib/kernel/bitmap.c	/^elem_idx (size_t bit_idx) $/;"	f	file:
@@ -1080,7 +986,6 @@ exit	threads/thread.h	/^	struct semaphore exit;$/;"	m	struct:parent_child	typere
 exit	userprog/syscall.c	/^void exit (struct intr_frame *f){$/;"	f
 expand	examples/insult.c	/^expand (int num, char **grammar[], char *location[], int handle)$/;"	f
 expecting_interrupt	devices/disk.c	/^    bool expecting_interrupt;   \/* True if an interrupt is expected, false if$/;"	m	struct:channel	file:
-expecting_interrupt	devices/ide.c	/^    bool expecting_interrupt;   \/* True if an interrupt is expected, false if$/;"	m	struct:channel	file:
 extend_disk	utils/pintos	/^sub extend_disk {$/;"	s
 fail	tests/lib.c	/^fail (const char *format, ...) $/;"	f
 fail	tests/tests.pm	/^sub fail {$/;"	s
@@ -1101,7 +1006,6 @@ file	threads/thread.h	/^	struct file *file;$/;"	m	struct:files	typeref:struct:fi
 file	userprog/syscall.c	/^	struct file *file;$/;"	m	struct:file_from_process	typeref:struct:file_from_process::file	file:
 file	userprog/syscall2.c	/^	struct file *file;$/;"	m	struct:file_from_process	typeref:struct:file_from_process::file	file:
 file	userprog/syscall3.c	/^	struct file *file;$/;"	m	struct:file_from_process	typeref:struct:file_from_process::file	file:
-file	vm/page.h	/^  struct file *file;$/;"	m	struct:sup_page_entry	typeref:struct:sup_page_entry::file
 file_allow_write	filesys/file.c	/^file_allow_write (struct file *file) $/;"	f
 file_close	filesys/file.c	/^file_close (struct file *file) $/;"	f
 file_deny_write	filesys/file.c	/^file_deny_write (struct file *file) $/;"	f
@@ -1130,12 +1034,10 @@ filesize	userprog/syscall.c	/^int filesize (struct intr_frame *f){$/;"	f
 filesys_SRC	threads/build/Makefile	/^filesys_SRC  = filesys\/filesys.c	# Filesystem core.$/;"	m
 filesys_SRC	userprog/build/Makefile	/^filesys_SRC  = filesys\/filesys.c	# Filesystem core.$/;"	m
 filesys_SRC	utils/userprog/build/Makefile	/^filesys_SRC  = filesys\/filesys.c	# Filesystem core.$/;"	m
-filesys_SRC	vm/build/Makefile	/^filesys_SRC  = filesys\/filesys.c	# Filesystem core.$/;"	m
 filesys_create	filesys/filesys.c	/^filesys_create (const char *name, off_t initial_size) $/;"	f
 filesys_disk	filesys/filesys.c	/^struct disk *filesys_disk;$/;"	v	typeref:struct:disk
 filesys_done	filesys/filesys.c	/^filesys_done (void) $/;"	f
 filesys_init	filesys/filesys.c	/^filesys_init (bool format) $/;"	f
-filesys_lock	userprog/syscall.h	/^struct lock filesys_lock;$/;"	v	typeref:struct:lock
 filesys_open	filesys/filesys.c	/^filesys_open (const char *name)$/;"	f
 filesys_remove	filesys/filesys.c	/^filesys_remove (const char *name) $/;"	f
 find_bucket	lib/kernel/hash.c	/^find_bucket (struct hash *h, struct hash_elem *e) $/;"	f	file:
@@ -1157,17 +1059,7 @@ forceLoc	examples/insult.c	/^char forceLoc[] = { 4, 0, 1, 2, 3, 4 };$/;"	v
 format_filesys	threads/init.c	/^static bool format_filesys;$/;"	v	file:
 format_integer	lib/stdio.c	/^format_integer (uintmax_t value, bool is_signed, bool negative, $/;"	f	file:
 format_string	lib/stdio.c	/^format_string (const char *string, int length,$/;"	f	file:
-found_partition	devices/partition.c	/^found_partition (struct block *block, uint8_t part_type,$/;"	f	file:
-frame	vm/frame.h	/^  void *frame;$/;"	m	struct:frame_entry
-frame_add_to_table	vm/frame.c	/^void frame_add_to_table (void *frame, struct sup_page_entry *spte)$/;"	f
-frame_alloc	vm/frame.c	/^void* frame_alloc (enum palloc_flags flags, struct sup_page_entry *spte)$/;"	f
-frame_entry	vm/frame.h	/^struct frame_entry {$/;"	s
-frame_evict	vm/frame.c	/^void* frame_evict (enum palloc_flags flags)$/;"	f
-frame_free	vm/frame.c	/^void frame_free (void *frame)$/;"	f
 frame_pointer	threads/interrupt.h	/^    void *frame_pointer;        \/* Saved EBP (frame pointer). *\/$/;"	m	struct:intr_frame
-frame_table	vm/frame.h	/^struct list frame_table;$/;"	v	typeref:struct:list
-frame_table_init	vm/frame.c	/^void frame_table_init (void)$/;"	f
-frame_table_lock	vm/frame.h	/^struct lock frame_table_lock;$/;"	v	typeref:struct:lock
 free	threads/malloc.c	/^free (void *p) $/;"	f
 free_cnt	threads/malloc.c	/^    size_t free_cnt;            \/* Free blocks; pages in big block. *\/$/;"	m	struct:arena	file:
 free_elem	threads/malloc.c	/^    struct list_elem free_elem; \/* Free list element. *\/$/;"	m	struct:block	typeref:struct:block::list_elem	file:
@@ -1200,19 +1092,15 @@ gdtdesc	threads/loader.S	/^gdtdesc:$/;"	l
 getObjPkg	tests/Algorithm/Diff.pm	/^sub getObjPkg$/;"	s
 get_arg	userprog/syscall.c	/^void* get_arg(struct intr_frame *f, int num){$/;"	f
 get_boundary_area	tests/userprog/boundary.c	/^get_boundary_area (void) $/;"	f
-get_boundary_area	userprog/boundary.c	/^get_boundary_area (void) $/;"	f
 get_core_output	tests/tests.pm	/^sub get_core_output {$/;"	s
-get_fixed_value	threads/fixed_pointer.h	/^int get_fixed_value(int64_t a){$/;"	f
 get_inumber	examples/pwd.c	/^get_inumber (const char *file_name, int *inum) $/;"	f	file:
 get_load_average	utils/pintos	/^sub get_load_average {$/;"	s
 get_scratch_file	utils/pintos	/^sub get_scratch_file {$/;"	s
-get_spte	vm/page.c	/^struct sup_page_entry* get_spte (void *uva)$/;"	f
 getchild	userprog/process.c	/^struct parent_child* getchild(struct thread* parent, tid_t tid){$/;"	f
 getcwd	examples/pwd.c	/^getcwd (char *cwd, size_t cwd_size) $/;"	f	file:
 good_verb	examples/insult.c	/^char *good_verb[] =$/;"	v
 good_verbLoc	examples/insult.c	/^char good_verbLoc[] = { 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11 };$/;"	v
 group	lib/stdio.c	/^    int group;                  \/* Number of digits to group with ' flag. *\/$/;"	m	struct:integer_base	file:
-grow_stack	vm/page.c	/^bool grow_stack (void *uva)$/;"	f
 gs	threads/interrupt.h	/^    uint16_t gs, :16;           \/* Saved GS segment register. *\/$/;"	m	struct:intr_frame
 gs	userprog/tss.c	/^    uint16_t gs, :16;$/;"	m	struct:tss	file:
 gs	utils/userprog/tss.c	/^    uint16_t gs, :16;$/;"	m	struct:tss	file:
@@ -1266,13 +1154,7 @@ hprintf	lib/user/console.c	/^hprintf (int handle, const char *format, ...) $/;"	
 i	tests/arc4.h	/^    uint8_t i, j;$/;"	m	struct:arc4
 id	tests/threads/alarm-wait.c	/^    int id;                     \/* Sleeper ID. *\/$/;"	m	struct:sleep_thread	file:
 id	tests/threads/priority-fifo.c	/^    int id;                     \/* Sleeper ID. *\/$/;"	m	struct:simple_thread_data	file:
-ide_init	devices/ide.c	/^ide_init (void) $/;"	f
-ide_operations	devices/ide.c	/^static struct block_operations ide_operations =$/;"	v	typeref:struct:block_operations	file:
-ide_operations	devices/ide.c	/^static struct block_operations ide_operations;$/;"	v	typeref:struct:block_operations	file:
-ide_read	devices/ide.c	/^ide_read (void *d_, block_sector_t sec_no, void *buffer)$/;"	f	file:
-ide_write	devices/ide.c	/^ide_write (void *d_, block_sector_t sec_no, const void *buffer)$/;"	f	file:
 identify_ata_device	devices/disk.c	/^identify_ata_device (struct disk *d) $/;"	f	file:
-identify_ata_device	devices/ide.c	/^identify_ata_device (struct ata_disk *d) $/;"	f	file:
 idle	threads/tests/thread.c	/^idle (void *idle_started_ UNUSED) $/;"	f	file:
 idle	threads/thread.c	/^idle (void *idle_started_ UNUSED) $/;"	f	file:
 idle_thread	threads/tests/thread.c	/^static struct thread *idle_thread;$/;"	v	typeref:struct:thread	file:
@@ -1320,7 +1202,6 @@ input_getc	devices/input.c	/^input_getc (void) $/;"	f
 input_init	devices/input.c	/^input_init (void) $/;"	f
 input_putc	devices/input.c	/^input_putc (uint8_t key) $/;"	f
 input_sector	devices/disk.c	/^input_sector (struct channel *c, void *sector) $/;"	f	file:
-input_sector	devices/ide.c	/^input_sector (struct channel *c, void *sector) $/;"	f	file:
 insb	threads/io.h	/^insb (uint16_t port, void *addr, size_t cnt)$/;"	f
 insert_elem	lib/kernel/hash.c	/^insert_elem (struct hash *h, struct list *bucket, struct hash_elem *e) $/;"	f	file:
 insl	threads/io.h	/^insl (uint16_t port, void *addr, size_t cnt)$/;"	f
@@ -1336,7 +1217,6 @@ integer_base	lib/stdio.c	/^struct integer_base $/;"	s	file:
 interloper_thread_func	tests/threads/priority-donate-chain.c	/^interloper_thread_func (void *arg_ UNUSED)$/;"	f	file:
 interloper_thread_func	tests/threads/priority-donate-chain.c	/^static thread_func interloper_thread_func;$/;"	v	file:
 interrupt_handler	devices/disk.c	/^interrupt_handler (struct intr_frame *f) $/;"	f	file:
-interrupt_handler	devices/ide.c	/^interrupt_handler (struct intr_frame *f) $/;"	f	file:
 intmax_t	lib/stdint.h	/^typedef int64_t intmax_t;$/;"	t
 intptr_t	lib/stdint.h	/^typedef int32_t intptr_t;$/;"	t
 intq	devices/intq.h	/^struct intq$/;"	s
@@ -1372,15 +1252,12 @@ invalidate_pagedir	utils/userprog/pagedir.c	/^invalidate_pagedir (uint32_t *pd) 
 invariant_keymap	devices/kbd.c	/^static const struct keymap invariant_keymap[] = $/;"	v	typeref:struct:keymap	file:
 inw	threads/io.h	/^inw (uint16_t port)$/;"	f
 irq	devices/disk.c	/^    uint8_t irq;                \/* Interrupt in use. *\/$/;"	m	struct:channel	file:
-irq	devices/ide.c	/^    uint8_t irq;                \/* Interrupt in use. *\/$/;"	m	struct:channel	file:
 isValidPtr	utils/userprog/syscall.c	/^static inline bool isValidPtr (uint32_t *pagedir, const void* ptr)$/;"	f	file:
 is_ata	devices/disk.c	/^    bool is_ata;                \/* 1=This device is an ATA disk. *\/$/;"	m	struct:disk	file:
-is_ata	devices/ide.c	/^    bool is_ata;                \/* Is device an ATA disk? *\/$/;"	m	struct:ata_disk	file:
 is_dir	tests/tests.pm	/^sub is_dir {$/;"	s
 is_head	lib/kernel/list.c	/^is_head (struct list_elem *elem)$/;"	f	file:
 is_interior	lib/kernel/list.c	/^is_interior (struct list_elem *elem)$/;"	f	file:
 is_kernel_vaddr	threads/vaddr.h	/^is_kernel_vaddr (const void *vaddr) $/;"	f
-is_loaded	vm/page.h	/^  bool is_loaded;$/;"	m	struct:sup_page_entry
 is_partitioned	tests/vm/qsort.c	/^is_partitioned (const unsigned char *array, size_t size,$/;"	f	file:
 is_power_of_2	lib/kernel/hash.c	/^is_power_of_2 (size_t x) $/;"	f	file:
 is_sorted	lib/kernel/list.c	/^is_sorted (struct list_elem *a, struct list_elem *b,$/;"	f	file:
@@ -1402,7 +1279,6 @@ isprint	lib/ctype.h	/^static inline int isprint (int c) { return c >= 32 && c < 
 ispunct	lib/ctype.h	/^static inline int ispunct (int c) {$/;"	f
 isspace	lib/ctype.h	/^static inline int isspace (int c) {$/;"	f
 issue_pio_command	devices/disk.c	/^issue_pio_command (struct channel *c, uint8_t command) $/;"	f	file:
-issue_pio_command	devices/ide.c	/^issue_pio_command (struct channel *c, uint8_t command) $/;"	f	file:
 isupper	lib/ctype.h	/^static inline int isupper (int c) { return c >= 'A' && c <= 'Z'; }$/;"	f
 isxdigit	lib/ctype.h	/^static inline int isxdigit (int c) {$/;"	f
 iterations	tests/threads/alarm-simultaneous.c	/^    int iterations;             \/* Number of iterations per thread. *\/$/;"	m	struct:sleep_test	file:
@@ -1415,7 +1291,6 @@ kbd_print_stats	devices/kbd.c	/^kbd_print_stats (void) $/;"	f
 kernel_SRC	threads/build/Makefile	/^lib\/kernel_SRC  = lib\/kernel\/debug.c	# Debug helpers.$/;"	m
 kernel_SRC	userprog/build/Makefile	/^lib\/kernel_SRC  = lib\/kernel\/debug.c	# Debug helpers.$/;"	m
 kernel_SRC	utils/userprog/build/Makefile	/^lib\/kernel_SRC  = lib\/kernel\/debug.c	# Debug helpers.$/;"	m
-kernel_SRC	vm/build/Makefile	/^lib\/kernel_SRC  = lib\/kernel\/debug.c	# Debug helpers.$/;"	m
 kernel_addr	userprog/syscall.c	/^void* kernel_addr(const void* fesp){$/;"	f
 kernel_pool	threads/palloc.c	/^struct pool kernel_pool, user_pool;$/;"	v	typeref:struct:pool
 kernel_thread	threads/tests/thread.c	/^kernel_thread (thread_func *function, void *aux) $/;"	f	file:
@@ -1444,20 +1319,17 @@ less	lib/kernel/hash.h	/^    hash_less_func *less;       \/* Comparison function
 lib_SRC	threads/build/Makefile	/^lib_SRC  = lib\/debug.c			# Debug helpers.$/;"	m
 lib_SRC	userprog/build/Makefile	/^lib_SRC  = lib\/debug.c			# Debug helpers.$/;"	m
 lib_SRC	utils/userprog/build/Makefile	/^lib_SRC  = lib\/debug.c			# Debug helpers.$/;"	m
-lib_SRC	vm/build/Makefile	/^lib_SRC  = lib\/debug.c			# Debug helpers.$/;"	m
 lineup_SRC	examples/Makefile	/^lineup_SRC = lineup.c$/;"	m
 list	lib/kernel/list.h	/^struct list $/;"	s
 list_back	lib/kernel/list.c	/^list_back (struct list *list)$/;"	f
 list_begin	lib/kernel/list.c	/^list_begin (struct list *list)$/;"	f
 list_dir	examples/ls.c	/^list_dir (const char *dir, bool verbose) $/;"	f	file:
-list_elem	devices/block.c	/^    struct list_elem list_elem;         \/* Element in all_blocks. *\/$/;"	m	struct:block	typeref:struct:block::list_elem	file:
 list_elem	lib/kernel/hash.h	/^    struct list_elem list_elem;$/;"	m	struct:hash_elem	typeref:struct:hash_elem::list_elem
 list_elem	lib/kernel/list.h	/^struct list_elem $/;"	s
-list_elem_to_block	devices/block.c	/^list_elem_to_block (struct list_elem *list_elem)$/;"	f	file:
 list_elem_to_hash_elem	lib/kernel/hash.c	12;"	d	file:
 list_empty	lib/kernel/list.c	/^list_empty (struct list *list)$/;"	f
 list_end	lib/kernel/list.c	/^list_end (struct list *list)$/;"	f
-list_entry	lib/kernel/list.h	109;"	d
+list_entry	lib/kernel/list.h	108;"	d
 list_front	lib/kernel/list.c	/^list_front (struct list *list)$/;"	f
 list_head	lib/kernel/list.c	/^list_head (struct list *list) $/;"	f
 list_init	lib/kernel/list.c	/^list_init (struct list *list)$/;"	f
@@ -1484,18 +1356,13 @@ list_unique	lib/kernel/list.c	/^list_unique (struct list *list, struct list *dup
 load	threads/thread.h	/^	struct semaphore load;$/;"	m	struct:parent_child	typeref:struct:parent_child::semaphore
 load	userprog/process.c	/^load (const char *file_name, void (**eip) (void), void **esp) $/;"	f
 load	utils/userprog/process.c	/^load (const char *file_name, void (**eip) (void), void **esp) $/;"	f
-load_avg	threads/fixed_pointer.h	/^int64_t load_avg = 0;$/;"	v
-load_file	vm/page.c	/^bool load_file (struct sup_page_entry *spte)$/;"	f
-load_page	vm/page.c	/^bool load_page (struct sup_page_entry *spte)$/;"	f
 load_segment	userprog/process.c	/^load_segment (struct file *file, off_t ofs, uint8_t *upage,$/;"	f	file:
 load_segment	utils/userprog/process.c	/^load_segment (struct file *file, off_t ofs, uint8_t *upage,$/;"	f	file:
-load_swap	vm/page.c	/^bool load_swap (struct sup_page_entry *spte)$/;"	f
 load_thread	tests/threads/mlfqs-fair.c	/^load_thread (void *ti_) $/;"	f	file:
 load_thread	tests/threads/mlfqs-load-60.c	/^load_thread (void *aux UNUSED) $/;"	f	file:
 load_thread	tests/threads/mlfqs-load-avg.c	/^load_thread (void *seq_no_) $/;"	f	file:
 loaded	threads/thread.h	/^	bool loaded;$/;"	m	struct:parent_child
 lock	devices/disk.c	/^    struct lock lock;           \/* Must acquire to access the controller. *\/$/;"	m	struct:channel	typeref:struct:channel::lock	file:
-lock	devices/ide.c	/^    struct lock lock;           \/* Must acquire to access the controller. *\/$/;"	m	struct:channel	typeref:struct:channel::lock	file:
 lock	devices/intq.h	/^    struct lock lock;           \/* Only one thread may wait at once. *\/$/;"	m	struct:intq	typeref:struct:intq::lock
 lock	tests/threads/priority-condvar.c	/^static struct lock lock;$/;"	v	typeref:struct:lock	file:
 lock	tests/threads/priority-donate-sema.c	/^    struct lock lock;$/;"	m	struct:lock_and_sema	typeref:struct:lock_and_sema::lock	file:
@@ -1560,11 +1427,6 @@ main	tests/vm/child-qsort-mm.c	/^main (int argc UNUSED, char *argv[]) $/;"	f
 main	tests/vm/child-qsort.c	/^main (int argc UNUSED, char *argv[]) $/;"	f
 main	tests/vm/child-sort.c	/^main (int argc UNUSED, char *argv[]) $/;"	f
 main	threads/init.c	/^main (void)$/;"	f
-main	userprog/args.c	/^main (int argc, char *argv[]) $/;"	f
-main	userprog/child-close.c	/^main (int argc UNUSED, char *argv[]) $/;"	f
-main	userprog/child-rox.c	/^main (int argc UNUSED, char *argv[]) $/;"	f
-main	userprog/child-simple.c	/^main (void) $/;"	f
-main	userprog/multi-recurse.c	/^main (int argc UNUSED, char *argv[]) $/;"	f
 main	utils/setitimer-helper.c	/^main (int argc, char *argv[]) $/;"	f
 main	utils/squish-pty.c	/^main (int argc __attribute__ ((unused)), char *argv[])$/;"	f
 main	utils/squish-unix.c	/^main (int argc __attribute__ ((unused)), char *argv[])$/;"	f
@@ -1591,7 +1453,6 @@ make_tss_desc	utils/userprog/gdt.c	/^make_tss_desc (void *laddr)$/;"	f	file:
 malloc	threads/malloc.c	/^malloc (size_t size) $/;"	f
 malloc_init	threads/malloc.c	/^malloc_init (void) $/;"	f
 map_key	devices/kbd.c	/^map_key (const struct keymap k[], unsigned scancode, uint8_t *c) $/;"	f	file:
-mapid	threads/thread.h	/^	int mapid;$/;"	m	struct:thread
 mapid_t	lib/user/syscall.h	/^typedef int mapid_t;$/;"	t
 matmult_SRC	examples/Makefile	/^matmult_SRC = matmult.c$/;"	m
 max_length	lib/stdio.c	/^    int max_length;     \/* Max length of output string. *\/$/;"	m	struct:vsnprintf_aux	file:
@@ -1616,19 +1477,13 @@ mlfqs_expected_load	tests/threads/mlfqs.pm	/^sub mlfqs_expected_load {$/;"	s
 mlfqs_expected_ticks	tests/threads/mlfqs.pm	/^sub mlfqs_expected_ticks {$/;"	s
 mlfqs_row	tests/threads/mlfqs.pm	/^sub mlfqs_row {$/;"	s
 mmap	lib/user/syscall.c	/^mmap (int fd, void *addr)$/;"	f
-mmap_list	threads/thread.h	/^	struct list mmap_list;$/;"	m	struct:thread	typeref:struct:thread::list
 mode	devices/serial.c	/^static enum { UNINIT, POLL, QUEUE } mode;$/;"	v	typeref:enum:__anon1	file:
 move_cursor	devices/vga.c	/^move_cursor (void) $/;"	f	file:
 msg	tests/lib.c	/^msg (const char *format, ...) $/;"	f
 msg	tests/threads/tests.c	/^msg (const char *format, ...) $/;"	f
-mul	threads/fixed_pointer.h	/^int64_t mul(int64_t a, int64_t b ){$/;"	f
-mul_int	threads/fixed_pointer.h	/^int64_t mul_int(int64_t a, int b ){$/;"	f
 munmap	lib/user/syscall.c	/^munmap (mapid_t mapid)$/;"	f
-name	devices/block.c	/^    char name[16];                      \/* Block device name. *\/$/;"	m	struct:block	file:
 name	devices/disk.c	/^    char name[8];               \/* Name, e.g. "hd0". *\/$/;"	m	struct:channel	file:
 name	devices/disk.c	/^    char name[8];               \/* Name, e.g. "hd0:1". *\/$/;"	m	struct:disk	file:
-name	devices/ide.c	/^    char name[8];               \/* Name, e.g. "hda". *\/$/;"	m	struct:ata_disk	file:
-name	devices/ide.c	/^    char name[8];               \/* Name, e.g. "ide0". *\/$/;"	m	struct:channel	file:
 name	examples/insult.c	/^char *name[] =$/;"	v
 name	filesys/directory.c	/^    char name[NAME_MAX + 1];            \/* Null terminated file name. *\/$/;"	m	struct:dir_entry	file:
 name	tests/threads/tests.c	/^    const char *name;$/;"	m	struct:test	file:
@@ -1654,7 +1509,6 @@ noun_and_prepLoc	examples/insult.c	/^char noun_and_prepLoc[] =$/;"	v
 numbers	examples/insult.c	/^char *numbers[] =$/;"	v
 numbersLoc	examples/insult.c	/^char numbersLoc[] = { 7, 0, 2, 4, 5, 7, 8, 10, 13 };$/;"	v
 off_t	filesys/off_t.h	/^typedef int32_t off_t;$/;"	t
-offset	vm/page.h	/^  size_t offset;$/;"	m	struct:sup_page_entry
 offsetof	lib/stddef.h	5;"	d
 op	tests/threads/priority-fifo.c	/^    int **op;                   \/* Output buffer position. *\/$/;"	m	struct:simple_thread_data	file:
 open	lib/user/syscall.c	/^open (const char *file)$/;"	f
@@ -1664,7 +1518,6 @@ open_disk	utils/pintos	/^sub open_disk {$/;"	s
 open_disk_copy	utils/pintos	/^sub open_disk_copy {$/;"	s
 open_file	tests/tests.pm	/^sub open_file {$/;"	s
 open_inodes	filesys/inode.c	/^static struct list open_inodes;$/;"	v	typeref:struct:list	file:
-ops	devices/block.c	/^    const struct block_operations *ops;  \/* Driver operations. *\/$/;"	m	struct:block	typeref:struct:block::block_operations	file:
 organics	examples/insult.c	/^char *organics[] =$/;"	v
 organicsLoc	examples/insult.c	/^char organicsLoc[] =$/;"	v
 original_locked_priority	threads/tests/thread.h	/^	int original_locked_priority;	\/\/priority-donate-lower$/;"	m	struct:thread
@@ -1678,7 +1531,6 @@ output_lock	tests/threads/alarm-wait.c	/^    struct lock output_lock;    \/* Loc
 output_pos	tests/threads/alarm-simultaneous.c	/^    int *output_pos;            \/* Current position in output buffer. *\/$/;"	m	struct:sleep_test	file:
 output_pos	tests/threads/alarm-wait.c	/^    int *output_pos;            \/* Current position in output buffer. *\/$/;"	m	struct:sleep_test	file:
 output_sector	devices/disk.c	/^output_sector (struct channel *c, const void *sector) $/;"	f	file:
-output_sector	devices/ide.c	/^output_sector (struct channel *c, const void *sector) $/;"	f	file:
 outsb	threads/io.h	/^outsb (uint16_t port, const void *addr, size_t cnt)$/;"	f
 outsl	threads/io.h	/^outsl (uint16_t port, const void *addr, size_t cnt)$/;"	f
 outsw	threads/io.h	/^outsw (uint16_t port, const void *addr, size_t cnt)$/;"	f
@@ -1701,17 +1553,12 @@ p_type	userprog/process.c	/^    Elf32_Word p_type;$/;"	m	struct:Elf32_Phdr	file:
 p_type	utils/userprog/process.c	/^    Elf32_Word p_type;$/;"	m	struct:Elf32_Phdr	file:
 p_vaddr	userprog/process.c	/^    Elf32_Addr p_vaddr;$/;"	m	struct:Elf32_Phdr	file:
 p_vaddr	utils/userprog/process.c	/^    Elf32_Addr p_vaddr;$/;"	m	struct:Elf32_Phdr	file:
-page_action_func	vm/page.c	/^static void page_action_func (struct hash_elem *e, void *aux UNUSED)$/;"	f	file:
 page_bounary	userprog/syscall.c	/^void page_bounary(int *esp){$/;"	f
 page_fault	userprog/exception.c	/^page_fault (struct intr_frame *f) $/;"	f	file:
 page_fault	utils/userprog/exception.c	/^page_fault (struct intr_frame *f) $/;"	f	file:
 page_fault_cnt	userprog/exception.c	/^static long long page_fault_cnt;$/;"	v	file:
 page_fault_cnt	utils/userprog/exception.c	/^static long long page_fault_cnt;$/;"	v	file:
 page_from_pool	threads/palloc.c	/^page_from_pool (const struct pool *pool, void *page) $/;"	f	file:
-page_hash_func	vm/page.c	/^static unsigned page_hash_func (const struct hash_elem *e, void *aux UNUSED)$/;"	f	file:
-page_less_func	vm/page.c	/^static bool page_less_func (const struct hash_elem *a,$/;"	f	file:
-page_table_destroy	vm/page.c	/^void page_table_destroy (struct hash *spt)$/;"	f
-page_table_init	vm/page.c	/^void page_table_init (struct hash *spt)$/;"	f
 pagedir	threads/tests/thread.h	/^    uint32_t *pagedir;                  \/* Page directory. *\/	$/;"	m	struct:thread
 pagedir	threads/thread.h	/^    uint32_t *pagedir;                  \/* Page directory. *\/	$/;"	m	struct:thread
 pagedir_activate	userprog/pagedir.c	/^pagedir_activate (uint32_t *pd) $/;"	f
@@ -1754,14 +1601,7 @@ parent_tid	threads/thread.h	/^	tid_t parent_tid;$/;"	m	struct:parent_child
 parse_command_line	utils/pintos	/^sub parse_command_line {$/;"	s
 parse_conversion	lib/stdio.c	/^parse_conversion (const char *format, struct printf_conversion *c,$/;"	f	file:
 parse_options	threads/init.c	/^parse_options (char **argv) $/;"	f	file:
-partition	devices/partition.c	/^struct partition$/;"	s	file:
 partition	tests/vm/qsort.c	/^partition (unsigned char *array, size_t size, int pivot) $/;"	f	file:
-partition_operations	devices/partition.c	/^static struct block_operations partition_operations =$/;"	v	typeref:struct:block_operations	file:
-partition_operations	devices/partition.c	/^static struct block_operations partition_operations;$/;"	v	typeref:struct:block_operations	file:
-partition_read	devices/partition.c	/^partition_read (void *p_, block_sector_t sector, void *buffer)$/;"	f	file:
-partition_scan	devices/partition.c	/^partition_scan (struct block *block)$/;"	f
-partition_type_name	devices/partition.c	/^partition_type_name (uint8_t type)$/;"	f	file:
-partition_write	devices/partition.c	/^partition_write (void *p_, block_sector_t sector, const void *buffer)$/;"	f	file:
 pass	tests/tests.pm	/^sub pass {$/;"	s
 pass	tests/threads/tests.c	/^pass (void) $/;"	f
 pd_no	threads/pte.h	/^static inline uintptr_t pd_no (const void *va) {$/;"	f
@@ -1775,7 +1615,6 @@ pic_end_of_interrupt	threads/interrupt.c	/^pic_end_of_interrupt (int irq) $/;"	f
 pic_init	threads/interrupt.c	/^pic_init (void)$/;"	f	file:
 pick_pivot	tests/vm/qsort.c	/^pick_pivot (unsigned char *buf, size_t size) $/;"	f	file:
 pid_t	lib/user/syscall.h	/^typedef int pid_t;$/;"	t
-pinned	vm/page.h	/^  bool pinned;$/;"	m	struct:sup_page_entry
 place	examples/insult.c	/^char *place[] =$/;"	v
 placeLoc	examples/insult.c	/^char placeLoc[] = { 5, 0, 3, 7, 11, 17, 20 };$/;"	v
 player_unsup	utils/pintos	/^sub player_unsup {$/;"	s
@@ -1840,16 +1679,12 @@ random_init	lib/random.c	/^random_init (unsigned seed)$/;"	f
 random_init	tests/random.pm	/^sub random_init {$/;"	s
 random_ulong	lib/random.c	/^random_ulong (void) $/;"	f
 random_ulong	tests/random.pm	/^sub random_ulong {$/;"	s
-read	devices/block.h	/^    void (*read) (void *aux, block_sector_t, void *buffer);$/;"	m	struct:block_operations
 read	lib/user/syscall.c	/^read (int fd, void *buffer, unsigned size)$/;"	f
 read	userprog/syscall.c	/^int read (struct intr_frame *f){$/;"	f
-read_bytes	vm/page.h	/^  size_t read_bytes;$/;"	m	struct:sup_page_entry
-read_cnt	devices/block.c	/^    unsigned long long read_cnt;        \/* Number of sectors read. *\/$/;"	m	struct:block	file:
 read_cnt	devices/disk.c	/^    long long read_cnt;         \/* Number of sectors read. *\/$/;"	m	struct:disk	file:
 read_command_line	threads/init.c	/^read_command_line (void) $/;"	f	file:
 read_fully	utils/pintos	/^sub read_fully {$/;"	s
 read_line	examples/shell.c	/^read_line (char line[], size_t size) $/;"	f	file:
-read_partition_table	devices/partition.c	/^read_partition_table (struct block *block, block_sector_t sector,$/;"	f	file:
 read_sector	threads/loader.S	/^read_sector:$/;"	l
 read_tar	tests/tests.pm	/^sub read_tar {$/;"	s
 read_text_file	tests/tests.pm	/^sub read_text_file {$/;"	s
@@ -1860,29 +1695,17 @@ real_time_sleep	devices/timer.c	/^real_time_sleep (int64_t num, int32_t denom) $
 realloc	threads/malloc.c	/^realloc (void *old_block, size_t new_size) $/;"	f
 recursor_SRC	examples/Makefile	/^recursor_SRC = recursor.c$/;"	m
 reg_alt_status	devices/disk.c	29;"	d	file:
-reg_alt_status	devices/ide.c	31;"	d	file:
 reg_base	devices/disk.c	/^    uint16_t reg_base;          \/* Base I\/O port. *\/$/;"	m	struct:channel	file:
-reg_base	devices/ide.c	/^    uint16_t reg_base;          \/* Base I\/O port. *\/$/;"	m	struct:channel	file:
 reg_command	devices/disk.c	23;"	d	file:
-reg_command	devices/ide.c	25;"	d	file:
 reg_ctl	devices/disk.c	28;"	d	file:
-reg_ctl	devices/ide.c	30;"	d	file:
 reg_data	devices/disk.c	15;"	d	file:
-reg_data	devices/ide.c	17;"	d	file:
 reg_device	devices/disk.c	21;"	d	file:
-reg_device	devices/ide.c	23;"	d	file:
 reg_error	devices/disk.c	16;"	d	file:
-reg_error	devices/ide.c	18;"	d	file:
 reg_lbah	devices/disk.c	20;"	d	file:
-reg_lbah	devices/ide.c	22;"	d	file:
 reg_lbal	devices/disk.c	18;"	d	file:
-reg_lbal	devices/ide.c	20;"	d	file:
 reg_lbam	devices/disk.c	19;"	d	file:
-reg_lbam	devices/ide.c	21;"	d	file:
 reg_nsect	devices/disk.c	17;"	d	file:
-reg_nsect	devices/ide.c	19;"	d	file:
 reg_status	devices/disk.c	22;"	d	file:
-reg_status	devices/ide.c	24;"	d	file:
 register_handler	threads/interrupt.c	/^register_handler (uint8_t vec_no, int dpl, enum intr_level level,$/;"	f	file:
 rehash	lib/kernel/hash.c	/^rehash (struct hash *h) $/;"	f	file:
 relation	examples/insult.c	/^char *relation[] =$/;"	v
@@ -1897,7 +1720,6 @@ remove_elem	lib/kernel/hash.c	/^remove_elem (struct hash *h, struct hash_elem *e
 remove_tree	tests/filesys/extended/dir-rm-tree.c	/^remove_tree (int at, int bt, int ct, int dt) $/;"	f	file:
 removed	filesys/inode.c	/^    bool removed;                       \/* True if deleted, false otherwise. *\/$/;"	m	struct:inode	file:
 reset_channel	devices/disk.c	/^reset_channel (struct channel *c) $/;"	f	file:
-reset_channel	devices/ide.c	/^reset_channel (struct channel *c) $/;"	f	file:
 return_block_size	tests/filesys/extended/grow-file-size.c	/^return_block_size (void) $/;"	f	file:
 return_block_size	tests/filesys/extended/grow-tell.c	/^return_block_size (void) $/;"	f	file:
 right_alt	devices/kbd.c	/^static bool left_alt, right_alt;        \/* Left and right Alt keys. *\/$/;"	v	file:
@@ -1935,11 +1757,8 @@ seg_class	utils/userprog/gdt.c	/^enum seg_class$/;"	g	file:
 seg_granularity	userprog/gdt.c	/^enum seg_granularity$/;"	g	file:
 seg_granularity	utils/userprog/gdt.c	/^enum seg_granularity$/;"	g	file:
 select_device	devices/disk.c	/^select_device (const struct disk *d)$/;"	f	file:
-select_device	devices/ide.c	/^select_device (const struct ata_disk *d)$/;"	f	file:
 select_device_wait	devices/disk.c	/^select_device_wait (const struct disk *d) $/;"	f	file:
-select_device_wait	devices/ide.c	/^select_device_wait (const struct ata_disk *d) $/;"	f	file:
 select_sector	devices/disk.c	/^select_sector (struct disk *d, disk_sector_t sec_no) $/;"	f	file:
-select_sector	devices/ide.c	/^select_sector (struct ata_disk *d, block_sector_t sec_no)$/;"	f	file:
 sema	tests/threads/priority-donate-sema.c	/^    struct semaphore sema;$/;"	m	struct:lock_and_sema	typeref:struct:lock_and_sema::semaphore	file:
 sema	tests/threads/priority-sema.c	/^static struct semaphore sema;$/;"	v	typeref:struct:semaphore	file:
 sema_down	threads/synch.c	/^sema_down (struct semaphore *sema) $/;"	f
@@ -1982,7 +1801,6 @@ simple_thread_func	tests/threads/priority-fifo.c	/^simple_thread_func (void *dat
 simple_thread_func	tests/threads/priority-fifo.c	/^static thread_func simple_thread_func;$/;"	v	file:
 simple_thread_func	tests/threads/priority-preempt.c	/^simple_thread_func (void *aux UNUSED) $/;"	f	file:
 simple_thread_func	tests/threads/priority-preempt.c	/^static thread_func simple_thread_func;$/;"	v	file:
-size	devices/block.c	/^    block_sector_t size;                 \/* Size in sectors. *\/$/;"	m	struct:block	file:
 size_t	lib/stddef.h	/^typedef __SIZE_TYPE__ size_t;$/;"	t
 sleep_test	tests/threads/alarm-simultaneous.c	/^struct sleep_test $/;"	s	file:
 sleep_test	tests/threads/alarm-wait.c	/^struct sleep_test $/;"	s	file:
@@ -1998,8 +1816,6 @@ sort_chunks	tests/vm/page-merge-seq.c	/^sort_chunks (void)$/;"	f	file:
 sort_chunks	tests/vm/parallel-merge.c	/^sort_chunks (const char *subprocess, int exit_status)$/;"	f	file:
 spawn_child	tests/userprog/no-vm/multi-oom.c	/^spawn_child (int c, enum child_termination_mode mode)$/;"	f	file:
 sprintf	lib/stdio.h	36;"	d
-spt	threads/thread.h	/^	struct hash spt;$/;"	m	struct:thread	typeref:struct:thread::hash
-spte	vm/frame.h	/^  struct sup_page_entry *spte;$/;"	m	struct:frame_entry	typeref:struct:frame_entry::sup_page_entry
 ss	threads/interrupt.h	/^    uint16_t ss, :16;           \/* Data segment for esp. *\/$/;"	m	struct:intr_frame
 ss	userprog/tss.c	/^    uint16_t ss, :16;$/;"	m	struct:tss	file:
 ss	utils/userprog/tss.c	/^    uint16_t ss, :16;$/;"	m	struct:tss	file:
@@ -2011,7 +1827,6 @@ ss2	userprog/tss.c	/^    uint16_t ss2, :16;$/;"	m	struct:tss	file:
 ss2	utils/userprog/tss.c	/^    uint16_t ss2, :16;$/;"	m	struct:tss	file:
 stack	threads/tests/thread.h	/^    uint8_t *stack;                     \/* Saved stack pointer. *\/$/;"	m	struct:thread
 stack	threads/thread.h	/^    uint8_t *stack;                     \/* Saved stack pointer. *\/$/;"	m	struct:thread
-start	devices/partition.c	/^    block_sector_t start;               \/* First sector within device. *\/$/;"	m	struct:partition	file:
 start	examples/insult.c	/^char *start[] =$/;"	v
 start	filesys/inode.c	/^    disk_sector_t start;                \/* First data sector. *\/$/;"	m	struct:inode_disk	file:
 start	tests/threads/alarm-simultaneous.c	/^    int64_t start;              \/* Current time at start of test. *\/$/;"	m	struct:sleep_test	file:
@@ -2046,20 +1861,11 @@ strtok	lib/string.h	33;"	d
 strtok_r	lib/string.c	/^strtok_r (char *s, const char *delimiters, char **save_ptr) $/;"	f
 stuff	examples/insult.c	/^char *stuff[] =$/;"	v
 stuffLoc	examples/insult.c	/^char stuffLoc[] = { 14, 0, 1, 3, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15, 17, 18 };$/;"	v
-sub	threads/fixed_pointer.h	/^int64_t sub(int64_t a, int64_t b){$/;"	f
-sup_page_entry	vm/page.h	/^struct sup_page_entry {$/;"	s
 swap	lib/kernel/list.c	/^swap (struct list_elem **a, struct list_elem **b) $/;"	f	file:
 swap	tests/lib.c	/^swap (void *a_, void *b_, size_t size) $/;"	f	file:
 swap	tests/vm/qsort.c	/^swap (unsigned char *a, unsigned char *b) $/;"	f	file:
-swap_block	vm/swap.h	/^struct block *swap_block;$/;"	v	typeref:struct:block
 swap_byte	lib/random.c	/^swap_byte (uint8_t *a, uint8_t *b) $/;"	f	file:
 swap_byte	tests/arc4.c	/^swap_byte (uint8_t *a, uint8_t *b)$/;"	f	file:
-swap_in	vm/swap.c	/^void swap_in (size_t used_index, void* frame)$/;"	f
-swap_index	vm/page.h	/^  size_t swap_index;$/;"	m	struct:sup_page_entry
-swap_init	vm/swap.c	/^void swap_init (void)$/;"	f
-swap_lock	vm/swap.h	/^struct lock swap_lock;$/;"	v	typeref:struct:lock
-swap_map	vm/swap.h	/^struct bitmap *swap_map;$/;"	v	typeref:struct:bitmap
-swap_out	vm/swap.c	/^size_t swap_out (void *frame)$/;"	f
 swap_priority_count	threads/tests/thread.h	/^	int swap_priority_count; \/\/priority-donate-mul2$/;"	m	struct:thread
 swap_priority_count	threads/thread.h	/^	int swap_priority_count; \/\/priority-donate-mul2$/;"	m	struct:thread
 switch_entry	threads/switch.S	/^switch_entry:$/;"	l
@@ -2230,61 +2036,6 @@ test_main	tests/vm/pt-grow-stack.c	/^test_main (void)$/;"	f
 test_main	tests/vm/pt-grow-stk-sc.c	/^test_main (void)$/;"	f
 test_main	tests/vm/pt-write-code-2.c	/^test_main (void)$/;"	f
 test_main	tests/vm/pt-write-code.c	/^test_main (void)$/;"	f
-test_main	userprog/bad-jump.c	/^test_main (void) $/;"	f
-test_main	userprog/bad-jump2.c	/^test_main (void) $/;"	f
-test_main	userprog/bad-read.c	/^test_main (void) $/;"	f
-test_main	userprog/bad-read2.c	/^test_main (void) $/;"	f
-test_main	userprog/bad-write.c	/^test_main (void) $/;"	f
-test_main	userprog/bad-write2.c	/^test_main (void) $/;"	f
-test_main	userprog/child-bad.c	/^test_main (void) $/;"	f
-test_main	userprog/close-bad-fd.c	/^test_main (void) $/;"	f
-test_main	userprog/close-normal.c	/^test_main (void) $/;"	f
-test_main	userprog/close-stdin.c	/^test_main (void) $/;"	f
-test_main	userprog/close-stdout.c	/^test_main (void) $/;"	f
-test_main	userprog/close-twice.c	/^test_main (void) $/;"	f
-test_main	userprog/create-bad-ptr.c	/^test_main (void) $/;"	f
-test_main	userprog/create-bound.c	/^test_main (void) $/;"	f
-test_main	userprog/create-empty.c	/^test_main (void) $/;"	f
-test_main	userprog/create-exists.c	/^test_main (void) $/;"	f
-test_main	userprog/create-long.c	/^test_main (void) $/;"	f
-test_main	userprog/create-normal.c	/^test_main (void) $/;"	f
-test_main	userprog/create-null.c	/^test_main (void) $/;"	f
-test_main	userprog/exec-arg.c	/^test_main (void) $/;"	f
-test_main	userprog/exec-bad-ptr.c	/^test_main (void) $/;"	f
-test_main	userprog/exec-missing.c	/^test_main (void) $/;"	f
-test_main	userprog/exec-multiple.c	/^test_main (void) $/;"	f
-test_main	userprog/exec-once.c	/^test_main (void) $/;"	f
-test_main	userprog/exit.c	/^test_main (void) $/;"	f
-test_main	userprog/halt.c	/^test_main (void) $/;"	f
-test_main	userprog/multi-child-fd.c	/^test_main (void) $/;"	f
-test_main	userprog/open-bad-ptr.c	/^test_main (void) $/;"	f
-test_main	userprog/open-boundary.c	/^test_main (void) $/;"	f
-test_main	userprog/open-empty.c	/^test_main (void) $/;"	f
-test_main	userprog/open-missing.c	/^test_main (void) $/;"	f
-test_main	userprog/open-normal.c	/^test_main (void) $/;"	f
-test_main	userprog/open-null.c	/^test_main (void) $/;"	f
-test_main	userprog/open-twice.c	/^test_main (void) $/;"	f
-test_main	userprog/read-bad-fd.c	/^test_main (void) $/;"	f
-test_main	userprog/read-bad-ptr.c	/^test_main (void) $/;"	f
-test_main	userprog/read-boundary.c	/^test_main (void) $/;"	f
-test_main	userprog/read-normal.c	/^test_main (void) $/;"	f
-test_main	userprog/read-stdout.c	/^test_main (void) $/;"	f
-test_main	userprog/read-zero.c	/^test_main (void) $/;"	f
-test_main	userprog/rox-simple.c	/^test_main (void) $/;"	f
-test_main	userprog/sc-bad-arg.c	/^test_main (void) $/;"	f
-test_main	userprog/sc-bad-sp.c	/^test_main (void) $/;"	f
-test_main	userprog/sc-boundary-2.c	/^test_main (void) $/;"	f
-test_main	userprog/sc-boundary.c	/^test_main (void) $/;"	f
-test_main	userprog/wait-bad-pid.c	/^test_main (void) $/;"	f
-test_main	userprog/wait-killed.c	/^test_main (void) $/;"	f
-test_main	userprog/wait-simple.c	/^test_main (void) $/;"	f
-test_main	userprog/wait-twice.c	/^test_main (void) $/;"	f
-test_main	userprog/write-bad-fd.c	/^test_main (void) $/;"	f
-test_main	userprog/write-bad-ptr.c	/^test_main (void) $/;"	f
-test_main	userprog/write-boundary.c	/^test_main (void) $/;"	f
-test_main	userprog/write-normal.c	/^test_main (void) $/;"	f
-test_main	userprog/write-stdin.c	/^test_main (void) $/;"	f
-test_main	userprog/write-zero.c	/^test_main (void) $/;"	f
 test_mlfqs_block	tests/threads/mlfqs-block.c	/^test_mlfqs_block (void) $/;"	f
 test_mlfqs_fair	tests/threads/mlfqs-fair.c	/^test_mlfqs_fair (int thread_cnt, int nice_min, int nice_step)$/;"	f	file:
 test_mlfqs_fair_2	tests/threads/mlfqs-fair.c	/^test_mlfqs_fair_2 (void) $/;"	f
@@ -2308,10 +2059,6 @@ test_name	tests/vm/child-linear.c	/^const char *test_name = "child-linear";$/;"	
 test_name	tests/vm/child-qsort-mm.c	/^const char *test_name = "child-qsort-mm";$/;"	v
 test_name	tests/vm/child-qsort.c	/^const char *test_name = "child-qsort";$/;"	v
 test_name	tests/vm/child-sort.c	/^const char *test_name = "child-sort";$/;"	v
-test_name	userprog/child-close.c	/^const char *test_name = "child-close";$/;"	v
-test_name	userprog/child-rox.c	/^const char *test_name = "child-rox";$/;"	v
-test_name	userprog/child-simple.c	/^const char *test_name = "child-simple";$/;"	v
-test_name	userprog/multi-recurse.c	/^const char *test_name = "multi-recurse";$/;"	v
 test_priority_change	tests/threads/priority-change.c	/^test_priority_change (void) $/;"	f
 test_priority_condvar	tests/threads/priority-condvar.c	/^test_priority_condvar (void) $/;"	f
 test_priority_donate_chain	tests/threads/priority-donate-chain.c	/^test_priority_donate_chain (void) $/;"	f
@@ -2329,7 +2076,6 @@ test_sleep	tests/threads/alarm-wait.c	/^test_sleep (int thread_cnt, int iteratio
 tests	tests/threads/tests.c	/^static const struct test tests[] = $/;"	v	typeref:struct:test	file:
 thread	threads/tests/thread.h	/^struct thread$/;"	s
 thread	threads/thread.h	/^struct thread$/;"	s
-thread	vm/frame.h	/^  struct thread *thread;$/;"	m	struct:frame_entry	typeref:struct:frame_entry::thread
 thread_block	threads/tests/thread.c	/^thread_block (void) $/;"	f
 thread_block	threads/thread.c	/^thread_block (void) $/;"	f
 thread_create	threads/tests/thread.c	/^thread_create (const char *name, int priority,$/;"	f
@@ -2380,7 +2126,6 @@ thread_yield	threads/thread.c	/^thread_yield (void) $/;"	f
 threads_SRC	threads/build/Makefile	/^threads_SRC  = threads\/init.c		# Main program.$/;"	m
 threads_SRC	userprog/build/Makefile	/^threads_SRC  = threads\/init.c		# Main program.$/;"	m
 threads_SRC	utils/userprog/build/Makefile	/^threads_SRC  = threads\/init.c		# Main program.$/;"	m
-threads_SRC	vm/build/Makefile	/^threads_SRC  = threads\/init.c		# Main program.$/;"	m
 tick_count	tests/threads/mlfqs-fair.c	/^    int tick_count;$/;"	m	struct:thread_info	file:
 ticks	devices/timer.c	/^static int64_t ticks;$/;"	v	file:
 tid	threads/tests/thread.h	/^    tid_t tid;                          \/* Thread identifier. *\/$/;"	m	struct:thread
@@ -2401,7 +2146,6 @@ timer_print_stats	devices/timer.c	/^timer_print_stats (void) $/;"	f
 timer_sleep	devices/timer.c	/^timer_sleep (int64_t ticks) $/;"	f
 timer_ticks	devices/timer.c	/^timer_ticks (void) $/;"	f
 timer_usleep	devices/timer.c	/^timer_usleep (int64_t us) $/;"	f
-to_fixed_value	threads/fixed_pointer.h	/^int to_fixed_value(int a){$/;"	f
 tolower	lib/ctype.h	/^static inline int tolower (int c) { return isupper (c) ? c - 'A' + 'a' : c; }$/;"	f
 too_many_loops	devices/timer.c	/^too_many_loops (unsigned loops) $/;"	f	file:
 toupper	lib/ctype.h	/^static inline int toupper (int c) { return islower (c) ? c - 'a' + 'A' : c; }$/;"	f
@@ -2411,7 +2155,6 @@ traverse_balanced	tests/Algorithm/Diff.pm	/^sub traverse_balanced$/;"	s
 traverse_sequences	tests/Algorithm/Diff.pm	/^sub traverse_sequences$/;"	s
 true	lib/stdbool.h	5;"	d
 try_write	tests/userprog/child-rox.c	/^try_write (void) $/;"	f	file:
-try_write	userprog/child-rox.c	/^try_write (void) $/;"	f	file:
 tss	userprog/tss.c	/^static struct tss *tss;$/;"	v	typeref:struct:tss	file:
 tss	userprog/tss.c	/^struct tss$/;"	s	file:
 tss	utils/userprog/tss.c	/^static struct tss *tss;$/;"	v	typeref:struct:tss	file:
@@ -2424,9 +2167,7 @@ tss_update	userprog/tss.c	/^tss_update (void) $/;"	f
 tss_update	utils/userprog/tss.c	/^tss_update (void) $/;"	f
 turn_off_least_1bit	lib/kernel/hash.c	/^turn_off_least_1bit (size_t x) $/;"	f	file:
 txq	devices/serial.c	/^static struct intq txq;$/;"	v	typeref:struct:intq	file:
-type	devices/block.c	/^    enum block_type type;                \/* Type of block device. *\/$/;"	m	struct:block	typeref:enum:block::block_type	file:
 type	lib/stdio.c	/^    type;$/;"	m	struct:printf_conversion	typeref:enum:printf_conversion::__anon4	file:
-type	vm/page.h	/^  uint8_t type;$/;"	m	struct:sup_page_entry
 udiv64	lib/arithmetic.c	/^udiv64 (uint64_t n, uint64_t d)$/;"	f	file:
 uint16_t	lib/stdint.h	/^typedef unsigned short int uint16_t;$/;"	t
 uint32_t	lib/stdint.h	/^typedef unsigned int uint32_t;$/;"	t
@@ -2453,8 +2194,6 @@ user_ticks	threads/thread.c	/^static long long user_ticks;    \/* # of timer tic
 userprog_SRC	threads/build/Makefile	/^userprog_SRC  = userprog\/process.c	# Process loading.$/;"	m
 userprog_SRC	userprog/build/Makefile	/^userprog_SRC  = userprog\/process.c	# Process loading.$/;"	m
 userprog_SRC	utils/userprog/build/Makefile	/^userprog_SRC  = userprog\/process.c	# Process loading.$/;"	m
-userprog_SRC	vm/build/Makefile	/^userprog_SRC  = userprog\/process.c	# Process loading.$/;"	m
-uva	vm/page.h	/^  void *uva;$/;"	m	struct:sup_page_entry
 va_arg	lib/stdarg.h	11;"	d
 va_copy	lib/stdarg.h	12;"	d
 va_end	lib/stdarg.h	10;"	d
@@ -2480,7 +2219,6 @@ vga_putc	devices/vga.c	/^vga_putc (int c)$/;"	f
 vgaromimage	utils/pintos	/^vgaromimage: file=\\$BXSHARE\/VGABIOS-lgpl-latest$/;"	l
 vhprintf	lib/user/console.c	/^vhprintf (int handle, const char *format, va_list args) $/;"	f
 vhprintf_aux	lib/user/console.c	/^struct vhprintf_aux $/;"	s	file:
-vm_SRC	vm/build/Makefile	/^vm_SRC = vm\/frame.c$/;"	m
 vmsg	tests/lib.c	/^vmsg (const char *format, va_list args, const char *suffix) $/;"	f	file:
 vprintf	lib/kernel/console.c	/^vprintf (const char *format, va_list args) $/;"	f
 vprintf	lib/user/console.c	/^vprintf (const char *format, va_list args) $/;"	f
@@ -2496,21 +2234,16 @@ wait	userprog/syscall.c	/^int wait (struct intr_frame *f){$/;"	f
 wait_children	tests/lib.c	/^wait_children (pid_t pids[], size_t child_cnt) $/;"	f
 wait_sema	tests/threads/alarm-priority.c	/^static struct semaphore wait_sema;$/;"	v	typeref:struct:semaphore	file:
 wait_until_idle	devices/disk.c	/^wait_until_idle (const struct disk *d) $/;"	f	file:
-wait_until_idle	devices/ide.c	/^wait_until_idle (const struct ata_disk *d) $/;"	f	file:
 wait_while_busy	devices/disk.c	/^wait_while_busy (const struct disk *d) $/;"	f	file:
-wait_while_busy	devices/ide.c	/^wait_while_busy (const struct ata_disk *d) $/;"	f	file:
 waiters	threads/synch.h	/^    struct list waiters;        \/* List of waiting threads. *\/$/;"	m	struct:condition	typeref:struct:condition::list
 waiters	threads/synch.h	/^    struct list waiters;        \/* List of waiting threads. *\/$/;"	m	struct:semaphore	typeref:struct:semaphore::list
 waiting	threads/thread.h	/^	bool waiting;$/;"	m	struct:parent_child
 wake_time	tests/threads/alarm-priority.c	/^static int64_t wake_time;$/;"	v	file:
 width	lib/stdio.c	/^    int width;$/;"	m	struct:printf_conversion	file:
 wrap_open	tests/filesys/extended/dir-rm-cwd.c	/^wrap_open (const char *name) $/;"	f	file:
-writable	vm/page.h	/^  bool writable;$/;"	m	struct:sup_page_entry
-write	devices/block.h	/^    void (*write) (void *aux, block_sector_t, const void *buffer);$/;"	m	struct:block_operations
 write	lib/user/syscall.c	/^write (int fd, const void *buffer, unsigned size)$/;"	f
 write	userprog/syscall.c	/^int write (struct intr_frame *f){$/;"	f
 write_cmd_line	utils/pintos	/^sub write_cmd_line {$/;"	s
-write_cnt	devices/block.c	/^    unsigned long long write_cnt;       \/* Number of sectors written. *\/$/;"	m	struct:block	file:
 write_cnt	devices/disk.c	/^    long long write_cnt;        \/* Number of sectors written. *\/$/;"	m	struct:disk	file:
 write_cnt	lib/kernel/console.c	/^static int64_t write_cnt;$/;"	v	file:
 write_fully	utils/pintos	/^sub write_fully {$/;"	s
@@ -2522,4 +2255,3 @@ x	tests/vm/mmap-over-data.c	/^static char x;$/;"	v	file:
 xsystem	utils/pintos	/^sub xsystem {$/;"	s
 yield_on_return	threads/interrupt.c	/^static bool yield_on_return;    \/* Should we yield on interrupt return? *\/$/;"	v	file:
 zero	threads/intr-stubs.S	/^#define zero                                    \\$/;"	d
-zero_bytes	vm/page.h	/^  size_t zero_bytes;$/;"	m	struct:sup_page_entry

@@ -9,16 +9,6 @@ void process_exit (void);
 void process_activate (void);
 /*****************proj#2*/
 void process_wake_parent (int status);
-
-struct mmap_file{
-	struct sup_page_entry *spte;
-	int mapid;
-	struct list_elem elem;
-};
-
-bool install_page(void *upage, void *kpage, bool writable);
-bool process_add_mmap( struct sup_page_entry *spte);
-//void process_remove_mmap (int mappint);
 //struct lock file;
 /*
 struct parent_child{

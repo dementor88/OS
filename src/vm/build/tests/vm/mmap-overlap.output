@@ -1,0 +1,36 @@
+Copying tests/vm/mmap-overlap into /tmp/KDehIBjvNJ.dsk...
+Copying tests/vm/zeros into /tmp/KDehIBjvNJ.dsk...
+Writing command line to /tmp/VipN2Wd4eV.dsk...
+qemu -hda /tmp/VipN2Wd4eV.dsk -hdb /tmp/uQIw1ewNiH.dsk -hdc /tmp/KDehIBjvNJ.dsk -hdd /tmp/Hdg2cWXCh7.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f put mmap-overlap put zeros run mmap-overlap
+Pintos booting with 4,096 kB RAM...
+372 pages available in kernel pool.
+372 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 89 sector (44 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Putting 'mmap-overlap' into the file system...
+Putting 'zeros' into the file system...
+Executing 'mmap-overlap':
+(mmap-overlap) begin
+(mmap-overlap) open "zeros" once
+(mmap-overlap) mmap "zeros"
+Kernel PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
+Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a171 0x80480f7 0x8048753 0x8048780.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Timer: 63 ticks
+Thread: 0 idle ticks, 62 kernel ticks, 1 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 97 reads, 188 writes
+hd1:0: 89 reads, 0 writes
+hd1:1: 0 reads, 0 writes
+Console: 1309 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...

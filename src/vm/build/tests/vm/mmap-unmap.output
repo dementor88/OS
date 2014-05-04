@@ -1,0 +1,36 @@
+Copying tests/vm/mmap-unmap into /tmp/rN6I97o4X7.dsk...
+Copying ../../tests/vm/sample.txt into /tmp/rN6I97o4X7.dsk...
+Writing command line to /tmp/1peT1wScIt.dsk...
+qemu -hda /tmp/1peT1wScIt.dsk -hdb /tmp/QWAFoTjrOx.dsk -hdc /tmp/rN6I97o4X7.dsk -hdd /tmp/GZAZu20LWF.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f put mmap-unmap put sample.txt run mmap-unmap
+Pintos booting with 4,096 kB RAM...
+372 pages available in kernel pool.
+372 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 79 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Putting 'mmap-unmap' into the file system...
+Putting 'sample.txt' into the file system...
+Executing 'mmap-unmap':
+(mmap-unmap) begin
+(mmap-unmap) open "sample.txt"
+(mmap-unmap) mmap "sample.txt"
+Kernel PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
+Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a121 0x80480ee 0x80486fb 0x8048728.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Timer: 62 ticks
+Thread: 0 idle ticks, 62 kernel ticks, 0 user ticks
+hd0:0: 0 reads, 0 writes
+hd0:1: 97 reads, 168 writes
+hd1:0: 79 reads, 0 writes
+hd1:1: 0 reads, 0 writes
+Console: 1310 characters output
+Keyboard: 0 keys pressed
+Exception: 0 page faults
+Powering off...

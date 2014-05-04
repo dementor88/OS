@@ -1,4 +1,4 @@
-Writing command line to /tmp/GZy8BJsd0C.dsk...
+Writing command line to /tmp/0rn1bsBfjQ.dsk...
 warning: can't find squish-pty, so terminal input will fail
 bochs -q
 Kernel command line: -q run alarm-single
@@ -22,7 +22,7 @@ Executing 'alarm-single':
 (alarm-single) end
 Execution of 'alarm-single' complete.
 Timer: 397 ticks
-Thread: 0 idle ticks, 400 kernel ticks, 0 user ticks
-Console: 982 characters output
+Thread: 250 idle ticks, 150 kernel ticks, 0 user ticks
+Console: 984 characters output
 Keyboard: 0 keys pressed
 Powering off...

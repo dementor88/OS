@@ -13,10 +13,10 @@
 #include "threads/vaddr.h"
 #ifdef USERPROG
 #include "userprog/process.h"
-#include "vm/page.h"
-#endif
+#include "userprog/syscall.h"
 #include "vm/frame.h"
 #include "vm/swap.h"
+#endif
 
 /* Random value for struct thread's `magic' member.
    Used to detect stack overflow.  See the big comment at the top
@@ -95,6 +95,10 @@ thread_init (void)
   lock_init (&tid_lock);
 	lock_init (&flock);	
   list_init (&ready_list);
+		
+	/************proj3****/
+	frame_table_init();
+	//swap_init();
 		
   /* Set up a thread structure for the running thread. */
   initial_thread = running_thread ();
@@ -226,15 +230,6 @@ thread_create (const char *name, int priority,
   /* Stack frame for switch_threads(). */
   sf = alloc_frame (t, sizeof *sf);
   sf->eip = switch_entry;
-  
-  
-  /****************proj3-1*******************/
-  //initiate the supplemental page table
-  t->page_table  = (struct hash *) malloc (sizeof(struct hash));
-  hash_init (t->page_table, page_hash, page_less, NULL);
-  lock_init(&t->page_lock);  
-
-
 
   /* Add to run queue. */
   thread_unblock (t);
