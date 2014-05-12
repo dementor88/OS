@@ -1,30 +1,32 @@
-Copying tests/userprog/read-bad-fd into /tmp/ZDx3skG8D6.dsk...
-Writing command line to /tmp/hKLDKYO1aF.dsk...
-qemu -hda /tmp/hKLDKYO1aF.dsk -hdb /tmp/XUgaTdBfEU.dsk -hdc /tmp/ZDx3skG8D6.dsk -hdd /tmp/DwdWH5Ycjh.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put read-bad-fd run read-bad-fd
+Copying tests/userprog/read-bad-fd to scratch partition...
+Writing command line to /tmp/riLNtWBHpv.dsk...
+qemu -hda /tmp/riLNtWBHpv.dsk -hdb /tmp/qmizuK8jlZ.dsk -hdc /tmp/x8VEKrdbQZ.dsk -hdd /tmp/KzqClsH3RX.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run read-bad-fd
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 74 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'read-bad-fd' into the file system...
+Erasing ustar archive...
 Executing 'read-bad-fd':
 (read-bad-fd) begin
 (read-bad-fd) end
 read-bad-fd: exit(0)
 Execution of 'read-bad-fd' complete.
-Timer: 62 ticks
-Thread: 0 idle ticks, 61 kernel ticks, 1 user ticks
+Timer: 63 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 59 reads, 156 writes
-hd1:0: 74 reads, 0 writes
+hd0:1: 59 reads, 154 writes
+hd1:0: 74 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 917 characters output
+Console: 998 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

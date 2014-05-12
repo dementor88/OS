@@ -1,17 +1,15 @@
 FAIL
-Kernel panic in run: PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a161 0x80480f6 0x8048743 0x8048770
-Translation of call stack:
-In kernel.o:
-0xc01085b6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010bfc0: syscall_handler (...../userprog/syscall.c:159)
-0xc0101835: intr_handler (..../threads/interrupt.c:361)
-0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
-In tests/vm/mmap-close:
-0x0804a161: mmap (...../lib/user/syscall.c:147)
-0x080480f6: test_main (.../tests/vm/mmap-close.c:19)
-0x08048743: main (...ild/../../tests/main.c:13)
-0x08048770: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (mmap-close) begin
+  (mmap-close) open "sample.txt"
+  (mmap-close) mmap "sample.txt"
+  (mmap-close) end
+Differences in `diff -u' format:
+  (mmap-close) begin
+  (mmap-close) open "sample.txt"
+  (mmap-close) mmap "sample.txt"
+- (mmap-close) end
+
+(Process exit codes are excluded for matching purposes.)

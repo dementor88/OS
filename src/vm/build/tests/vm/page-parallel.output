@@ -1,45 +1,39 @@
-Copying tests/vm/page-parallel into /tmp/SjOFWPuafK.dsk...
-Copying tests/vm/child-linear into /tmp/SjOFWPuafK.dsk...
-Writing command line to /tmp/rzdGKDME2z.dsk...
-qemu -hda /tmp/rzdGKDME2z.dsk -hdb /tmp/r2RF6YqzcO.dsk -hdc /tmp/SjOFWPuafK.dsk -hdd /tmp/v2TkyloWLz.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put page-parallel put child-linear run page-parallel
+Copying tests/vm/page-parallel to scratch partition...
+Copying tests/vm/child-linear to scratch partition...
+Writing command line to /tmp/UwgOFrJhzG.dsk...
+qemu -hda /tmp/UwgOFrJhzG.dsk -hdb /tmp/ngtjxMfwyu.dsk -hdc /tmp/dPPoTGzmcn.dsk -hdd /tmp/4URLnXjubE.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run page-parallel
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
 hd1:0: detected 151 sector (75 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'page-parallel' into the file system...
 Putting 'child-linear' into the file system...
+Erasing ustar archive...
 Executing 'page-parallel':
 (page-parallel) begin
 (page-parallel) exec "child-linear"
 (page-parallel) exec "child-linear"
 (page-parallel) exec "child-linear"
-(page-parallel) exec "child-linear"
-(page-parallel) wait for child 0
-Page fault at 0xfffffff3: not present error writing page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0107a26
- cr2=fffffff3 error=00000002
- eax=00000063 ebx=c011e001 ecx=0000000b edx=c011e001
- esi=fffffff3 edi=fffffff3 esp=464c457f ebp=c0128f00
- cs=0008 ds=0010 es=0010 ss=0101
-Kernel PANIC at ../../userprog/exception.c:105 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01085b6 0xc010bccf 0xc010bd95 0xc0101835 0xc0101a0b 0xc0107a26 0xc01080f6 0xc010a8e9 0xc0100dda.
+Kernel PANIC at ../../lib/string.c:12 in memcpy(): assertion `dst != NULL || size == 0' failed.
+Call stack: 0xc0108666 0xc01075a0 0xc010e889 0xc010dd4e 0xc010c74d 0xc010bfb4 0xc0101ea5 0xc010207b 0x804a125.
 The `backtrace' program can make call stacks useful.
 Read "Backtraces" in the "Debugging Tools" chapter
 of the Pintos documentation for more information.
-Timer: 78 ticks
-Thread: 0 idle ticks, 72 kernel ticks, 6 user ticks
+Timer: 253 ticks
+Thread: 30 idle ticks, 53 kernel ticks, 170 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 172 reads, 312 writes
-hd1:0: 151 reads, 0 writes
+hd0:1: 137 reads, 308 writes
+hd1:0: 150 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1767 characters output
+Console: 1452 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 367 page faults
 Powering off...

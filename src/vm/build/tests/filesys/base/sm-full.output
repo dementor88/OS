@@ -1,18 +1,20 @@
-Copying tests/filesys/base/sm-full into /tmp/K8pjdi4wjU.dsk...
-Writing command line to /tmp/picvCJs6Cx.dsk...
-qemu -hda /tmp/picvCJs6Cx.dsk -hdb /tmp/fmuW720iw6.dsk -hdc /tmp/K8pjdi4wjU.dsk -hdd /tmp/SsrS05Ex5z.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put sm-full run sm-full
+Copying tests/filesys/base/sm-full to scratch partition...
+Writing command line to /tmp/rT0W1X6TnD.dsk...
+qemu -hda /tmp/rT0W1X6TnD.dsk -hdb /tmp/0LOYiXjb2g.dsk -hdc /tmp/8g2yzN1Icx.dsk -hdd /tmp/ALa5fmlWcA.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run sm-full
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'sm-full' into the file system...
+Erasing ustar archive...
 Executing 'sm-full':
 (sm-full) begin
 (sm-full) create "quux"
@@ -25,13 +27,13 @@ Executing 'sm-full':
 (sm-full) end
 sm-full: exit(0)
 Execution of 'sm-full' complete.
-Timer: 69 ticks
-Thread: 0 idle ticks, 65 kernel ticks, 4 user ticks
+Timer: 65 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 3 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 102 reads, 188 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1080 characters output
+Console: 1165 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 6 page faults
 Powering off...

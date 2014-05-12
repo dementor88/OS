@@ -1,38 +1,39 @@
-Copying tests/vm/mmap-exit into /tmp/J0y6Aajcji.dsk...
-Copying tests/vm/child-mm-wrt into /tmp/J0y6Aajcji.dsk...
-Writing command line to /tmp/JGjjP1SXkI.dsk...
-qemu -hda /tmp/JGjjP1SXkI.dsk -hdb /tmp/Odfzvm9L2d.dsk -hdc /tmp/J0y6Aajcji.dsk -hdd /tmp/c33um1qXJv.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put mmap-exit put child-mm-wrt run mmap-exit
+Copying tests/vm/mmap-exit to scratch partition...
+Copying tests/vm/child-mm-wrt to scratch partition...
+Writing command line to /tmp/IMzXWBEi7l.dsk...
+qemu -hda /tmp/IMzXWBEi7l.dsk -hdb /tmp/kPWpBh9vfD.dsk -hdc /tmp/pfyPHK8xlH.dsk -hdd /tmp/wbXWTMjY6o.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run mmap-exit
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
 hd1:0: detected 152 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'mmap-exit' into the file system...
 Putting 'child-mm-wrt' into the file system...
+Erasing ustar archive...
 Executing 'mmap-exit':
 (mmap-exit) begin
 (child-mm-wrt) begin
 (child-mm-wrt) create "sample.txt"
 (child-mm-wrt) open "sample.txt"
 (child-mm-wrt) mmap "sample.txt"
-Kernel PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a151 0x804811e 0x8048733 0x8048760.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 81 ticks
-Thread: 0 idle ticks, 80 kernel ticks, 1 user ticks
+child-mm-wrt: exit(-1)
+(mmap-exit) exec "child-mm-wrt": FAILED
+mmap-exit: exit(1)
+Execution of 'mmap-exit' complete.
+Timer: 78 ticks
+Thread: 30 idle ticks, 47 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 162 reads, 320 writes
-hd1:0: 152 reads, 0 writes
+hd0:1: 158 reads, 316 writes
+hd1:0: 151 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1372 characters output
+Console: 1203 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 10 page faults
 Powering off...

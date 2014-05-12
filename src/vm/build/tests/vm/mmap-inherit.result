@@ -1,17 +1,26 @@
 FAIL
-Kernel panic in run: PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a1e1 0x80480f0 0x80487c7 0x80487f4
-Translation of call stack:
-In kernel.o:
-0xc01085b6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010bfc0: syscall_handler (...../userprog/syscall.c:159)
-0xc0101835: intr_handler (..../threads/interrupt.c:361)
-0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
-In tests/vm/mmap-inherit:
-0x0804a1e1: mmap (...../lib/user/syscall.c:147)
-0x080480f0: test_main (...ests/vm/mmap-inherit.c:19)
-0x080487c7: main (...ild/../../tests/main.c:13)
-0x080487f4: _start (.../../../lib/user/entry.c:9)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
+Test output failed to match any acceptable form.
+
+Acceptable output:
+  (mmap-inherit) begin
+  (mmap-inherit) open "sample.txt"
+  (mmap-inherit) mmap "sample.txt"
+  (mmap-inherit) exec "child-inherit"
+  (child-inherit) begin
+  child-inherit: exit(-1)
+  (mmap-inherit) checking that mmap'd file still has same data
+  (mmap-inherit) end
+  mmap-inherit: exit(0)
+Differences in `diff -u' format:
+  (mmap-inherit) begin
+  (mmap-inherit) open "sample.txt"
+  (mmap-inherit) mmap "sample.txt"
+- (mmap-inherit) exec "child-inherit"
+- (child-inherit) begin
+- child-inherit: exit(-1)
+- (mmap-inherit) checking that mmap'd file still has same data
+- (mmap-inherit) end
+- mmap-inherit: exit(0)
++ mmap-inherit: exit(-1)
+
+(User fault messages are excluded for matching purposes.)

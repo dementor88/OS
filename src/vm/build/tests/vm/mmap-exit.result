@@ -1,17 +1,2 @@
 FAIL
-Kernel panic in run: PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a151 0x804811e 0x8048733 0x8048760
-Translation of call stack:
-In kernel.o:
-0xc01085b6: debug_panic (.../../lib/kernel/debug.c:34)
-0xc010bfc0: syscall_handler (...../userprog/syscall.c:159)
-0xc0101835: intr_handler (..../threads/interrupt.c:361)
-0xc0101a0b: intr_entry (threads/intr-stubs.S:38)
-In tests/vm/mmap-exit:
-0x0804a151: mkdir (...../lib/user/syscall.c:164)
-0x0804811e: test_main (..../tests/vm/mmap-exit.c:21)
-0x08048733: _start (.../../../lib/user/entry.c:9)
-0x08048760: random_init (...ild/../../lib/random.c:42)
-Translations of user virtual addresses above are based on a guess at
-the binary to use.  If this guess is incorrect, then those
-translations will be misleading.
+run: exec "child-mm-wrt": FAILED

@@ -1,33 +1,33 @@
-Copying tests/vm/mmap-bad-fd into /tmp/9Z1vULquwG.dsk...
-Writing command line to /tmp/GML75fBOcA.dsk...
-qemu -hda /tmp/GML75fBOcA.dsk -hdb /tmp/T6tWF6yXzb.dsk -hdc /tmp/9Z1vULquwG.dsk -hdd /tmp/fZ1VJRel8W.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put mmap-bad-fd run mmap-bad-fd
+Copying tests/vm/mmap-bad-fd to scratch partition...
+Writing command line to /tmp/aoA5hu9P0d.dsk...
+qemu -hda /tmp/aoA5hu9P0d.dsk -hdb /tmp/jFHIpJ8TaN.dsk -hdc /tmp/Od3xzf1EHY.dsk -hdd /tmp/AoKAfTX1zp.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run mmap-bad-fd
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'mmap-bad-fd' into the file system...
+Erasing ustar archive...
 Executing 'mmap-bad-fd':
 (mmap-bad-fd) begin
 (mmap-bad-fd) try to mmap invalid fd
-Kernel PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a0e1 0x80480c6 0x80486bb 0x80486e8.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 70 ticks
-Thread: 0 idle ticks, 69 kernel ticks, 1 user ticks
+(mmap-bad-fd) try to mmap invalid fd: FAILED
+mmap-bad-fd: exit(1)
+Execution of 'mmap-bad-fd' complete.
+Timer: 63 ticks
+Thread: 30 idle ticks, 32 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 59 reads, 154 writes
-hd1:0: 73 reads, 0 writes
+hd1:0: 74 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1230 characters output
+Console: 1062 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

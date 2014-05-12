@@ -1,38 +1,37 @@
-Copying tests/vm/mmap-inherit into /tmp/TXOg4nmO6h.dsk...
-Copying ../../tests/vm/sample.txt into /tmp/TXOg4nmO6h.dsk...
-Copying tests/vm/child-inherit into /tmp/TXOg4nmO6h.dsk...
-Writing command line to /tmp/h3lOfR0zAx.dsk...
-qemu -hda /tmp/h3lOfR0zAx.dsk -hdb /tmp/WyeCC5loRy.dsk -hdc /tmp/TXOg4nmO6h.dsk -hdd /tmp/KtmxwYZxRh.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put mmap-inherit put sample.txt put child-inherit run mmap-inherit
+Copying tests/vm/mmap-inherit to scratch partition...
+Copying ../../tests/vm/sample.txt to scratch partition...
+Copying tests/vm/child-inherit to scratch partition...
+Writing command line to /tmp/Bcwt1dzu3x.dsk...
+qemu -hda /tmp/Bcwt1dzu3x.dsk -hdb /tmp/ghNBScyd4O.dsk -hdc /tmp/lV5P2jEXKW.dsk -hdd /tmp/G7YnSVQ55C.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run mmap-inherit
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 155 sector (77 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 156 sector (78 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'mmap-inherit' into the file system...
 Putting 'sample.txt' into the file system...
 Putting 'child-inherit' into the file system...
+Erasing ustar archive...
 Executing 'mmap-inherit':
 (mmap-inherit) begin
 (mmap-inherit) open "sample.txt"
 (mmap-inherit) mmap "sample.txt"
-Kernel PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a1e1 0x80480f0 0x80487c7 0x80487f4.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 85 ticks
-Thread: 0 idle ticks, 84 kernel ticks, 1 user ticks
+mmap-inherit: exit(-1)
+Execution of 'mmap-inherit' complete.
+Timer: 79 ticks
+Thread: 30 idle ticks, 49 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 127 reads, 322 writes
-hd1:0: 155 reads, 0 writes
+hd0:1: 127 reads, 320 writes
+hd1:0: 155 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1393 characters output
+Console: 1149 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 5 page faults
 Powering off...

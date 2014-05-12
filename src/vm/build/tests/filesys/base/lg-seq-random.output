@@ -1,18 +1,20 @@
-Copying tests/filesys/base/lg-seq-random into /tmp/U5oiE2ysYv.dsk...
-Writing command line to /tmp/CQsSfYbvHX.dsk...
-qemu -hda /tmp/CQsSfYbvHX.dsk -hdb /tmp/W8fwlmvH3y.dsk -hdc /tmp/U5oiE2ysYv.dsk -hdd /tmp/CxSFqTYKad.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put lg-seq-random run lg-seq-random
+Copying tests/filesys/base/lg-seq-random to scratch partition...
+Writing command line to /tmp/0yOEciwrnu.dsk...
+qemu -hda /tmp/0yOEciwrnu.dsk -hdb /tmp/jywQBH9GTT.dsk -hdc /tmp/rZbPOyWJcm.dsk -hdd /tmp/Et7JH5sxtX.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run lg-seq-random
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'lg-seq-random' into the file system...
+Erasing ustar archive...
 Executing 'lg-seq-random':
 (lg-seq-random) begin
 (lg-seq-random) create "nibble"
@@ -25,13 +27,13 @@ Executing 'lg-seq-random':
 (lg-seq-random) end
 lg-seq-random: exit(0)
 Execution of 'lg-seq-random' complete.
-Timer: 100 ticks
-Thread: 0 idle ticks, 67 kernel ticks, 33 user ticks
+Timer: 99 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 35 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 501 reads, 612 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1186 characters output
+Console: 1264 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 23 page faults
 Powering off...

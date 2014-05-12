@@ -2,18 +2,18 @@
 #include <inttypes.h>
 #include <stdio.h>
 #include "userprog/gdt.h"
-#include <user/syscall.h>
 #include "threads/interrupt.h"
 #include "threads/thread.h"
 #include "threads/vaddr.h"
-#include "userprog/syscall.h"
-#include "vm/page.h"
+#include "threads/palloc.h"
 
-/* Number of page faults processed. */
+int find_free_frame();
+int evict_page();
 static long long page_fault_cnt;
 
 static void kill (struct intr_frame *);
 static void page_fault (struct intr_frame *);
+static void frame_insert(int free_frame, struct sup_page_table_entry *);
 
 /* Registers handlers for interrupts that can be caused by user
    programs.
@@ -139,43 +139,325 @@ page_fault (struct intr_frame *f)
      [IA32-v3a] 5.15 "Interrupt 14--Page Fault Exception
      (#PF)". */
   asm ("movl %%cr2, %0" : "=r" (fault_addr));
-
   /* Turn interrupts back on (they were only off so that we could
      be assured of reading CR2 before it changed). */
   intr_enable ();
-
-  /* Count page faults. */
-  page_fault_cnt++;
-
   /* Determine cause. */
   not_present = (f->error_code & PF_P) == 0;
   write = (f->error_code & PF_W) != 0;
   user = (f->error_code & PF_U) != 0;
-	if(user)
-		_sys_exit();
 
-  /* To implement virtual memory, delete the rest of the function
-     body, and replace it with code that brings in the page to
-     which fault_addr refers. */
-  bool load = false;
-  if (not_present && fault_addr > USER_VADDR_BOTTOM && is_user_vaddr(fault_addr)){
-      struct sup_page_entry *spte = get_spte(fault_addr);
-      if (spte){
-		  load = load_page(spte);
-		}
-      else if (fault_addr >= f->esp - STACK_HEURISTIC)
-		{
-		  load = grow_stack(fault_addr);
-		}
-    }
-  if (!load)
-    {
-      printf ("Page fault at %p: %s error %s page in %s context.\n",
-	      fault_addr,
-	      not_present ? "not present" : "rights violation",
-	      write ? "writing" : "reading",
-	      user ? "user" : "kernel");
-      kill (f);
-    }
+  if(fault_addr==NULL)
+  {
+  	f->eax=-1;
+  	thread_current()->parent->return_value=f->eax;
+  	printf("%s: exit(%d)\n",thread_name(),f->eax);
+	thread_exit();
+  }
+  if(!is_user_vaddr(fault_addr))
+  {  
+  	f->eax=-1;
+  	thread_current()->parent->return_value=f->eax;
+  	printf("%s: exit(%d)\n",thread_name(),f->eax);
+	thread_exit();
+  }
+  bool handled = false;
+  struct list_elem *e;
+  uint8_t *kpage;
+  int free_frame;
+  int j;
+  struct disk *d;
+  for (e = list_begin (&(thread_current()->sup_page_table)); e != list_end (&(thread_current()->sup_page_table)); e = list_next (e))
+  {
+  	struct sup_page_table_entry *spte = list_entry (e, struct sup_page_table_entry, elem);
+  	if(spte->va == (int*)((int)fault_addr & 0xfffff000))
+  	{
+  		switch(spte->type)
+  		{
+  			case 0:
+  				break;
+  			case 1:      
+  				kpage = palloc_get_page (PAL_USER);
+			       	if (kpage == NULL)
+			       	{
+			    free_frame = find_free_frame();
+					if(free_frame != -1)
+					{
+						frame_insert(free_frame,spte);
+					}
+					else
+					{
+						free_frame = evict_page();
+						frame_insert(free_frame,spte);
+					}
+			       	}
+			      	else
+			      	{
+			      		file_seek (spte->file, spte->offset);
+			      		int frame_index = ((vtop(kpage) & 0xfffff000)>>12);
+			      		if (file_read (spte->file, kpage, spte->page_read_bytes) != (int) spte->page_read_bytes)
+					{
+				  		palloc_free_page (kpage);
+				  		return;
+					}
+					 		memset (kpage + spte->page_read_bytes, 0, spte->page_zero_bytes);
+			    
+				   
+				      	if (!install_page (spte->va, kpage, spte->writable)) 
+					{
+					  	palloc_free_page (kpage);
+					  	return;
+					}
+					frames[frame_index].pid = thread_current()->tid;
+			       		frames[frame_index].pte = spte->va;
+			      		frames[frame_index].free_bit = false;
+			      		frames[frame_index].kpage = kpage;
+				}
+				spte->type = 0;
+				handled = true;
+				break;
+			case 2:
+				kpage = palloc_get_page (PAL_USER);
+				if(kpage == NULL)
+				{
+					free_frame = find_free_frame();
+							if(free_frame != -1)
+					{
+						frame_insert(free_frame,spte);
+					}
+					else
+					{
+							free_frame = evict_page();
+							frame_insert(free_frame,spte);
+					}
+				}
+				else
+				{
+			
+					int frame_index = ((vtop(kpage) & 0xfffff000)>>12);
+			      		memset(kpage,0,spte->page_zero_bytes);
+				      	if (!install_page (spte->va, kpage, spte->writable)) 
+					{
+					  	palloc_free_page (kpage);
+					  	return;
+					}
+					frames[frame_index].pid = thread_current()->tid;
+			       		frames[frame_index].pte = spte->va;
+			      		frames[frame_index].free_bit = false;
+			      		frames[frame_index].kpage = kpage;
+				}
+				spte->type = 0;
+				handled = true;
+				break;
+			case 3:
+					free_frame = find_free_frame();
+					if(free_frame != -1)
+					{
+						frame_insert(free_frame,spte);
+					}
+					else
+					{
+						free_frame = evict_page();
+						frame_insert(free_frame,spte);
+					}
+					spte->type = 0;
+					handled = true;
+					break;
+			default:
+				NOT_REACHED();
+				break;
+  		}
+  		if(handled)
+  			break;
+  	}
+  }
+  if(!handled)
+  {
+  	if(fault_addr >= ((f->esp)-32))
+  	{
+  		uint8_t *kpage;
+  		bool success = false;
+  		kpage = palloc_get_page (PAL_USER | PAL_ZERO);
+  		if (kpage != NULL) 
+    		{
+      			success = install_page ((void*)((int)fault_addr & 0xfffff000), kpage, true);
+      			if(!success)
+      			{
+      				palloc_free_page (kpage);
+      			}
+      			else
+      			{
+      				int frame_index = ((vtop(kpage) & 0xfffff000)>>12);
+		      		frames[frame_index].pid = thread_current()->tid;
+		     			frames[frame_index].pte = (uint32_t*)((int)fault_addr & 0xfffff000);
+		      		frames[frame_index].free_bit = false;
+		      		frames[frame_index].kpage = kpage;
+							struct sup_page_table_entry *spe = malloc(sizeof(struct sup_page_table_entry));;
+			 	spe->va = (uint32_t*)((int)fault_addr & 0xfffff000);
+			 	spe->type = 0;
+			 	spe->file = NULL;
+			 	spe->offset = 0;
+			 	spe->page_read_bytes = 0;
+			 	spe->page_zero_bytes = PGSIZE;
+			 	spe->writable = true;
+			 	list_push_back(&thread_current()->sup_page_table,&spe->elem);
+			 	
+			 	handled = true;
+      			}
+  		}
+  		else
+  		{
+  			free_frame = find_free_frame();
+  			if(free_frame != -1)
+  			{
+  				install_page ((void*)((int)fault_addr & 0xfffff000), frames[free_frame].kpage, true);
+		      		struct sup_page_table_entry *spe = malloc(sizeof(struct sup_page_table_entry));
+			 	spe->va = (uint32_t*)((int)fault_addr & 0xfffff000);
+			 	spe->type = 0;
+			 	spe->file = NULL;
+			 	spe->offset = 0;
+			 	spe->page_read_bytes = 0;
+			 	spe->page_zero_bytes = PGSIZE;
+			 	spe->writable = true;
+			 	list_push_back(&thread_current()->sup_page_table,&spe->elem);
+			 	
+			 	handled = true;
+			 	frames[free_frame].free_bit = false;
+			 	frames[free_frame].pte = (uint32_t*)((int)fault_addr & 0xfffff000);
+			 	frames[free_frame].pid = thread_current()->tid;
+  			}
+  			else
+  			{
+  				free_frame = evict_page();
+  				install_page ((void*)((int)fault_addr & 0xfffff000), frames[free_frame].kpage, true);
+		      		struct sup_page_table_entry *spe = malloc(sizeof(struct sup_page_table_entry));
+			 	spe->va = (uint32_t*)((int)fault_addr & 0xfffff000);
+			 	spe->type = 0;
+			 	spe->file = NULL;
+			 	spe->offset = 0;
+			 	spe->page_read_bytes = 0;
+			 	spe->page_zero_bytes = PGSIZE;
+			 	spe->writable = true;
+			 	list_push_back(&thread_current()->sup_page_table,&spe->elem);
+			 	
+			 	handled = true;
+			 	frames[free_frame].free_bit = false;
+			 	frames[free_frame].pte = (uint32_t*)((int)fault_addr & 0xfffff000);
+			 	frames[free_frame].pid = thread_current()->tid;
+  			}
+  		}
+  	}
+  	else
+  	{
+  		f->eax=-1;
+	  	thread_current()->parent->return_value=f->eax;
+	  	printf("%s: exit(%d)\n",thread_name(),f->eax);
+		thread_exit();
+  	}
+  }
+  page_fault_cnt++;
+
 }
 
+int find_free_frame()
+{
+	int i;
+	for(i=655;i<1024;i++)
+	{
+		if(frames[i].free_bit)
+			return i;
+	}
+	return -1;
+}
+int evict_page()
+{
+	int i=clock_hand;
+	while(pagedir_is_accessed((thread_from_pid(frames[i].pid))->pagedir,frames[i].pte))
+	{
+		pagedir_set_accessed((thread_from_pid(frames[i].pid))->pagedir,frames[i].pte,0);
+		if(i==1023)
+		{
+			i=655;
+		}
+		else
+			i=(i+1)%1024;
+	}
+	clock_hand = i;
+	int j,k;
+	for(j=0;j<1024;j++)
+	{
+		if(swap_slot_free[j])
+			break;
+	}
+	for(k=0;k<8;k++)
+	{
+		disk_write(disk_get(1,1),k+j*8,frames[i].kpage+k*512);
+	}
+	swap_slot_free[j]=false;
+	
+	struct thread *evict = thread_from_pid(frames[i].pid);
+	struct sup_page_table_entry *spe;
+	struct list_elem *e;
+	for (e = list_begin (&(evict->sup_page_table)); e != list_end (&(evict->sup_page_table)); e = list_next (e))
+	{
+		spe = list_entry (e, struct sup_page_table_entry, elem);
+		if(spe->va == frames[i].pte)
+		{
+			spe->type = 3;
+			spe->swap_slot_no = j;
+			break;
+		}
+	}
+	pagedir_clear_page(evict->pagedir,frames[i].pte);
+	frames[i].free_bit = true;
+	frames[i].pte = NULL;
+	return i;
+}
+void frame_insert(int free_frame, struct sup_page_table_entry *spte)
+{
+	int j;
+	switch(spte->type)
+	{
+		case 1:
+			if(file_read(spte->file,frames[free_frame].kpage,spte->page_read_bytes) != (int) spte->page_read_bytes)
+			{
+				palloc_free_page (frames[free_frame].kpage);
+				return;
+			}
+			memset(frames[free_frame].kpage+spte->page_read_bytes,0,spte->page_zero_bytes);
+			if(!install_page(spte->va,frames[free_frame].kpage,spte->writable))
+			{
+				palloc_free_page (frames[free_frame].kpage);
+				return;
+			}
+			break;
+		case 2:
+			while(frames[free_frame].kpage == NULL)
+				frames[free_frame].kpage = palloc_get_page(PAL_USER);
+			memset(frames[free_frame].kpage,0,spte->page_zero_bytes);
+			if(!install_page(spte->va,frames[free_frame].kpage,spte->writable))
+			{
+				palloc_free_page(frames[free_frame].kpage);
+				return;
+			}
+			break;
+		case 3:
+			for(j=0;j<8;j++)
+			{
+				disk_read(disk_get(1,1),j+spte->swap_slot_no*8,frames[free_frame].kpage+512*j);
+			}
+			if(!install_page(spte->va,frames[free_frame].kpage,spte->writable))
+			{
+				palloc_free_page (frames[free_frame].kpage);
+				return;
+			}
+			swap_slot_free[spte->swap_slot_no] = true;
+			break;
+		default:
+			printf("oops!!!!!Default....\n");
+			break;
+	}
+	frames[free_frame].pid = thread_current()->tid;
+	frames[free_frame].pte = spte->va;
+	frames[free_frame].free_bit = false;
+}

@@ -7,7 +7,16 @@
 #include "threads/io.h"
 #include "threads/synch.h"
 #include "threads/thread.h"
-  
+
+/****************************
+	Added Code starts.
+	struct sleep_list defined in thread.c.
+****************************/
+//extern struct sleep_list;
+/****************************
+	Added Code ends.
+****************************/
+
 /* See [8254] for hardware details of the 8254 timer chip. */
 
 #if TIMER_FREQ < 19
@@ -28,7 +37,7 @@ static intr_handler_func timer_interrupt;
 static bool too_many_loops (unsigned loops);
 static void busy_wait (int64_t loops);
 static void real_time_sleep (int64_t num, int32_t denom);
-
+static void real_time_delay (int64_t num, int32_t denom);
 /* Sets up the 8254 Programmable Interval Timer (PIT) to
    interrupt PIT_FREQ times per second, and registers the
    corresponding interrupt. */
@@ -92,36 +101,113 @@ timer_elapsed (int64_t then)
   return timer_ticks () - then;
 }
 
-/* Suspends execution for approximately TICKS timer ticks. */
+/* Sleeps for approximately TICKS timer ticks.  Interrupts must
+   be turned on. */
 void
 timer_sleep (int64_t ticks) 
 {
-  int64_t start = timer_ticks ();
+  //int64_t start = timer_ticks ();
 
   ASSERT (intr_get_level () == INTR_ON);
-  while (timer_elapsed (start) < ticks) 
-    thread_yield ();
+  //printf("Thread:%d is going to sleep for %"PRId64" ticks.\n",thread_current()->tid,ticks);
+  //printf("Thread:%d is the head of the sleep_list.\n",list_entry(list_begin(&sleep_list),struct thread,elem)->tid);
+ /* while (timer_elapsed (start) < ticks) 
+    thread_yield ();*/
+  
+  
+  
+	struct thread *current=thread_current();
+	
+	if(ticks<0)
+		thread_yield();
+	else
+	{
+		enum intr_level old_level;
+		old_level = intr_disable ();
+		//list_insert_ordered(&sleep_list,&current->elem,time_less,NULL);
+		struct list_elem *e;
+		
+  
+		for (e = list_begin (&sleep_list); e != list_end (&sleep_list);e = list_next (e))
+        	{
+          		struct thread *f = list_entry (e, struct thread, elem);
+          		//printf("%"PRId64":",f->sleep_ticks);
+         		if((f->sleep_ticks)>ticks)
+         			break;
+       		}
+       		list_insert(e,&current->elem);
+		//current->status=THREAD_SLEEP;
+		current->sleep_ticks=ticks;
+		//thread_set_sleep_ticks(ticks);
+		thread_block();
+		intr_set_level (old_level);
+	}
+	/****************************
+	Added Code ends.
+****************************/
 }
 
-/* Suspends execution for approximately MS milliseconds. */
+/* Sleeps for approximately MS milliseconds.  Interrupts must be
+   turned on. */
 void
 timer_msleep (int64_t ms) 
 {
   real_time_sleep (ms, 1000);
 }
 
-/* Suspends execution for approximately US microseconds. */
+/* Sleeps for approximately US microseconds.  Interrupts must be
+   turned on. */
 void
 timer_usleep (int64_t us) 
 {
   real_time_sleep (us, 1000 * 1000);
 }
 
-/* Suspends execution for approximately NS nanoseconds. */
+/* Sleeps for approximately NS nanoseconds.  Interrupts must be
+   turned on. */
 void
 timer_nsleep (int64_t ns) 
 {
   real_time_sleep (ns, 1000 * 1000 * 1000);
+}
+
+/* Busy-waits for approximately MS milliseconds.  Interrupts need
+   not be turned on.
+
+   Busy waiting wastes CPU cycles, and busy waiting with
+   interrupts off for the interval between timer ticks or longer
+   will cause timer ticks to be lost.  Thus, use timer_msleep()
+   instead if interrupts are enabled. */
+void
+timer_mdelay (int64_t ms) 
+{
+  real_time_delay (ms, 1000);
+}
+
+/* Sleeps for approximately US microseconds.  Interrupts need not
+   be turned on.
+
+   Busy waiting wastes CPU cycles, and busy waiting with
+   interrupts off for the interval between timer ticks or longer
+   will cause timer ticks to be lost.  Thus, use timer_usleep()
+   instead if interrupts are enabled. */
+void
+timer_udelay (int64_t us) 
+{
+  real_time_delay (us, 1000 * 1000);
+}
+
+/* Sleeps execution for approximately NS nanoseconds.  Interrupts
+   need not be turned on.
+
+   Busy waiting wastes CPU cycles, and busy waiting with
+   interrupts off for the interval between timer ticks or longer
+   will cause timer ticks to be lost.  Thus, use timer_nsleep()
+   instead if interrupts are enabled.*/
+void
+timer_ndelay (int64_t ns) 
+{
+  real_time_delay (ns, 1000 * 1000 * 1000);
 }
 
 /* Prints timer statistics. */
@@ -135,8 +221,52 @@ timer_print_stats (void)
 static void
 timer_interrupt (struct intr_frame *args UNUSED)
 {
+  /*
+  Since it is an external interrupt therefore it should not be interrupted
+  and should not be put to sleep.
+  */
+  enum intr_level old_level;
+  old_level = intr_disable ();
   ticks++;
   thread_tick ();
+  struct list_elem *e;
+  
+  
+   for (e = list_begin (&sleep_list); e != list_end (&sleep_list);e = list_next (e))
+   {
+   	
+	struct thread *f = list_entry (e, struct thread, elem);
+	if(f->sleep_ticks>0)
+		f->sleep_ticks--;
+   }
+   struct thread *min;
+   if(!list_empty(&sleep_list))
+   {
+   	e=list_front(&sleep_list);
+   	/*Returns the minimum element in the list.*/
+   	min=list_entry(e,struct thread,elem);
+   	/*
+   	If it is time for the thread to wake up.
+   	*/
+   	if(min->sleep_ticks<=0)
+   	{
+   		
+   		list_remove(e);
+   		thread_unblock(min);
+   		for (e = list_begin (&sleep_list); e != list_end (&sleep_list);)
+   		{
+			min = list_entry (e, struct thread, elem);
+			if(min->sleep_ticks<=0)
+			{
+				e=list_remove(e);
+				thread_unblock(min);
+			}
+			else
+				break;
+   		}
+   	}
+   }
+   intr_set_level (old_level);
 }
 
 /* Returns true if LOOPS iterations waits for more than one timer
@@ -195,10 +325,17 @@ real_time_sleep (int64_t num, int32_t denom)
   else 
     {
       /* Otherwise, use a busy-wait loop for more accurate
-         sub-tick timing.  We scale the numerator and denominator
-         down by 1000 to avoid the possibility of overflow. */
-      ASSERT (denom % 1000 == 0);
-      busy_wait (loops_per_tick * num / 1000 * TIMER_FREQ / (denom / 1000)); 
+         sub-tick timing. */
+      real_time_delay (num, denom); 
     }
 }
 
+/* Busy-wait for approximately NUM/DENOM seconds. */
+static void
+real_time_delay (int64_t num, int32_t denom)
+{
+  /* Scale the numerator and denominator down by 1000 to avoid
+     the possibility of overflow. */
+  ASSERT (denom % 1000 == 0);
+  busy_wait (loops_per_tick * num / 1000 * TIMER_FREQ / (denom / 1000)); 
+}

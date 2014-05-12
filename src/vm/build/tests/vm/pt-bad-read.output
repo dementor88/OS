@@ -1,41 +1,34 @@
-Copying tests/vm/pt-bad-read into /tmp/mZddIhlk56.dsk...
-Copying ../../tests/vm/sample.txt into /tmp/mZddIhlk56.dsk...
-Writing command line to /tmp/q8x3gFAyua.dsk...
-qemu -hda /tmp/q8x3gFAyua.dsk -hdb /tmp/a4ur9qDsxf.dsk -hdc /tmp/mZddIhlk56.dsk -hdd /tmp/C9CFXFNaE1.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put pt-bad-read put sample.txt run pt-bad-read
+Copying tests/vm/pt-bad-read to scratch partition...
+Copying ../../tests/vm/sample.txt to scratch partition...
+Writing command line to /tmp/xNAK8sjC7M.dsk...
+qemu -hda /tmp/xNAK8sjC7M.dsk -hdb /tmp/uOKhNKHX1f.dsk -hdc /tmp/0xlR4kIYKy.dsk -hdd /tmp/NjZxGaplqz.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run pt-bad-read
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  58,880,000 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'pt-bad-read' into the file system...
 Putting 'sample.txt' into the file system...
+Erasing ustar archive...
 Executing 'pt-bad-read':
 (pt-bad-read) begin
 (pt-bad-read) open "sample.txt"
-Page fault at 0xbfffefa4: not present error writing page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0107a26
- cr2=bfffefa4 error=00000002
- eax=0000003d ebx=c011c20d ecx=00000000 edx=bfffef01
- esi=bfffefa4 edi=bfffefa4 esp=c0114cac ebp=c011fed4
- cs=0008 ds=0010 es=0010 ss=c20c
-Kernel PANIC at ../../userprog/exception.c:105 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01085b6 0xc010bccf 0xc010bd95 0xc0101835 0xc0101a0b 0xc0107a26 0xc010ddc9 0xc010d28e 0xc010c4b1 0xc010bf65 0xc0101835 0xc0101a0b 0x804a0a1 0x80480ef 0x80486db 0x8048708.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 67 ticks
-Thread: 0 idle ticks, 65 kernel ticks, 2 user ticks
+pt-bad-read: exit(-1)
+Execution of 'pt-bad-read' complete.
+Timer: 64 ticks
+Thread: 30 idle ticks, 34 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 91 reads, 162 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1678 characters output
+Console: 1058 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 4 page faults
 Powering off...

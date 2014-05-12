@@ -1,29 +1,31 @@
-Copying tests/userprog/exec-bad-ptr into /tmp/nUsJlLpXSL.dsk...
-Writing command line to /tmp/ibkMSk7K6q.dsk...
-qemu -hda /tmp/ibkMSk7K6q.dsk -hdb /tmp/cAst2RCABA.dsk -hdc /tmp/nUsJlLpXSL.dsk -hdd /tmp/r9k87jcc2d.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put exec-bad-ptr run exec-bad-ptr
+Copying tests/userprog/exec-bad-ptr to scratch partition...
+Writing command line to /tmp/VUzHf0Z80Y.dsk...
+qemu -hda /tmp/VUzHf0Z80Y.dsk -hdb /tmp/4FRkmiEd4o.dsk -hdc /tmp/xdbxIMcRfV.dsk -hdd /tmp/YuhCGpgFRU.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run exec-bad-ptr
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  52,377,600 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'exec-bad-ptr' into the file system...
+Erasing ustar archive...
 Executing 'exec-bad-ptr':
 (exec-bad-ptr) begin
 exec-bad-ptr: exit(-1)
 Execution of 'exec-bad-ptr' complete.
-Timer: 62 ticks
-Thread: 0 idle ticks, 61 kernel ticks, 1 user ticks
+Timer: 65 ticks
+Thread: 30 idle ticks, 35 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 58 reads, 154 writes
-hd1:0: 73 reads, 0 writes
+hd1:0: 74 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 907 characters output
+Console: 987 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

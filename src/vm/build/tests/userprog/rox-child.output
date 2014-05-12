@@ -1,20 +1,22 @@
-Copying tests/userprog/rox-child into /tmp/a7MYdWl9sd.dsk...
-Copying tests/userprog/child-rox into /tmp/a7MYdWl9sd.dsk...
-Writing command line to /tmp/5WbzprpgCZ.dsk...
-qemu -hda /tmp/5WbzprpgCZ.dsk -hdb /tmp/znoQ7WdeHR.dsk -hdc /tmp/a7MYdWl9sd.dsk -hdd /tmp/dutUwqwxVX.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put rox-child put child-rox run rox-child
+Copying tests/userprog/rox-child to scratch partition...
+Copying tests/userprog/child-rox to scratch partition...
+Writing command line to /tmp/ydqw0Qc7H6.dsk...
+qemu -hda /tmp/ydqw0Qc7H6.dsk -hdb /tmp/N8pqvIOtPh.dsk -hdc /tmp/TJFi1EdzSY.dsk -hdd /tmp/bBwTj1ySba.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run rox-child
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
-Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  52,377,600 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 157 sector (78 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 158 sector (79 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'rox-child' into the file system...
 Putting 'child-rox' into the file system...
+Erasing ustar archive...
 Executing 'rox-child':
 (rox-child) begin
 (rox-child) open "child-rox"
@@ -30,13 +32,13 @@ child-rox: exit(12)
 (rox-child) end
 rox-child: exit(0)
 Execution of 'rox-child' complete.
-Timer: 74 ticks
-Thread: 0 idle ticks, 72 kernel ticks, 2 user ticks
+Timer: 72 ticks
+Thread: 30 idle ticks, 41 kernel ticks, 2 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 135 reads, 326 writes
-hd1:0: 157 reads, 0 writes
+hd0:1: 131 reads, 324 writes
+hd1:0: 157 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1239 characters output
+Console: 1308 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 9 page faults
 Powering off...

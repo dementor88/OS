@@ -3,13 +3,8 @@
 
 #include <debug.h>
 #include <list.h>
-#include <hash.h>
 #include <stdint.h>
-#include "threads/synch.h"
-/*****************proj#2*/
-struct list parent_child_list;
-struct lock flock;
-
+#include "synch.h"
 
 /* States in a thread's life cycle. */
 enum thread_status
@@ -17,7 +12,7 @@ enum thread_status
     THREAD_RUNNING,     /* Running thread. */
     THREAD_READY,       /* Not running but ready to run. */
     THREAD_BLOCKED,     /* Waiting for an event to trigger. */
-    THREAD_DYING        /* About to be destroyed. */
+    THREAD_DYING,        /* About to be destroyed. */
   };
 
 /* Thread identifier type.
@@ -86,7 +81,6 @@ typedef int tid_t;
    only because they are mutually exclusive: only a thread in the
    ready state is on the run queue, whereas only a thread in the
    blocked state is on a semaphore wait list. */
-
 struct thread
   {
     /* Owned by thread.c. */
@@ -94,64 +88,106 @@ struct thread
     enum thread_status status;          /* Thread state. */
     char name[16];                      /* Name (for debugging purposes). */
     uint8_t *stack;                     /* Saved stack pointer. */
-    int priority;                       /* Priority. */
-
-    /* Shared between thread.c and synch.c. */
+	int priority;                       /* Priority */
+	
+	/* Shared between thread.c and synch.c. */
     struct list_elem elem;              /* List element. */
 
+	
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
-    uint32_t *pagedir;                  /* Page directory. */	
+    uint32_t *pagedir;                  /* Page directory. */
 #endif
 
     /* Owned by thread.c. */
     unsigned magic;                     /* Detects stack overflow. */
-	
-	/** Busy-Waiting 제거 -- Proj#1 */
-	int64_t sleep_ticks;			/* 수면리스트에서 남아있는 수면시간이 얼마인지 가리킴 */
-	
-	
-	/** 스레드에 lock 관련 변수 저장 -- Proj#1 */
-	int original_locked_priority;	//priority-donate-lower
-	struct thread *lock_holder_thread;	//priority-donate-nest..?
-	int original_reference_priority; //priority-donate-multiple2
-	int swap_priority_count; //priority-donate-mul2
-	
-	/*****************proj#2*/
-	int fd;
-	struct list file_list;
-	struct list child;
-	struct list lock_list;
-	struct thread* parent_ptr;
-	struct file *exec;
-	int exit;
-	int user;
-	uint32_t assignfd;
-	
-	/**********proj3*****/
-	struct hash spt;
 
-};
-struct parent_child{
-	struct thread* parent_ptr;
-	tid_t parent_tid;
-	tid_t child_tid;
-	bool loaded;
-	bool waiting;
-	int status;
+	/** Busy-Waiting 제거 -- Proj#1 */
+    int64_t sleep_ticks;				/* 수면리스트에서 남아있는 수면시간이 얼마인지 가리킴 */
+   
+   	/** 스레드에 lock 관련 변수 저장 -- Proj#1 */
+    int actual_priority;                /* donate 관련 actual priority */	
+    struct lock *waiting_lock;          
+    struct semaphore *waiting_sema;     	
+    struct list_elem allelem;           
+
+    
+    /*****************proj#2*/	
+    struct thread *parent;		
+    struct list child_list;		
+    struct lock child_list_lock;       
+    struct list_elem child_list_elem;
+    struct thread *waiting_child;      
+    struct lock child_exec_lock;	
+    int return_value;			/* child의 tid return value */
+    bool waited_on;			/* whether parent of thread ever waited on this thread or not.*/
+    struct list dead_child_list;	
+	
+	
+    int last_fd;			/* last file descriptor used by thread.*/
+    struct list open_files_list;        
+    struct semaphore parent_blocked;    /* downed by the child only when the parent has upped it. 초기값은 0! */
+    bool wait_called;			/* whether thread called wait.  used in thread_block()!!*/ 
+    bool parent_died;			/* whether parent has already died*/
+    bool present_in_dead_child_list;	/* TRUE : if it exited through exit system call. else FALSE */
+    struct list lock_list;		/* Holds the list of locks that this thread holds.*/
+	
+	
+	/*****************proj#3************/	
+    struct list sup_page_table;	/* Supplementary page table.*/
+
+  };
+  
+  
+struct dead_child
+{
+	int tid;
+	int exit_status;
 	struct list_elem elem;
-	struct semaphore load;
-	struct semaphore exit;
 };
-struct files{
-	struct list_elem elem;
-	struct file *file;
+struct open_file
+{
 	int fd;
+	struct file *file;
+	struct list_elem elem;
 };
+
+
+/*****************proj#3***********/	
+struct frame_table
+{
+	int pid;
+	uint32_t *pte;
+	bool free_bit;
+	uint8_t *kpage;
+};
+struct frame_table frames[1024];
+struct sup_page_table_entry
+{
+	uint32_t *va;     		/* Virtual address for this is the entry.*/
+	int type;         		/* 0->in MM,1->in file,2->all zeroes,3->in swap.*/
+	struct file *file;		/* file pointer only useful if type=1.*/
+	int offset;			/* offset into the file.*/
+	int swap_slot_no;		/* Swap slot number only useful if type=3.*/
+	uint32_t page_read_bytes;	/* number of bytes to be read from the disk applicable only when the type=1.*/
+	uint32_t page_zero_bytes;	/* number of bytes to be zeroed applicable only when the type=1.*/
+	bool writable;			/* applicable for type=1.*/
+	struct list_elem elem;
+};
+/*
+	Swap Table
+	1024 is calculated(assuming that blocks have size 1 page).
+*/
+bool swap_slot_free[1024];
+
+struct list sleep_list;
+
 /* If false (default), use round-robin scheduler.
    If true, use multi-level feedback queue scheduler.
    Controlled by kernel command-line option "-o mlfqs". */
 extern bool thread_mlfqs;
+
+struct list ready_list;
 
 void thread_init (void);
 void thread_start (void);
@@ -161,7 +197,6 @@ void thread_print_stats (void);
 
 typedef void thread_func (void *aux);
 tid_t thread_create (const char *name, int priority, thread_func *, void *);
-
 void thread_block (void);
 void thread_unblock (struct thread *);
 
@@ -172,12 +207,30 @@ const char *thread_name (void);
 void thread_exit (void) NO_RETURN;
 void thread_yield (void);
 
+/* Performs some operation on thread t, given auxiliary data AUX. */
+typedef void thread_action_func (struct thread *t, void *aux);
+void thread_foreach (thread_action_func *, void *);
+
 int thread_get_priority (void);
 void thread_set_priority (int);
+
+
+int64_t thread_get_time_remaining_for_sleep(void);
+void thread_set_time_remaining_for_sleep(int64_t);
+
 
 int thread_get_nice (void);
 void thread_set_nice (int);
 int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
-
+bool priority_more (const struct list_elem *, const struct list_elem *,
+                        void *);
+/*
+	Added Code Starts
+*/
+struct thread *get_child_from_tid(tid_t child_tid);
+struct thread* thread_from_pid(int pid);
+/*
+	Added Code ends.
+*/
 #endif /* threads/thread.h */

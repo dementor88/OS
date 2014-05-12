@@ -1,36 +1,36 @@
-Copying tests/vm/mmap-null into /tmp/U1d69WceJA.dsk...
-Copying ../../tests/vm/sample.txt into /tmp/U1d69WceJA.dsk...
-Writing command line to /tmp/TTc0o1qZKZ.dsk...
-qemu -hda /tmp/TTc0o1qZKZ.dsk -hdb /tmp/viDFgRILYG.dsk -hdc /tmp/U1d69WceJA.dsk -hdd /tmp/FUi36UPhbA.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put mmap-null put sample.txt run mmap-null
+Copying tests/vm/mmap-null to scratch partition...
+Copying ../../tests/vm/sample.txt to scratch partition...
+Writing command line to /tmp/jBfxrwK3XS.dsk...
+qemu -hda /tmp/jBfxrwK3XS.dsk -hdb /tmp/oClXmp5kqr.dsk -hdc /tmp/3iJKQjPTpC.dsk -hdd /tmp/1QxfmQIFbj.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run mmap-null
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'mmap-null' into the file system...
 Putting 'sample.txt' into the file system...
+Erasing ustar archive...
 Executing 'mmap-null':
 (mmap-null) begin
 (mmap-null) open "sample.txt"
 (mmap-null) try to mmap at address 0
-Kernel PANIC at ../../userprog/syscall.c:156 in syscall_handler(): executed an unreachable statement
-Call stack: 0xc01085b6 0xc010bfc0 0xc0101835 0xc0101a0b 0x804a101 0x80480ee 0x80486e7 0x8048714.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 65 ticks
-Thread: 0 idle ticks, 64 kernel ticks, 1 user ticks
+(mmap-null) try to mmap at address 0: FAILED
+mmap-null: exit(1)
+Execution of 'mmap-null' complete.
+Timer: 63 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 90 reads, 162 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1310 characters output
+Console: 1125 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

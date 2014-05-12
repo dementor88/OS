@@ -1,27 +1,29 @@
-Copying tests/userprog/halt into /tmp/da2Q3YegOQ.dsk...
-Writing command line to /tmp/BlSFFDuqpr.dsk...
-qemu -hda /tmp/BlSFFDuqpr.dsk -hdb /tmp/KS9893shZb.dsk -hdc /tmp/da2Q3YegOQ.dsk -hdd /tmp/Ni6Q6IC9wD.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put halt run halt
+Copying tests/userprog/halt to scratch partition...
+Writing command line to /tmp/0sRVD3mD1f.dsk...
+qemu -hda /tmp/0sRVD3mD1f.dsk -hdb /tmp/sk0BfR0bWy.dsk -hdc /tmp/NoB5zlFdzM.dsk -hdd /tmp/1yct9arKyw.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run halt
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'halt' into the file system...
+Erasing ustar archive...
 Executing 'halt':
 (halt) begin
 Timer: 62 ticks
-Thread: 0 idle ticks, 62 kernel ticks, 0 user ticks
+Thread: 30 idle ticks, 32 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 58 reads, 154 writes
-hd1:0: 73 reads, 0 writes
+hd1:0: 74 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 806 characters output
+Console: 894 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

@@ -22,7 +22,7 @@ struct lock
   {
     struct thread *holder;      /* Thread holding lock (for debugging). */
     struct semaphore semaphore; /* Binary semaphore controlling access. */
-	struct list_elem elem;
+    struct list_elem elem;      /* Shared between synch.h and synch.c and thread.c used when a thread acquires a lock(lock is inserted in lock_list).*/
   };
 
 void lock_init (struct lock *);
@@ -41,7 +41,6 @@ void cond_init (struct condition *);
 void cond_wait (struct condition *, struct lock *);
 void cond_signal (struct condition *, struct lock *);
 void cond_broadcast (struct condition *, struct lock *);
-
 /* Optimization barrier.
 
    The compiler will not reorder operations across an

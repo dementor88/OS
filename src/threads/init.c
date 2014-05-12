@@ -13,6 +13,7 @@
 #include "devices/serial.h"
 #include "devices/timer.h"
 #include "devices/vga.h"
+#include "devices/rtc.h"
 #include "threads/interrupt.h"
 #include "threads/io.h"
 #include "threads/loader.h"
@@ -48,6 +49,9 @@ static bool format_filesys;
 
 /* -q: Power off after kernel tasks complete? */
 bool power_off_when_done;
+
+/* -r: Reboot after kernel tasks complete? */
+static bool reboot_when_done;
 
 static void ram_init (void);
 static void paging_init (void);
@@ -114,13 +118,28 @@ main (void)
   disk_init ();
   filesys_init (format_filesys);
 #endif
-
+  /*
+  	All swap slots are free to start with.
+  */
+  memset(swap_slot_free,1,sizeof(swap_slot_free));
+  clock_hand = 655;
+  int i;
+  for(i=0;i<1024;i++)
+  {
+  	frames[i].pid=-1;
+  	frames[i].pte=NULL;
+  	frames[i].free_bit =true;
+  	frames[i].kpage=NULL;
+  }
   printf ("Boot complete.\n");
   
   /* Run actions specified on kernel command line. */
   run_actions (argv);
 
   /* Finish up. */
+  if (reboot_when_done)
+    reboot ();
+
   if (power_off_when_done)
     power_off ();
   thread_exit ();
@@ -236,6 +255,8 @@ parse_options (char **argv)
         usage ();
       else if (!strcmp (name, "-q"))
         power_off_when_done = true;
+      else if (!strcmp (name, "-r"))
+        reboot_when_done = true;
 #ifdef FILESYS
       else if (!strcmp (name, "-f"))
         format_filesys = true;
@@ -251,6 +272,16 @@ parse_options (char **argv)
       else
         PANIC ("unknown option `%s' (use -h for help)", name);
     }
+
+  /* Initialize the random number generator based on the system
+     time.  This has no effect if an "-rs" option was specified.
+
+     When running under Bochs, this is not enough by itself to
+     get a good seed value, because the pintos script sets the
+     initial time to a predictable value, not to the local time,
+     for reproducibility.  To fix this, give the "-r" option to
+     the pintos script to request real-time execution. */
+  random_init (rtc_get_time ());
   
   return argv;
 }
@@ -260,7 +291,6 @@ static void
 run_task (char **argv)
 {
   const char *task = argv[1];
-  
   printf ("Executing '%s':\n", task);
 #ifdef USERPROG
   process_wait (process_execute (task));
@@ -291,8 +321,8 @@ run_actions (char **argv)
       {"ls", 1, fsutil_ls},
       {"cat", 2, fsutil_cat},
       {"rm", 2, fsutil_rm},
-      {"put", 2, fsutil_put},
-      {"get", 2, fsutil_get},
+      {"extract", 1, fsutil_extract},
+      {"append", 2, fsutil_append},
 #endif
       {NULL, 0, NULL},
     };
@@ -340,12 +370,13 @@ usage (void)
           "  cat FILE           Print FILE to the console.\n"
           "  rm FILE            Delete FILE.\n"
           "Use these actions indirectly via `pintos' -g and -p options:\n"
-          "  put FILE           Put FILE into file system from scratch disk.\n"
-          "  get FILE           Get FILE from file system into scratch disk.\n"
+          "  extract            Untar from scratch disk into file system.\n"
+          "  append FILE        Append FILE to tar file on scratch disk.\n"
 #endif
           "\nOptions:\n"
           "  -h                 Print this help message and power off.\n"
           "  -q                 Power off VM after actions or on panic.\n"
+          "  -r                 Reboot after actions.\n"
           "  -f                 Format file system disk during startup.\n"
           "  -rs=SEED           Set random number seed to SEED.\n"
           "  -mlfqs             Use multi-level feedback queue scheduler.\n"
@@ -356,6 +387,40 @@ usage (void)
   power_off ();
 }
 
+/* Keyboard control register port. */
+#define CONTROL_REG 0x64
+
+/* Reboots the machine via the keyboard controller. */
+void
+reboot (void)
+{
+  int i;
+
+  printf ("Rebooting...\n");
+
+    /* See [kbd] for details on how to program the keyboard
+     * controller. */
+  for (i = 0; i < 100; i++) 
+    {
+      int j;
+
+      /* Poll keyboard controller's status byte until 
+       * 'input buffer empty' is reported. */
+      for (j = 0; j < 0x10000; j++) 
+        {
+          if ((inb (CONTROL_REG) & 0x02) == 0)   
+            break;
+          timer_udelay (2);
+        }
+
+      timer_udelay (50);
+
+      /* Pulse bit 0 of the output port P2 of the keyboard controller. 
+       * This will reset the CPU. */
+      outb (CONTROL_REG, 0xfe);
+      timer_udelay (50);
+    }
+}
 
 /* Powers down the machine we're running on,
    as long as we're running on Bochs or QEMU. */

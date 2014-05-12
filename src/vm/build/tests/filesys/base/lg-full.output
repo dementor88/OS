@@ -1,18 +1,20 @@
-Copying tests/filesys/base/lg-full into /tmp/26XrZvBowh.dsk...
-Writing command line to /tmp/kjiLwyPB1n.dsk...
-qemu -hda /tmp/kjiLwyPB1n.dsk -hdb /tmp/y379lNzmrl.dsk -hdc /tmp/26XrZvBowh.dsk -hdd /tmp/HjXFol3bTk.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put lg-full run lg-full
+Copying tests/filesys/base/lg-full to scratch partition...
+Writing command line to /tmp/LZFAOfk4h9.dsk...
+qemu -hda /tmp/LZFAOfk4h9.dsk -hdb /tmp/4eEvOXJ14W.dsk -hdc /tmp/paqhCcyI9T.dsk -hdd /tmp/Xzl5AopNCe.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run lg-full
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'lg-full' into the file system...
+Erasing ustar archive...
 Executing 'lg-full':
 (lg-full) begin
 (lg-full) create "quux"
@@ -25,13 +27,13 @@ Executing 'lg-full':
 (lg-full) end
 lg-full: exit(0)
 Execution of 'lg-full' complete.
-Timer: 123 ticks
-Thread: 0 idle ticks, 75 kernel ticks, 48 user ticks
+Timer: 93 ticks
+Thread: 30 idle ticks, 39 kernel ticks, 24 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 238 reads, 460 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1082 characters output
+Console: 1166 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 23 page faults
 Powering off...

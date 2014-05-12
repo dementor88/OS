@@ -1,18 +1,20 @@
-Copying tests/filesys/base/lg-seq-block into /tmp/TBXa7Yz0Jk.dsk...
-Writing command line to /tmp/hREjgWQ8hf.dsk...
-qemu -hda /tmp/hREjgWQ8hf.dsk -hdb /tmp/8CpEAuskGX.dsk -hdc /tmp/TBXa7Yz0Jk.dsk -hdd /tmp/24x5KnJUgy.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put lg-seq-block run lg-seq-block
+Copying tests/filesys/base/lg-seq-block to scratch partition...
+Writing command line to /tmp/LK5d5M7oKE.dsk...
+qemu -hda /tmp/LK5d5M7oKE.dsk -hdb /tmp/xigG2V5mOO.dsk -hdc /tmp/3Sej2Tksr7.dsk -hdd /tmp/7bmyviUNwu.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run lg-seq-block
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'lg-seq-block' into the file system...
+Erasing ustar archive...
 Executing 'lg-seq-block':
 (lg-seq-block) begin
 (lg-seq-block) create "noodle"
@@ -25,13 +27,13 @@ Executing 'lg-seq-block':
 (lg-seq-block) end
 lg-seq-block: exit(0)
 Execution of 'lg-seq-block' complete.
-Timer: 98 ticks
-Thread: 0 idle ticks, 63 kernel ticks, 35 user ticks
+Timer: 104 ticks
+Thread: 30 idle ticks, 35 kernel ticks, 39 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 531 reads, 607 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1170 characters output
+Console: 1251 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 23 page faults
 Powering off...

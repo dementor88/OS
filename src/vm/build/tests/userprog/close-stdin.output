@@ -1,30 +1,32 @@
-Copying tests/userprog/close-stdin into /tmp/7rEa4lQfo7.dsk...
-Writing command line to /tmp/Hsioqx5dJi.dsk...
-qemu -hda /tmp/Hsioqx5dJi.dsk -hdb /tmp/SOQqbVsjpf.dsk -hdc /tmp/7rEa4lQfo7.dsk -hdd /tmp/Z9S54A0Cc0.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put close-stdin run close-stdin
+Copying tests/userprog/close-stdin to scratch partition...
+Writing command line to /tmp/uKk3zgACn5.dsk...
+qemu -hda /tmp/uKk3zgACn5.dsk -hdb /tmp/PD73VwZrCA.dsk -hdc /tmp/SDdYxW94gd.dsk -hdd /tmp/Gt4Opv8ktJ.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run close-stdin
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'close-stdin' into the file system...
+Erasing ustar archive...
 Executing 'close-stdin':
 (close-stdin) begin
 (close-stdin) end
 close-stdin: exit(0)
 Execution of 'close-stdin' complete.
 Timer: 64 ticks
-Thread: 0 idle ticks, 63 kernel ticks, 1 user ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 58 reads, 154 writes
-hd1:0: 73 reads, 0 writes
+hd1:0: 74 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 917 characters output
+Console: 998 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

@@ -1,90 +1,217 @@
-Copying tests/userprog/multi-recurse into /tmp/azsmfFdMwJ.dsk...
-Writing command line to /tmp/7SW7BYLmRA.dsk...
-qemu -hda /tmp/7SW7BYLmRA.dsk -hdb /tmp/4i06WOXNqu.dsk -hdc /tmp/azsmfFdMwJ.dsk -hdd /tmp/aLtBgypeKF.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put multi-recurse run 'multi-recurse 15'
+Copying tests/userprog/multi-recurse to scratch partition...
+Writing command line to /tmp/miSoY8EHHp.dsk...
+qemu -hda /tmp/miSoY8EHHp.dsk -hdb /tmp/7g0hNxrCmD.dsk -hdc /tmp/yFr1aQEtdD.dsk -hdd /tmp/GR56wQLIw5.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run 'multi-recurse 15'
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 81 sector (40 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'multi-recurse' into the file system...
+Erasing ustar archive...
 Executing 'multi-recurse 15':
-(multi-recurse) begin 15
-(multi-recurse) exec("multi-recurse 14")
-(multi-recurse) begin 14
-(multi-recurse) exec("multi-recurse 13")
-(multi-recurse) begin 13
-(multi-recurse) exec("multi-recurse 12")
-(multi-recurse) begin 12
-(multi-recurse) exec("multi-recurse 11")
-(multi-recurse) begin 11
-(multi-recurse) exec("multi-recurse 10")
-(multi-recurse) begin 10
-(multi-recurse) exec("multi-recurse 9")
-(multi-recurse) begin 9
-(multi-recurse) exec("multi-recurse 8")
-(multi-recurse) begin 8
-(multi-recurse) exec("multi-recurse 7")
-(multi-recurse) begin 7
-(multi-recurse) exec("multi-recurse 6")
-(multi-recurse) begin 6
-(multi-recurse) exec("multi-recurse 5")
-(multi-recurse) begin 5
-(multi-recurse) exec("multi-recurse 4")
-(multi-recurse) begin 4
-(multi-recurse) exec("multi-recurse 3")
-(multi-recurse) begin 3
-(multi-recurse) exec("multi-recurse 2")
-(multi-recurse) begin 2
-(multi-recurse) exec("multi-recurse 1")
-(multi-recurse) begin 1
-(multi-recurse) exec("multi-recurse 0")
-(multi-recurse) begin 0
-(multi-recurse) end 0
-multi-recurse: exit(0)
-(multi-recurse) end 1
-multi-recurse: exit(1)
-(multi-recurse) end 2
-multi-recurse: exit(2)
-(multi-recurse) end 3
-multi-recurse: exit(3)
-(multi-recurse) end 4
-multi-recurse: exit(4)
-(multi-recurse) end 5
-multi-recurse: exit(5)
-(multi-recurse) end 6
-multi-recurse: exit(6)
-(multi-recurse) end 7
-multi-recurse: exit(7)
-(multi-recurse) end 8
-multi-recurse: exit(8)
-(multi-recurse) end 9
-multi-recurse: exit(9)
-(multi-recurse) end 10
-multi-recurse: exit(10)
-(multi-recurse) end 11
-multi-recurse: exit(11)
-(multi-recurse) end 12
-multi-recurse: exit(12)
-(multi-recurse) end 13
-multi-recurse: exit(13)
-(multi-recurse) end 14
-multi-recurse: exit(14)
-(multi-recurse) end 15
-multi-recurse: exit(15)
-Execution of 'multi-recurse 15' complete.
-Timer: 73 ticks
-Thread: 0 idle ticks, 64 kernel ticks, 9 user ticks
-hd0:0: 0 reads, 0 writes
-hd0:1: 669 reads, 170 writes
-hd1:0: 81 reads, 0 writes
-hd1:1: 0 reads, 0 writes
-Console: 2607 characters output
-Keyboard: 0 keys pressed
-Exception: 0 page faults
-Powering off...
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  78,540,800 loops/s.
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
+hd1:0: detected 83 sector (41 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
+Formatting file system...done.
+Boot complete.
+Extracting ustar archive from scratch disk into file system...
+Erasing ustar archive...
+Executing 'multi-recurse 15':
+multi-recurse: exit(-1)
+Kernel PANIC at ../../threads/synch.c:224 in lock_acquire(): assertion `!lock_held_by_current_thread (lock)' failed.
+Call stack: 0xc0108666 0xc0102fdb 0xc0103dc7 0xc0100e6f 0xc010c4e7 0xc0101ea5 0xc010207b 0xc0108bdb 0xc0108c01 0xc0103e43 0xc0103e95 0xc010dfb1 0xc010e008 0xc010d884 0xc010abed 0xc010a8d7 0xc010130f.
+The `backtrace' program can make call stacks useful.
+Read "Backtraces" in the "Debugging Tools" chapter
+of the Pintos documentation for more information.
+Kernel PANIC recursion at ../../threads/synch.c:224 in lock_acquire().
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+multi-recurse: exit(-1)
+Kernel command line: -q -f extract run 'multi-recurse 15'
+Pintos booting with 4,096 kB RAM...
+371 pages available in kernel pool.
+370 pages available in user pool.
+Calibrating timer...  Simulation terminated due to kernel panic.

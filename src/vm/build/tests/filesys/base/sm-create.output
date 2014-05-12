@@ -1,18 +1,20 @@
-Copying tests/filesys/base/sm-create into /tmp/hHcfOgTDSc.dsk...
-Writing command line to /tmp/RYY713R9O8.dsk...
-qemu -hda /tmp/RYY713R9O8.dsk -hdb /tmp/7zSlGejP2f.dsk -hdc /tmp/hHcfOgTDSc.dsk -hdd /tmp/Az0XqTgLR5.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put sm-create run sm-create
+Copying tests/filesys/base/sm-create to scratch partition...
+Writing command line to /tmp/hX2KAz5L5q.dsk...
+qemu -hda /tmp/hX2KAz5L5q.dsk -hdb /tmp/xI5Lr0mUiO.dsk -hdc /tmp/Bb8gk32bNc.dsk -hdd /tmp/DUe418nnyE.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run sm-create
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 76 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'sm-create' into the file system...
+Erasing ustar archive...
 Executing 'sm-create':
 (sm-create) begin
 (sm-create) create "blargle"
@@ -22,13 +24,13 @@ Executing 'sm-create':
 (sm-create) end
 sm-create: exit(0)
 Execution of 'sm-create' complete.
-Timer: 64 ticks
-Thread: 0 idle ticks, 61 kernel ticks, 3 user ticks
+Timer: 65 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 2 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 97 reads, 176 writes
-hd1:0: 76 reads, 0 writes
+hd1:0: 77 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1045 characters output
+Console: 1128 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 6 page faults
 Powering off...

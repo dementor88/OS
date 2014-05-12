@@ -1,20 +1,22 @@
-Copying tests/userprog/close-twice into /tmp/KtHafofe9d.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/KtHafofe9d.dsk...
-Writing command line to /tmp/XOqrY6OR0j.dsk...
-qemu -hda /tmp/XOqrY6OR0j.dsk -hdb /tmp/Dv4GS2k2W7.dsk -hdc /tmp/KtHafofe9d.dsk -hdd /tmp/zBuOvwcLZZ.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put close-twice put sample.txt run close-twice
+Copying tests/userprog/close-twice to scratch partition...
+Copying ../../tests/userprog/sample.txt to scratch partition...
+Writing command line to /tmp/wW0O8j6NOM.dsk...
+qemu -hda /tmp/wW0O8j6NOM.dsk -hdb /tmp/Y1t4nDMnAd.dsk -hdc /tmp/ziVeZeLykD.dsk -hdd /tmp/cw6HqatUwA.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run close-twice
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 77 sector (38 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'close-twice' into the file system...
 Putting 'sample.txt' into the file system...
+Erasing ustar archive...
 Executing 'close-twice':
 (close-twice) begin
 (close-twice) open "sample.txt"
@@ -23,13 +25,13 @@ Executing 'close-twice':
 (close-twice) end
 close-twice: exit(0)
 Execution of 'close-twice' complete.
-Timer: 63 ticks
-Thread: 0 idle ticks, 62 kernel ticks, 1 user ticks
+Timer: 64 ticks
+Thread: 30 idle ticks, 33 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 90 reads, 160 writes
-hd1:0: 75 reads, 0 writes
+hd1:0: 76 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1081 characters output
+Console: 1147 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 4 page faults
 Powering off...

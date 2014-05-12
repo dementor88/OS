@@ -1,33 +1,35 @@
-Copying tests/userprog/write-boundary into /tmp/lzvD6IYFn8.dsk...
-Copying ../../tests/userprog/sample.txt into /tmp/lzvD6IYFn8.dsk...
-Writing command line to /tmp/myxxhavhNA.dsk...
-qemu -hda /tmp/myxxhavhNA.dsk -hdb /tmp/K8FT2CFDbw.dsk -hdc /tmp/lzvD6IYFn8.dsk -hdd /tmp/3VtfXqlwNf.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put write-boundary put sample.txt run write-boundary
+Copying tests/userprog/write-boundary to scratch partition...
+Copying ../../tests/userprog/sample.txt to scratch partition...
+Writing command line to /tmp/dg00SHueks.dsk...
+qemu -hda /tmp/dg00SHueks.dsk -hdb /tmp/Z3jENaTB3g.dsk -hdc /tmp/68cAR8qcVf.dsk -hdd /tmp/abDUIjZweP.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run write-boundary
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 79 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 80 sector (40 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'write-boundary' into the file system...
 Putting 'sample.txt' into the file system...
+Erasing ustar archive...
 Executing 'write-boundary':
 (write-boundary) begin
 (write-boundary) open "sample.txt"
 (write-boundary) end
 write-boundary: exit(0)
 Execution of 'write-boundary' complete.
-Timer: 63 ticks
-Thread: 0 idle ticks, 62 kernel ticks, 1 user ticks
+Timer: 70 ticks
+Thread: 30 idle ticks, 41 kernel ticks, 0 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 98 reads, 169 writes
-hd1:0: 79 reads, 0 writes
+hd0:1: 98 reads, 167 writes
+hd1:0: 79 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 1036 characters output
+Console: 1099 characters output
 Keyboard: 0 keys pressed
-Exception: 0 page faults
+Exception: 7 page faults
 Powering off...

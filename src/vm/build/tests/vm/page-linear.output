@@ -1,37 +1,37 @@
-Copying tests/vm/page-linear into /tmp/HFxq12jz4l.dsk...
-Writing command line to /tmp/GCWJmofmEo.dsk...
-qemu -hda /tmp/GCWJmofmEo.dsk -hdb /tmp/FKpzxJf6Y9.dsk -hdc /tmp/HFxq12jz4l.dsk -hdd /tmp/Min6VpRKty.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put page-linear run page-linear
+Copying tests/vm/page-linear to scratch partition...
+Writing command line to /tmp/xTvnFPofWO.dsk...
+qemu -hda /tmp/xTvnFPofWO.dsk -hdb /tmp/mW10Do2Ak7.dsk -hdc /tmp/4cb4tTARYI.dsk -hdd /tmp/5hTVlGlFlw.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run page-linear
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 78 sector (39 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 80 sector (40 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'page-linear' into the file system...
+Erasing ustar archive...
 Executing 'page-linear':
-Page fault at 0xfffffff4: not present error writing page in kernel context.
-Interrupt 0x0e (#PF Page-Fault Exception) at eip=0xc0107a26
- cr2=fffffff4 error=00000002
- eax=00000070 ebx=c0121001 ecx=0000000a edx=c0121001
- esi=fffffff4 edi=fffffff4 esp=464c457f ebp=c011ff00
- cs=0008 ds=0010 es=0010 ss=0101
-Kernel PANIC at ../../userprog/exception.c:105 in kill(): Kernel bug - unexpected interrupt in kernel
-Call stack: 0xc01085b6 0xc010bccf 0xc010bd95 0xc0101835 0xc0101a0b 0xc0107a26 0xc01080f6 0xc010a8e9 0xc0100dda.
-The `backtrace' program can make call stacks useful.
-Read "Backtraces" in the "Debugging Tools" chapter
-of the Pintos documentation for more information.
-Timer: 65 ticks
-Thread: 0 idle ticks, 62 kernel ticks, 3 user ticks
+(page-linear) begin
+(page-linear) initialize
+(page-linear) read pass
+(page-linear) read/modify/write pass one
+(page-linear) read/modify/write pass two
+(page-linear) read pass
+(page-linear) end
+page-linear: exit(0)
+Execution of 'page-linear' complete.
+Timer: 1301 ticks
+Thread: 30 idle ticks, 46 kernel ticks, 1225 user ticks
 hd0:0: 0 reads, 0 writes
-hd0:1: 59 reads, 164 writes
-hd1:0: 78 reads, 0 writes
-hd1:1: 0 reads, 0 writes
-Console: 1493 characters output
+hd0:1: 60 reads, 164 writes
+hd1:0: 79 reads, 2 writes
+hd1:1: 16496 reads, 17680 writes
+Console: 1166 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 2579 page faults
 Powering off...

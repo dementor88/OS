@@ -1,29 +1,31 @@
-Copying tests/vm/pt-bad-addr into /tmp/1XxI8AisvS.dsk...
-Writing command line to /tmp/rNbGA33bhG.dsk...
-qemu -hda /tmp/rNbGA33bhG.dsk -hdb /tmp/xBiYOF91TD.dsk -hdc /tmp/1XxI8AisvS.dsk -hdd /tmp/8ut56pLzhM.dsk -m 4 -net none -nographic -monitor null
-Kernel command line: -q -f put pt-bad-addr run pt-bad-addr
+Copying tests/vm/pt-bad-addr to scratch partition...
+Writing command line to /tmp/ovF2suVDoc.dsk...
+qemu -hda /tmp/ovF2suVDoc.dsk -hdb /tmp/88ocB1J3HP.dsk -hdc /tmp/c2uJPIsG83.dsk -hdd /tmp/eWKGZMcson.dsk -m 4 -net none -nographic -monitor null
+Kernel command line: -q -f extract run pt-bad-addr
 Pintos booting with 4,096 kB RAM...
-372 pages available in kernel pool.
-372 pages available in user pool.
+371 pages available in kernel pool.
+370 pages available in user pool.
 Calibrating timer...  78,540,800 loops/s.
-hd0:0: detected 161 sector (80 kB) disk, model "QEMU HARDDISK", serial "QM00001"
+hd0:0: detected 153 sector (76 kB) disk, model "QEMU HARDDISK", serial "QM00001"
 hd0:1: detected 4,032 sector (1 MB) disk, model "QEMU HARDDISK", serial "QM00002"
-hd1:0: detected 73 sector (36 kB) disk, model "QEMU HARDDISK", serial "QM00003"
+hd1:0: detected 75 sector (37 kB) disk, model "QEMU HARDDISK", serial "QM00003"
 hd1:1: detected 8,064 sector (3 MB) disk, model "QEMU HARDDISK", serial "QM00004"
 Formatting file system...done.
 Boot complete.
+Extracting ustar archive from scratch disk into file system...
 Putting 'pt-bad-addr' into the file system...
+Erasing ustar archive...
 Executing 'pt-bad-addr':
 (pt-bad-addr) begin
 pt-bad-addr: exit(-1)
 Execution of 'pt-bad-addr' complete.
-Timer: 83 ticks
-Thread: 0 idle ticks, 83 kernel ticks, 0 user ticks
+Timer: 68 ticks
+Thread: 30 idle ticks, 37 kernel ticks, 1 user ticks
 hd0:0: 0 reads, 0 writes
 hd0:1: 59 reads, 154 writes
-hd1:0: 73 reads, 0 writes
+hd1:0: 74 reads, 2 writes
 hd1:1: 0 reads, 0 writes
-Console: 900 characters output
+Console: 981 characters output
 Keyboard: 0 keys pressed
-Exception: 1 page faults
+Exception: 4 page faults
 Powering off...
